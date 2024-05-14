@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 // import Contact from '../Contact/Contact';
 
 import './App.scss';
+import Login from '../Modals/Login/Login';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Header />
       <LandingPage />
       <Footer />
+      <Login />
     </div>
   );
 }

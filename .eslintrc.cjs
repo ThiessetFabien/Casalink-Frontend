@@ -29,6 +29,10 @@ module.exports = {
   ],
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['state'] },
+    ],
     'react/react-in-jsx-scope': 0,
     'react/jsx-filename-extension': [
       2,

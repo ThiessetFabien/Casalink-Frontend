@@ -13,7 +13,7 @@ $breakpoints: (
   }
 }
 
-.Login_background {
+.login_background {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -22,11 +22,12 @@ $breakpoints: (
   height: 100vh;
   top: 0;
 
-  .Login_modal {
+  .login_modal {
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
     width: 100%;
+    background-color: #ECECEC;
     @include media(tablet_mini) {
       max-width: 400px;
     }
@@ -39,13 +40,14 @@ $breakpoints: (
         gap: 2rem;
       }
 
-      .Login_field {
+      .login_field {
         position: relative;
 
         input {
           border: none;
           border-bottom: 1px solid black;
           width: 100%;
+          background-color: transparent;
         }
 
         label {
@@ -75,7 +77,7 @@ $breakpoints: (
       }
     }
 
-    .Login_modal_changeFormBtn {
+    .login_modal_changeFormBtn {
       padding-top: 1rem;
       border: none;
       background-color: transparent;
