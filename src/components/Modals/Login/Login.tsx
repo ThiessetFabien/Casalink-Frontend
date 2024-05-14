@@ -10,13 +10,13 @@ interface LoginProps {
 function Login() {
   const [loginForm, setLoginForm] = useState(true);
   return (
-    <div className="Login_background">
-      <div className="Login_modal">
+    <div className="login_background">
+      <div className="login_modal">
         {loginForm && <LoginForm />}
         {!loginForm && <SignupForm />}
         {loginForm ? (
           <button
-            className="Login_modal_changeFormBtn"
+            className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
               setLoginForm(false);
@@ -26,7 +26,7 @@ function Login() {
           </button>
         ) : (
           <button
-            className="Login_modal_changeFormBtn"
+            className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
               setLoginForm(true);
