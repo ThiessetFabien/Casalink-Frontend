@@ -1,0 +1,85 @@
+//@use '../../styles/variables' as v;
+
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+	tablet_mini: '(min-width:425px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+		@content;
+  }
+}
+
+.Login_background {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+
+	.Login_modal {
+		background-color: white;
+		border-radius: 10px;
+		padding: 2rem;
+		width: 100%;
+		@include media(tablet_mini) {
+			max-width: 400px;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			@include media(tablet_mini) {
+				gap: 2rem;
+			}
+
+			.login_field {
+				position: relative;
+
+				input {
+					border: none;
+					border-bottom: 1px solid black;
+					width: 100%;
+				}
+
+				label {
+					position: absolute;
+					top: 0;
+					left: 0;
+					pointer-events: none;
+					color: #595959;
+					transition: 0.3s;
+				}
+
+				/* We select label when input is focus */
+				input:focus ~ label, .input_required:valid ~ label {
+					top: -0.9rem;
+					font-size: 0.7rem;
+					color: blue;
+				}
+			}
+
+			button {
+				border-radius: 10px;
+				border: none;
+				background-color: #007A04;
+				color: white;
+				font-weight: 500;
+			}
+		}
+
+		.Login_modal_changeFormBtn {
+			padding-top: 1rem;
+			border: none;
+			background-color: transparent;
+			font-style: italic;
+			width: 100%;
+		}
+	}
+}
