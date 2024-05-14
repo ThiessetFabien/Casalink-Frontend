@@ -13,7 +13,7 @@ $breakpoints: (
   }
 }
 
-.Contact_background {
+.Login_background {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@ $breakpoints: (
   height: 100vh;
   top: 0;
 
-  .Contact_modal {
+  .Login_modal {
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
@@ -39,7 +39,7 @@ $breakpoints: (
         gap: 2rem;
       }
 
-      .Contact_field {
+      .Login_field {
         position: relative;
 
         input {
@@ -75,7 +75,7 @@ $breakpoints: (
       }
     }
 
-    .Contact_modal_changeFormBtn {
+    .Login_modal_changeFormBtn {
       padding-top: 1rem;
       border: none;
       background-color: transparent;
