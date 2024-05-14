@@ -1,0 +1,68 @@
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.landingPage {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  &-img {
+    width: 20%;
+    height: 20%;
+    margin: 1rem auto;
+    @include media(desktop) {
+      width: 30%;
+      height: 30%;
+    }
+  }
+
+  &-listeFonctionnalite {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    @include media(desktop) {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+  }
+
+  &-listeItem {
+    width: 40%;
+
+    &-btn {
+      width: 100%;
+    }
+    @include media(desktop) {
+      padding: auto;
+      margin: 0.5rem;
+    }
+  }
+
+  &-divDescription {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-description {
+    width: 50%;
+    padding: 1rem;
+  }
+
+  &-button {
+    display: none;
+    padding: 0.5rem 1rem;
+    margin: auto;
+  }
+}

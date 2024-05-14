@@ -1,0 +1,12 @@
+.Footer {
+  padding: 1rem;
+  &-listItems {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &-btn {
+      padding: 0.3rem;
+    }
+  }
+}
