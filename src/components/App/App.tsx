@@ -1,6 +1,7 @@
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+// import Contact from '../Contact/Contact';
 
 import './App.scss';
 
