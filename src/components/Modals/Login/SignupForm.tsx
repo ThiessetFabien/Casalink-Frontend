@@ -2,7 +2,7 @@ function SignupForm() {
   return (
     <form>
       <h1>Inscription</h1>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="text"
@@ -12,7 +12,7 @@ function SignupForm() {
         />
         <label htmlFor="username">Nom d'utilisateur</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="password"
@@ -22,7 +22,7 @@ function SignupForm() {
         />
         <label htmlFor="password">Mot de passe</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="password"
@@ -32,7 +32,7 @@ function SignupForm() {
         />
         <label htmlFor="passwordConfirm">Confirmation</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="email"
@@ -42,7 +42,7 @@ function SignupForm() {
         />
         <label htmlFor="email">Email</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="street"
@@ -52,7 +52,7 @@ function SignupForm() {
         />
         <label htmlFor="street">Rue</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="number"
@@ -62,7 +62,7 @@ function SignupForm() {
         />
         <label htmlFor="postalCode">Code postal</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="country"
@@ -72,7 +72,7 @@ function SignupForm() {
         />
         <label htmlFor="country">Pays</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input type="furtherInfos" name="furtherInfos" id="furtherInfos" />
         <label htmlFor="furtherInfos">Complément d'adresse</label>
       </div>

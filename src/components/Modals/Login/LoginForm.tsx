@@ -2,7 +2,7 @@ function LoginForm() {
   return (
     <form>
       <h1>Conexion</h1>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="text"
@@ -12,7 +12,7 @@ function LoginForm() {
         />
         <label htmlFor="username">Nom d'utilisateur</label>
       </div>
-      <div className="loginField">
+      <div className="login_field">
         <input
           className="input_required"
           type="password"
