@@ -11,9 +11,9 @@ import App from './components/App/App';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     {/* <Provider store={store}> */}
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
     {/* </Provider> */}
   </BrowserRouter>
 );
