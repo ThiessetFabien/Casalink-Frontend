@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { useAppDispatch } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
+import { actionLogin } from '../../../store/reducer/user';
 
 interface LoginProps {
   loginIsOpen: boolean;
@@ -53,7 +54,13 @@ function Login({ loginIsOpen }: LoginProps) {
         >
           <X />
         </button>
-        {loginForm && <LoginForm />}
+        {loginForm && (
+          <LoginForm
+            handleLogin={() => {
+              dispatch(actionLogin());
+            }}
+          />
+        )}
         {!loginForm && <SignupForm />}
         {loginForm ? (
           <button

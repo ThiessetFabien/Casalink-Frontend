@@ -29,6 +29,8 @@ export const actionChangeField = createAction<{
 
 export const actionLogout = createAction('user/LOG_OUT');
 
+export const actionLogin = createAction('user/LOGIN');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(actionChangeField, (state, action) => {
@@ -37,6 +39,9 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(actionLogout, (state) => {
       state.logged = false;
       state.pseudo = null;
+    })
+    .addCase(actionLogin, (state) => {
+      state.logged = true;
     });
 });
 
