@@ -14,7 +14,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <React.StrictMode>
         <App />
-        <Login />
       </React.StrictMode>
     </Provider>
   </BrowserRouter>

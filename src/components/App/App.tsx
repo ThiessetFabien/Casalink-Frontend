@@ -11,6 +11,7 @@ function App() {
   const loginModalIsOpen = useAppSelector(
     (state) => state.modal.loginModalIsOpen
   );
+  console.log(loginModalIsOpen);
   return (
     <div className="App">
       <Header />
