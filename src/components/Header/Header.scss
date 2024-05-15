@@ -11,22 +11,27 @@ $breakpoints: (
 }
 
 .Header {
-  &-menuItems {
+  &_menuItems {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
   }
-  &-title {
+  &_title {
     margin: auto;
   }
   @include media(desktop) {
     padding: 1rem;
 
-    &-menuItems {
+    &_menuItems {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
     }
+  }
+
+  &_link {
+    color: black;
+    text-decoration: none;
   }
 }
 

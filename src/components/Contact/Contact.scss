@@ -13,16 +13,41 @@ $breakpoints: (
   }
 }
 
-.Contact_background {
-  position: fixed;
+.mentionslegales {
+  margin: auto;
+  padding-bottom: 10rem;
+  width: 54%;
+
+  &_title {
+    padding-bottom: 2rem;
+  }
+  &-description {
+    text-align: justify;
+  }
+}
+
+.contact_titre {
+  padding-bottom: 1rem;
+}
+.contact_text {
+  width: 90%;
+  text-align: justify;
+  padding-left: 1.5rem;
+}
+
+.contact_presentation {
+  width: 30%;
+  padding-right: 2rem;
+}
+
+.contact_background {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
+  width: 80vw;
+  height: 60vh;
 
-  .Contact_modal {
+  .contact_modal {
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
@@ -33,13 +58,14 @@ $breakpoints: (
 
     form {
       display: flex;
+      width: 800px;
       flex-direction: column;
       gap: 1rem;
       @include media(tablet_mini) {
         gap: 2rem;
       }
 
-      .Contact_field {
+      .contact_field {
         position: relative;
 
         input {
@@ -75,7 +101,7 @@ $breakpoints: (
       }
     }
 
-    .Contact_modal_changeFormBtn {
+    .contact_modal_changeFormBtn {
       padding-top: 1rem;
       border: none;
       background-color: transparent;

@@ -26,7 +26,7 @@ $breakpoints: (
     }
   }
 
-  &-listeFonctionnalite {
+  &_listeFonctionnalite {
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -38,7 +38,7 @@ $breakpoints: (
     }
   }
 
-  &-listeItem {
+  &_listeItem {
     width: 40%;
 
     &-btn {
@@ -50,13 +50,13 @@ $breakpoints: (
     }
   }
 
-  &-divDescription {
+  &_divDescription {
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  &-description {
+  &_description {
     width: 50%;
     padding: 1rem;
   }

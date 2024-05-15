@@ -8,6 +8,9 @@ import Contact from '../Contact/Contact';
 import './App.scss';
 import { useAppSelector } from '../../hooks/redux';
 import HomePage from '../HomePage/HomePage';
+import MentionsLegales from '../MentionsLegales/MentionsLegales';
+import SiteMap from '../SiteMap/SiteMap';
+import NotFount from '../404/404';
 
 function App() {
   const islLogged = useAppSelector((state) => state.user.logged);
@@ -22,6 +25,9 @@ function App() {
           <Route path="/" element={<LandingPage />} />
         )}
         <Route path="/contact" element={<Contact />} />
+        <Route path="/mentionslegales" element={<MentionsLegales />} />
+        <Route path="/sitemap" element={<SiteMap />} />
+        <Route path="*" element={<NotFount />} />
       </Routes>
       <Footer />
     </div>
