@@ -11,6 +11,9 @@ $breakpoints: (
 }
 
 .Header {
+  height: 10vh;
+  border-bottom: 1px solid black;
+  
   &-menuItems {
     display: flex;
     flex-direction: column;
@@ -28,8 +31,4 @@ $breakpoints: (
       justify-content: space-around;
     }
   }
-}
-
-button {
-  margin: 1rem;
 }
