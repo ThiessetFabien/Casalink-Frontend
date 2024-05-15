@@ -1,12 +1,27 @@
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { actionSwitchLoginModal } from '../../store/reducer/modal';
 import './LandingPage.scss';
 
 function LandingPage() {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="landingPage">
       <h1 className="landingPage-title">
         Plannifier le quotidien de votre foyer !
       </h1>
-      <img className="landingPage-img" src="public/logo512.png" alt="test" />
+      <div className="landingPage_actionBox">
+        <img className="landingPage_img" src="public/logo512.png" alt="test" />
+        <button
+          className="landingPage_btn"
+          type="button"
+          onClick={() => {
+            dispatch(actionSwitchLoginModal());
+          }}
+        >
+          Essayez l&apos;application
+        </button>
+      </div>
       <ul className="landingPage-listeFonctionnalite">
         <li className="landingPage-listeItem">
           <button className="landingPage-listeItem-btn" type="button">
@@ -36,9 +51,6 @@ function LandingPage() {
           at exercitationem, ducimus commodi iusto praesentium expedita,
           pariatur voluptatibus repellendus ex?
         </p>
-        <button className="landingPage-button" type="button">
-          Essayez l&apos;application
-        </button>
       </div>
     </div>
   );
