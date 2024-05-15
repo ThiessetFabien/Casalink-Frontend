@@ -5,14 +5,18 @@ import Footer from '../Footer/Footer';
 
 import './App.scss';
 import Login from '../Modals/Login/Login';
+import { useAppSelector } from '../../hooks/redux';
 
 function App() {
+  const loginModalIsOpen = useAppSelector(
+    (state) => state.modal.loginModalIsOpen
+  );
   return (
     <div className="App">
       <Header />
       <LandingPage />
       <Footer />
-      <Login />
+      {loginModalIsOpen && <Login loginIsOpen={loginModalIsOpen} />}
     </div>
   );
 }

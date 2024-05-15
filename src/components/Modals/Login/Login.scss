@@ -21,15 +21,26 @@ $breakpoints: (
   width: 100vw;
   height: 100vh;
   top: 0;
+  background-color: RGBA(0, 0, 0, 0.5);
+  z-index: 0;
 
   .login_modal {
+    position: relative;
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
+    z-index: 0;
     width: 100%;
     background-color: #ECECEC;
     @include media(tablet_mini) {
       max-width: 400px;
+    }
+
+    .exit_button {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      border: none;
     }
 
     form {
