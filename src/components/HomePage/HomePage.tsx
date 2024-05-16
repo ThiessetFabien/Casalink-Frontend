@@ -1,5 +1,8 @@
-import { useMemo, useState } from 'react';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { useEffect, useRef, useState } from 'react';
+import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
+import withDragAndDrop, {
+  withDragAndDropProps,
+} from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -12,7 +15,7 @@ const locales = {
   fr,
 };
 
-const localizer = dateFnsLocalizer({
+const mlocalizer = dateFnsLocalizer({
   format,
   parse,
   startOfWeek,
@@ -35,18 +38,78 @@ const messages = {
   showMore: (total: number) => `+ ${total} événement(s) supplémentaire(s)`,
 };
 
+interface EventsI {
+  id: number;
+  title: string;
+  content: string | null;
+  start: Date;
+  end: Date;
+}
+
 function HomePage() {
-  const [events, setEvents] = useState([
-    {
-      title: 'Rendez-vous',
-      start: new Date(2024, 4, 15, 14, 0),
-      end: new Date(2024, 4, 15, 14, 0),
-      allDay: false,
+  const [events, setEvents] = useState<EventsI[]>([]);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const calendarRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (calendarRef.current) {
+      calendarRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resite', handleResize);
+    };
+  }, []);
+
+  const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
+    const title = window.prompt('Quel est le nom de la tâche');
+    const content = window.prompt('Quel est la description de la tâche');
+    if (title)
+      setEvents((prev) => [...prev, { id: 1, start, end, title, content }]);
+  };
+
+  const handleSelectEvent = (event: EventsI) => {
+    console.log(event.title);
+    console.log(event.content);
+  };
+
+  const formats = {
+    dateFormat: 'd',
+    dayFormat: isMobileView ? 'dd' : 'dd eee',
+    weekdayFormat: 'cccc',
+
+    timeGutterFormat: 'p',
+
+    monthHeaderFormat: 'MMMM yyyy',
+    dayRangeHeaderFormat: (
+      { start, end }: { start: Date; end: Date },
+      culture: string | undefined,
+      localizer: DateLocalizer | undefined
+    ) => {
+      const s = localizer?.format(start, 'dd MMM', culture);
+      const e = localizer?.format(end, 'dd MMM', culture);
+      return `${s} - ${e}`;
     },
-  ]);
+    dayHeaderFormat: 'cccc do MMM',
+
+    agendaDateFormat: 'ccc MMM dd',
+    agendaTimeFormat: 'p',
+  };
+
   return (
     <div className="HomePage">
       <section>
+        <div className="category">
+          <button className="category_btn" type="button">
+            Foyer
+          </button>
+        </div>
         <div className="category">
           <button className="category_btn" type="button">
             Membres
@@ -57,7 +120,7 @@ function HomePage() {
             Tâches
           </button>
           <p className="category_infos">Tâches du foyer: </p>
-          <p className="category_infos">Tâches à effectuer aujourd'hui</p>
+          <p className="category_infos">Tâches à effectuer aujourd&apos;hui</p>
         </div>
         <div className="category">
           <button className="category_btn" type="button">
@@ -71,14 +134,17 @@ function HomePage() {
           </button>
         </div>
       </section>
-      <main>
+      <main ref={calendarRef}>
         <Calendar
-          localizer={localizer}
+          localizer={mlocalizer}
+          formats={formats}
           defaultView="week"
-          style={{ height: '100vh' }}
           selectable
           culture="fr"
           messages={messages}
+          events={events}
+          onSelectSlot={handleSelectSlot}
+          onSelectEvent={handleSelectEvent}
         />
       </main>
     </div>
