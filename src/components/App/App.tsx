@@ -29,7 +29,7 @@ function App() {
         <Route path="/sitemap" element={<SiteMap />} />
         <Route path="*" element={<NotFount />} />
       </Routes>
-      <Footer />
+      {!islLogged && <Footer />}
     </div>
   );
 }
