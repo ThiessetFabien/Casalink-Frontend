@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
-import withDragAndDrop, {
-  withDragAndDropProps,
-} from 'react-big-calendar/lib/addons/dragAndDrop';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -35,7 +33,7 @@ const messages = {
   date: 'Date',
   time: 'Heure',
   event: 'Événement',
-  showMore: (total: number) => `+ ${total} événement(s) supplémentaire(s)`,
+  showMore: (total: number) => `+ ${total}`,
 };
 
 interface EventsI {
@@ -45,6 +43,14 @@ interface EventsI {
   start: Date;
   end: Date;
 }
+
+interface DragNDropI {
+  event: EventsI;
+  start: Date;
+  end: Date;
+}
+
+const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
   const [events, setEvents] = useState<EventsI[]>([]);
@@ -71,12 +77,29 @@ function HomePage() {
     const title = window.prompt('Quel est le nom de la tâche');
     const content = window.prompt('Quel est la description de la tâche');
     if (title)
-      setEvents((prev) => [...prev, { id: 1, start, end, title, content }]);
+      setEvents((prev) => [
+        ...prev,
+        { id: events.length, start, end, title, content },
+      ]);
   };
 
   const handleSelectEvent = (event: EventsI) => {
     console.log(event.title);
     console.log(event.content);
+  };
+
+  const handleEventDrop = ({ event, start, end }: DragNDropI) => {
+    setEvents((prev) => {
+      const filtered = prev.filter((ev) => ev.id !== event.id);
+      return [...filtered, { ...event, start, end }];
+    });
+  };
+
+  const handleEventResize = ({ event, start, end }: DragNDropI) => {
+    setEvents((prev) => {
+      const filtered = prev.filter((ev) => ev.id !== event.id);
+      return [...filtered, { ...event, start, end }];
+    });
   };
 
   const formats = {
@@ -135,7 +158,7 @@ function HomePage() {
         </div>
       </section>
       <main ref={calendarRef}>
-        <Calendar
+        <DragNDropCalendar
           localizer={mlocalizer}
           formats={formats}
           defaultView="week"
@@ -145,6 +168,25 @@ function HomePage() {
           events={events}
           onSelectSlot={handleSelectSlot}
           onSelectEvent={handleSelectEvent}
+          onEventDrop={({ event, start, end }) => {
+            const startConverted = new Date(start);
+            const endConverted = new Date(end);
+            handleEventDrop({
+              event,
+              start: startConverted,
+              end: endConverted,
+            });
+          }}
+          onEventResize={({ event, start, end }) => {
+            const startConverted = new Date(start);
+            const endConverted = new Date(end);
+            handleEventResize({
+              event,
+              start: startConverted,
+              end: endConverted,
+            });
+          }}
+          resizable
         />
       </main>
     </div>
