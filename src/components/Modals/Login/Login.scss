@@ -1,4 +1,4 @@
-//@use '../../styles/variables' as v;
+// @use '../../styles/variables' as v;
 
 $breakpoints: (
   mobile: '(max-width: 424px)',
@@ -32,7 +32,7 @@ $breakpoints: (
     padding: 2rem;
     z-index: 0;
     width: 100%;
-    background-color: #ECECEC;
+    background-color: #ececec;
     @include media(tablet_mini) {
       max-width: 400px;
     }

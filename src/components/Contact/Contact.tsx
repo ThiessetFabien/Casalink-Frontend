@@ -12,8 +12,8 @@ function Contact() {
           <p className="contact_text">
             CasaLink est une application web conçue pour simplifier la gestion
             des emplois du temps, des tâches domestiques et des événements au
-            sein d'un foyer. Elle vise à améliorer la coordination et la
-            communication entre les membres d'un même foyer en offrant une
+            sein d&apos;un foyer. Elle vise à améliorer la coordination et la
+            communication entre les membres d&apos;un même foyer en offrant une
             plateforme centralisée pour organiser et partager des informations
             importantes.
           </p>

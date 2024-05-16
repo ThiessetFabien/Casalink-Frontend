@@ -1,12 +1,28 @@
+@use '../../styles/variables' as v;
+
 .Footer {
   padding: 1rem;
+  background-color: v.$textColor-colorWhite;
   &_listItems {
     display: flex;
     justify-content: space-around;
     align-items: center;
 
     &_btn {
-      padding: 1rem 3rem;
+      margin: 0 1rem;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      color: v.$textColor-colorDark;
+      font-weight: bold;
+    }
+
+    &_btn:hover {
+      color: v.$textColor-colorDark;
+      border-bottom-right-radius: 5px;
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+
+      transition: 0.2s;
     }
   }
 }
