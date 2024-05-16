@@ -23,14 +23,14 @@ $breakpoints: (
   top: 0;
   left: 0;
   background-color: RGBA(0, 0, 0, 0.5);
-  z-index: 0;
+  z-index: 1;
 
   .login_modal {
     position: relative;
     background-color: white;
     border-radius: 10px;
     padding: 2rem;
-    z-index: 0;
+    z-index: 1;
     width: 100%;
     background-color: #ececec;
     @include media(tablet_mini) {

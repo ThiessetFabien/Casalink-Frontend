@@ -29,7 +29,7 @@ $breakpoints: (
 
   &_listeFonctionnalite {
     background-color: v.$textColor-colorWhite;
-
+    list-style: none;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     padding: 1rem;
