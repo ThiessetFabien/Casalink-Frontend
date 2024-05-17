@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Children, cloneElement, useEffect, useRef, useState } from 'react';
 import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import format from 'date-fns/format';
@@ -55,13 +55,6 @@ const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 function HomePage() {
   const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-  const calendarRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (calendarRef.current) {
-      calendarRef.current.focus();
-    }
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,7 +62,7 @@ function HomePage() {
     };
     window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resite', handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -106,9 +99,7 @@ function HomePage() {
     dateFormat: 'd',
     dayFormat: isMobileView ? 'dd' : 'dd eee',
     weekdayFormat: 'cccc',
-
     timeGutterFormat: 'p',
-
     monthHeaderFormat: 'MMMM yyyy',
     dayRangeHeaderFormat: (
       { start, end }: { start: Date; end: Date },
@@ -157,15 +148,17 @@ function HomePage() {
           </button>
         </div>
       </section>
-      <main ref={calendarRef}>
+      <main>
         <DragNDropCalendar
           localizer={mlocalizer}
           formats={formats}
           defaultView="week"
-          selectable
           culture="fr"
           messages={messages}
           events={events}
+          popup
+          selectable
+          longPressThreshold={5}
           onSelectSlot={handleSelectSlot}
           onSelectEvent={handleSelectEvent}
           onEventDrop={({ event, start, end }) => {
