@@ -57,7 +57,7 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
     }
   }, [eventSelect]);
 
-  // Prevent the click propagation
+  // Prevent the click propagation to parent
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
