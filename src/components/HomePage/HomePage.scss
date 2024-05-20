@@ -13,9 +13,11 @@ $breakpoints: (
   }
 }
 
+
 .HomePage {
   display: flex;
   height: 90vh;
+  position: relative;
 
   section {
     border-right: 1px solid black;
@@ -30,6 +32,7 @@ $breakpoints: (
       display: flex;
       flex-direction: column;
       gap: 1rem;
+
       &_btn {
         border: none;
         width: 100%;

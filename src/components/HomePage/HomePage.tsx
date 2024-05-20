@@ -1,13 +1,18 @@
 import { Children, cloneElement, useEffect, useRef, useState } from 'react';
 import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import { useDispatch } from 'react-redux';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import fr from 'date-fns/locale/fr';
+import { addHours } from 'date-fns';
 
 import './HomePage.scss';
+import Task from '../Modals/Task/Task';
+import { useAppSelector } from '../../hooks/redux';
+import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 const locales = {
   fr,
@@ -50,11 +55,22 @@ interface DragNDropI {
   end: Date;
 }
 
+interface DateEventI {
+  start: Date;
+  end: Date;
+}
+
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
   const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const [eventSelected, setEventSelected] = useState<null | DateEventI>(null);
+  const taskModalIsOpen = useAppSelector(
+    (state) => state.modal.taskModalIsOpen
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,14 +82,18 @@ function HomePage() {
     };
   }, []);
 
+  const addTask = (start: Date, end: Date, title: string, content: string) => {
+    setEvents((prev) => [
+      ...prev,
+      { id: events.length, start, end, title, content },
+    ]);
+    dispatch(actionSwitchTaskModal());
+  };
+
   const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
-    const title = window.prompt('Quel est le nom de la tâche');
-    const content = window.prompt('Quel est la description de la tâche');
-    if (title)
-      setEvents((prev) => [
-        ...prev,
-        { id: events.length, start, end, title, content },
-      ]);
+    const endWithOneHour = addHours(start, 1);
+    setEventSelected({ start, end: endWithOneHour });
+    dispatch(actionSwitchTaskModal());
   };
 
   const handleSelectEvent = (event: EventsI) => {
@@ -111,13 +131,15 @@ function HomePage() {
       return `${s} - ${e}`;
     },
     dayHeaderFormat: 'cccc do MMM',
-
     agendaDateFormat: 'ccc MMM dd',
     agendaTimeFormat: 'p',
   };
 
   return (
     <div className="HomePage">
+      {taskModalIsOpen && (
+        <Task eventSelect={eventSelected} addTask={addTask} />
+      )}
       <section>
         <div className="category">
           <button className="category_btn" type="button">

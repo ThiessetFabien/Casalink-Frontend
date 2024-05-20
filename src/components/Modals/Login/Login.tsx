@@ -8,20 +8,16 @@ import { useAppDispatch } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import { actionLogin } from '../../../store/reducer/user';
 
-interface LoginProps {
-  loginIsOpen: boolean;
-}
-
-function Login({ loginIsOpen }: LoginProps) {
+function Login() {
   const dispatch = useAppDispatch();
   const [loginForm, setLoginForm] = useState(true);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (loginIsOpen && backgroundRef.current) {
+    if (backgroundRef.current) {
       backgroundRef.current.focus();
     }
-  }, [loginIsOpen]);
+  }, []);
 
   // Prevent the click propagation
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {

@@ -23,7 +23,7 @@ function Header() {
         {isConnected ? <UserHeader /> : <BtnConnect />}
       </nav>
 
-      {loginModalIsOpen && <Login loginIsOpen={loginModalIsOpen} />}
+      {loginModalIsOpen && <Login />}
     </div>
   );
 }
