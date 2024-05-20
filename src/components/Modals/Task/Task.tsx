@@ -6,23 +6,34 @@ import { format } from 'date-fns';
 import { useAppDispatch } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 
-interface DateEventI {
+interface EventsI {
+  id?: number;
+  title: string;
+  content: string | null;
   start: Date;
   end: Date;
 }
 
 interface TaskI {
-  eventSelect: DateEventI | null;
+  taskModalMode: 'add' | 'edit';
+  eventSelect: EventsI | null;
   addTask: (start: Date, end: Date, title: string, description: string) => void;
+  editTask: (
+    id: number,
+    start: Date,
+    end: Date,
+    title: string,
+    description: string
+  ) => void;
 }
 
-function Task({ eventSelect, addTask }: TaskI) {
+function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
   const [startDate, setStartDate] = useState(Date);
   const [startTime, setStartTime] = useState(Date);
   const [endDate, setEndDate] = useState(Date);
   const [endTime, setEndTime] = useState(Date);
-
-  const [taskName, setTaskName] = useState('');
+  const [id, setId] = useState(0);
+  const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
 
   const dispatch = useAppDispatch();
@@ -40,6 +51,9 @@ function Task({ eventSelect, addTask }: TaskI) {
       setStartTime(format(eventSelect.start, 'HH:mm'));
       setEndDate(format(eventSelect.end, 'yyyy-MM-dd'));
       setEndTime(format(eventSelect.end, 'HH:mm'));
+      setTaskTitle(eventSelect.title);
+      setTaskDescription(eventSelect.content || '');
+      if (eventSelect.id) setId(eventSelect.id);
     }
   }, [eventSelect]);
 
@@ -52,11 +66,11 @@ function Task({ eventSelect, addTask }: TaskI) {
     e.preventDefault();
     const start = new Date(`${startDate}T${startTime}:00.000`);
     const end = new Date(`${endDate}T${endTime}:00.000`);
-    console.log(end);
-    
-    const title = taskName;
+    const title = taskTitle;
     const description = taskDescription;
-    addTask(start, end, title, description);
+    if (taskModalMode === 'add') addTask(start, end, title, description);
+    else if (taskModalMode === 'edit')
+      editTask(id, start, end, title, description);
   };
 
   return (
@@ -93,8 +107,8 @@ function Task({ eventSelect, addTask }: TaskI) {
             name="task_name"
             placeholder="Nom de la tâche"
             required
-            value={taskName}
-            onChange={(e) => setTaskName(e.target.value)}
+            value={taskTitle}
+            onChange={(e) => setTaskTitle(e.target.value)}
           />
           <fieldset className="task_modal_form_dateTime">
             <input

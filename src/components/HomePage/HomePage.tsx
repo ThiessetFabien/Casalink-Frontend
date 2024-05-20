@@ -1,48 +1,16 @@
-import { Children, cloneElement, useEffect, useRef, useState } from 'react';
-import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
+import { useCallback, useEffect, useState } from 'react';
+import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { useDispatch } from 'react-redux';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import fr from 'date-fns/locale/fr';
 import { addHours } from 'date-fns';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
 import Task from '../Modals/Task/Task';
-import { useAppSelector } from '../../hooks/redux';
-import { actionSwitchTaskModal } from '../../store/reducer/modal';
-
-const locales = {
-  fr,
-};
-
-const mlocalizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
-
-const messages = {
-  allDay: 'Toute la journée',
-  previous: 'Précédent',
-  next: 'Suivant',
-  today: "Aujourd'hui",
-  month: 'Mois',
-  week: 'Semaine',
-  day: 'Jour',
-  agenda: 'Agenda',
-  date: 'Date',
-  time: 'Heure',
-  event: 'Événement',
-  showMore: (total: number) => `+ ${total}`,
-};
+import { mlocalizer, messages } from '../../utils/calendarParams';
 
 interface EventsI {
-  id: number;
+  id?: number;
   title: string;
   content: string | null;
   start: Date;
@@ -55,22 +23,18 @@ interface DragNDropI {
   end: Date;
 }
 
-interface DateEventI {
-  start: Date;
-  end: Date;
-}
-
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
   const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-  const [eventSelected, setEventSelected] = useState<null | DateEventI>(null);
+  const [eventSelected, setEventSelected] = useState<null | EventsI>(null);
+  const [taskModalMode, setTaskModalMode] = useState<'add' | 'edit'>('add');
   const taskModalIsOpen = useAppSelector(
     (state) => state.modal.taskModalIsOpen
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,30 +54,63 @@ function HomePage() {
     dispatch(actionSwitchTaskModal());
   };
 
-  const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
-    const endWithOneHour = addHours(start, 1);
-    setEventSelected({ start, end: endWithOneHour });
+  const editTask = (
+    id: number,
+    start: Date,
+    end: Date,
+    title: string,
+    content: string
+  ) => {
+    setEvents((prev) =>
+      prev.map((event) => {
+        if (event.id === id) return { ...event, start, end, title, content };
+        return event;
+      })
+    );
     dispatch(actionSwitchTaskModal());
   };
 
-  const handleSelectEvent = (event: EventsI) => {
-    console.log(event.title);
-    console.log(event.content);
-  };
+  // We put a useCallback to avoid the function recreation at each render
+  const handleSelectSlot = useCallback(
+    ({ start }: { start: Date }) => {
+      const endWithOneHour = addHours(start, 1);
+      setTaskModalMode('add');
+      setEventSelected({ start, end: endWithOneHour, title: '', content: '' });
+      dispatch(actionSwitchTaskModal());
+    },
+    // We put dispatch in the dependencies array to avoid the linter warning
+    // He will never change
+    [dispatch]
+  );
 
-  const handleEventDrop = ({ event, start, end }: DragNDropI) => {
-    setEvents((prev) => {
-      const filtered = prev.filter((ev) => ev.id !== event.id);
-      return [...filtered, { ...event, start, end }];
-    });
-  };
+  const handleSelectEvent = useCallback(
+    (event: EventsI) => {
+      setTaskModalMode('edit');
+      setEventSelected({ ...event });
+      dispatch(actionSwitchTaskModal());
+    },
+    [dispatch]
+  );
 
-  const handleEventResize = ({ event, start, end }: DragNDropI) => {
-    setEvents((prev) => {
-      const filtered = prev.filter((ev) => ev.id !== event.id);
-      return [...filtered, { ...event, start, end }];
-    });
-  };
+  const handleEventDrop = useCallback(
+    ({ event, start, end }: DragNDropI) => {
+      setEvents((prev) => {
+        const filtered = prev.filter((ev) => ev.id !== event.id);
+        return [...filtered, { ...event, start, end }];
+      });
+    },
+    [setEvents]
+  );
+
+  const handleEventResize = useCallback(
+    ({ event, start, end }: DragNDropI) => {
+      setEvents((prev) => {
+        const filtered = prev.filter((ev) => ev.id !== event.id);
+        return [...filtered, { ...event, start, end }];
+      });
+    },
+    [setEvents]
+  );
 
   const formats = {
     dateFormat: 'd',
@@ -138,7 +135,12 @@ function HomePage() {
   return (
     <div className="HomePage">
       {taskModalIsOpen && (
-        <Task eventSelect={eventSelected} addTask={addTask} />
+        <Task
+          taskModalMode={taskModalMode}
+          eventSelect={eventSelected}
+          addTask={addTask}
+          editTask={editTask}
+        />
       )}
       <section>
         <div className="category">
