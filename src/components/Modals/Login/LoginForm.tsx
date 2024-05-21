@@ -3,10 +3,18 @@ import { useAppDispatch } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 
 interface LoginFormProps {
+  email: string;
+  password: string;
+  changeField: (name: 'emailSignin' | 'passwordSignin', value: string) => void;
   handleLogin: () => void;
 }
 
-function LoginForm({ handleLogin }: LoginFormProps) {
+function LoginForm({
+  email,
+  password,
+  changeField,
+  handleLogin,
+}: LoginFormProps) {
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -19,6 +27,10 @@ function LoginForm({ handleLogin }: LoginFormProps) {
       <h1>Connexion</h1>
       <div className="login_field">
         <input
+          value={email}
+          onChange={(e) => {
+            changeField('emailSignin', e.target.value);
+          }}
           className="input_required"
           type="text"
           name="username"
@@ -29,6 +41,10 @@ function LoginForm({ handleLogin }: LoginFormProps) {
       </div>
       <div className="login_field">
         <input
+          value={password}
+          onChange={(e) => {
+            changeField('passwordSignin', e.target.value);
+          }}
           className="input_required"
           type="password"
           name="password"

@@ -4,14 +4,27 @@ import { X } from 'react-feather';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
-import { actionLogin } from '../../../store/reducer/user';
+import {
+  actionChangeCredentials,
+  actionLogin,
+} from '../../../store/reducer/user';
+import actionCheckLogin from '../../../store/thunks/checkLogin';
 
 function Login() {
   const dispatch = useAppDispatch();
   const [loginForm, setLoginForm] = useState(true);
   const backgroundRef = useRef<HTMLDivElement>(null);
+
+  // Input controlled by redux for the login form
+  const { emailSignin, passwordSignin } = useAppSelector(
+    (state) => state.user.credentials.login
+  );
+
+  // Input controlled by redux for the signup form
+  const { email, password, passwordConfirm, street, postalCode, country } =
+    useAppSelector((state) => state.user.credentials.signup);
 
   useEffect(() => {
     if (backgroundRef.current) {
@@ -52,12 +65,22 @@ function Login() {
         </button>
         {loginForm && (
           <LoginForm
+            email={emailSignin}
+            password={passwordSignin}
+            changeField={(name, value) => {
+              dispatch(
+                actionChangeCredentials({
+                  name,
+                  value,
+                })
+              );
+            }}
             handleLogin={() => {
-              dispatch(actionLogin());
+              dispatch(actionCheckLogin());
             }}
           />
         )}
-        {!loginForm && <SignupForm />}
+        {!loginForm && <SignupForm  />}
         {loginForm ? (
           <button
             className="login_modal_changeFormBtn"
