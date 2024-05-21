@@ -1,56 +1,76 @@
+import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { actionSwitchLoginModal } from '../../store/reducer/modal';
 import './LandingPage.scss';
 
 function LandingPage() {
   const dispatch = useAppDispatch();
-
+  const [imgTestVisiteur, setImgTestVisiteur] = useState(
+    'src/assets/AgendaVisiteurCasalink.png'
+  );
   return (
     <div className="landingPage">
-      <ul className="landingPage_listeFonctionnalite">
+      <div className="landingPage_BoxFunctionality">
         <h1 className="landingPage_title">
           Plannifier le quotidien de votre foyer !
         </h1>
-        <li className="landingPage_listeItem">
-          <button className="landingPage_btn btn-functionality" type="button">
-            Agenda
-          </button>
-        </li>
-        <li className="landingPage_listeItem">
-          <button className="landingPage_btn btn-functionality" type="button">
-            Méteo
-          </button>
-        </li>
-        <li className="landingPage_listeItem">
-          <button className="landingPage_btn btn-functionality" type="button">
-            Liste de course
-          </button>
-        </li>
-        <li className="landingPage_listeItem">
-          <button className="landingPage_btn btn-functionality" type="button">
-            Budget partagé
-          </button>
-        </li>
-      </ul>
+        <ul className="landingPage_listeFonctionnalite">
+          <li className="landingPage_listeItem">
+            <button
+              className="landingPage_btn btn-functionality"
+              type="button"
+              onClick={() =>
+                setImgTestVisiteur('src/assets/AgendaVisiteurCasalink.png')
+              }
+            >
+              Agenda
+            </button>
+          </li>
+          <li className="landingPage_listeItem">
+            <button
+              className="landingPage_btn btn-functionality"
+              type="button"
+              onClick={() => setImgTestVisiteur('public/logo192.png')}
+            >
+              Méteo
+            </button>
+          </li>
+          <li className="landingPage_listeItem">
+            <button
+              className=" landingPage_btn btn-functionality"
+              type="button"
+              onClick={() => setImgTestVisiteur('public/logo192.png')}
+            >
+              courses
+            </button>
+          </li>
+          <li className="landingPage_listeItem">
+            <button
+              className="landingPage_btn btn-functionality"
+              type="button"
+              onClick={() => setImgTestVisiteur('public/logo192.png')}
+            >
+              Budget
+            </button>
+          </li>
+        </ul>
+      </div>
+
       <div className="landingPage_actionBox">
-        <img className="landingPage_img" src="public/logo512.png" alt="test" />
         <div className="landingPage_divDescription">
+          <img className="landingPage_img" src={imgTestVisiteur} alt="test" />
           <p className="landingPage_description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-            nemo nostrum aliquid fuga suscipit blanditiis. Aut veniam nulla amet
-            at exercitationem, ducimus commodi iusto praesentium expedita,
-            pariatur voluptatibus repellendus ex?
+            Simplifier la gestion des emplois du temps, des tâches domestiques
+            et des événements au sein de votre foyer.
           </p>
           <button
-            className="landingPage_btn btn-signin"
+            className="btn-signin"
             type="button"
             onClick={() => {
               dispatch(actionSwitchLoginModal());
             }}
           >
-            <span className="landingPage_btn-text">
-              Essayez l&apos;application
-            </span>
+            <span className="landingPage_btn-text">S&apos;inscrire</span>
           </button>
         </div>
       </div>

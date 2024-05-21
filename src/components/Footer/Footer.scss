@@ -1,28 +1,44 @@
 @use '../../styles/variables' as v;
 
-.Footer {
-  padding: 1rem;
-  background-color: v.$textColor-colorWhite;
-  &_listItems {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+);
 
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.Footer {
+  height: 9vw;
+  padding: 0.5rem;
+  background-color: v.$textColor-colorWhite;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  @include media(desktop) {
+    height: 5vh;
+  }
+
+  &_listItems {
     &_btn {
       margin: 0 1rem;
-      padding: 0.5rem 1rem;
       text-decoration: none;
       color: v.$textColor-colorDark;
-      font-weight: bold;
     }
 
-    &_btn:hover {
-      color: v.$textColor-colorDark;
-      border-bottom-right-radius: 5px;
-      border-right: 1px solid black;
-      border-bottom: 1px solid black;
-
-      transition: 0.2s;
-    }
+    // &_btn:hover {
+    //   font-weight: bold;
+    //   padding: 0 0.2rem 0 0;
+    //   color: v.$textColor-colorDark;
+    //   border-bottom-right-radius: 5px;
+    //   border-right: 1px solid black;
+    //   border-bottom: 1px solid black;
+    //   transition: 0.2s;
+    // }
   }
 }

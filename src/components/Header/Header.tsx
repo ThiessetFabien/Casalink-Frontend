@@ -5,6 +5,7 @@ import Login from '../Modals/Login/Login';
 import UserHeader from './UserHeader/UserConnectedHeader';
 import BtnConnect from './BtnConnect/BtnConnect';
 import { useAppSelector } from '../../hooks/redux';
+import BurgerNav from './BurgerNav/BurgerNav';
 
 function Header() {
   const loginModalIsOpen = useAppSelector(
@@ -13,15 +14,15 @@ function Header() {
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
     <div className="header">
-      <nav className="header_menuItems">
+      <div className="header_menuItems">
+        <BurgerNav />
+        {isConnected && <UserHeader />}
         <Link to="/" className="header_title">
           CasaLink
         </Link>
-        <Link to="/" className="header_foyer">
-          Nom du foyer
-        </Link>
-        {isConnected ? <UserHeader /> : <BtnConnect />}
-      </nav>
+
+        {!isConnected && <BtnConnect />}
+      </div>
 
       {loginModalIsOpen && <Login loginIsOpen={loginModalIsOpen} />}
     </div>

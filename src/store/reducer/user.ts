@@ -2,6 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 
 interface UserStateI {
   logged: boolean;
+  foyer: string;
   credentials: {
     email: string;
     password: string;
@@ -13,6 +14,7 @@ interface UserStateI {
 
 export const initialState: UserStateI = {
   logged: false,
+  foyer: 'ma maison',
   credentials: {
     email: '',
     password: '',

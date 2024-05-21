@@ -13,155 +13,130 @@ $breakpoints: (
 }
 
 .header {
-  @include media(desktop) {
-    height: 80px;
-    padding: 1rem;
-    background-color: v.$bgColor-primary;
-  }
-
-  &_menuItems {
-    display: flex;
-    flex-direction: column;
-    @include media(desktop) {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
+  // trouver un moyen de fixed le header
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 9vh;
 
   &_title {
     text-decoration: none;
     color: v.$textColor-colorDark;
     font-size: 2rem;
     font-weight: bold;
-    @include media(desktop) {
-      text-decoration: none;
-      color: v.$textColor-colorDark;
-      font-size: 2rem;
-      font-weight: bold;
-      transition: 0.25s;
-    }
   }
 
-  &_title:hover {
-    color: v.$textColor-colorWhite;
-    padding: 0 5px 3px 0;
-    border-bottom-right-radius: 5px;
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
+  &_menuItems {
+    padding-left: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: start;
 
-    transition: 0.3s;
-  }
-
-  &_foyer {
-    display: none;
     @include media(desktop) {
-      display: block;
-      text-decoration: none;
-      color: v.$textColor-colorDark;
-      font-size: 2rem;
-      font-weight: bold;
-      transition: 0.25s;
-      &:hover {
-        color: v.$textColor-colorWhite;
-        padding: 0 5px 3px 0;
-        border-bottom-right-radius: 5px;
-        border-right: 3px solid black;
-        border-bottom: 3px solid black;
-      }
+      justify-content: center;
     }
   }
 
   &_btn {
-    width: 70%;
-    margin: auto;
-
-    @include media(desktop) {
-      margin: 0;
-      width: 130px;
-      height: 40px;
-      color: v.$textColor-colorDark;
-      border-radius: 10px 0 10px 0;
-      padding: 10px 25px;
-      font-family: 'Lato', sans-serif;
-      font-weight: bold;
-      background: v.$bgColor-primary;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      display: inline-block;
-      box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-        7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-      outline: none;
-    }
-  }
-  .btn-login {
-    background: v.$bgColor-primary;
+    font-size: 0.8rem;
+    margin: 0;
     width: 160px;
     height: 40px;
-    line-height: 42px;
-    padding: 0;
-    border: none;
-  }
-  .btn-login span {
+    color: v.$textColor-colorDark;
+    border-radius: 20px 0 20px 0;
+    padding: 5px 15px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    background: v.$bgColor-primary;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
   }
-  .btn-login:before,
-  .btn-login:after {
-    position: absolute;
-    content: '';
-    right: 0;
-    top: 0;
-    background: rgba(2, 126, 251, 1);
-    transition: all 0.3s ease;
+
+  &_title {
+    text-decoration: none;
+    color: v.$textColor-colorDark;
+    font-size: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+    z-index: 1;
   }
-  .btn-login:before {
-    height: 0%;
-    width: 2px;
-  }
-  .btn-login:after {
-    width: 0%;
-    height: 2px;
-  }
-  .btn-login:hover {
-    background: transparent;
-    box-shadow: none;
-  }
-  .btn-login:hover:before {
-    height: 100%;
-  }
-  .btn-login:hover:after {
-    width: 100%;
-  }
-  .btn-login span:hover {
-    border-radius: 10px 0 10px;
-    color: rgba(2, 126, 251, 1);
-  }
-  .btn-login span:before,
-  .btn-login span:after {
-    position: absolute;
-    content: '';
-    left: 0;
-    bottom: 0;
-    background: rgba(2, 126, 251, 1);
-    transition: all 0.3s ease;
-  }
-  .btn-login span:before {
-    width: 2px;
-    height: 0%;
-  }
-  .btn-login span:after {
-    width: 0%;
-    height: 2px;
-  }
-  .btn-login span:hover:before {
-    height: 100%;
-  }
-  .btn-login span:hover:after {
-    width: 100%;
-  }
+}
+
+.btn-login {
+  background: v.$bgColor-primary;
+  width: 100px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+}
+
+.btn-login span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.btn-login:before,
+.btn-login:after {
+  position: absolute;
+  content: '';
+  right: 0;
+  top: 0;
+  background: rgba(2, 126, 251, 1);
+  transition: all 0.3s ease;
+}
+.btn-login:before {
+  height: 0%;
+  width: 2px;
+}
+.btn-login:after {
+  width: 0%;
+  height: 2px;
+}
+.btn-login:hover {
+  background: transparent;
+  box-shadow: none;
+}
+.btn-login:hover:before {
+  height: 100%;
+}
+.btn-login:hover:after {
+  width: 100%;
+}
+.btn-login span:hover {
+  border-radius: 10px 0 10px;
+  color: rgba(2, 126, 251, 1);
+}
+.btn-login span:before,
+.btn-login span:after {
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: 0;
+  background: rgba(2, 126, 251, 1);
+  transition: all 0.3s ease;
+}
+.btn-login span:before {
+  width: 2px;
+  height: 0%;
+}
+.btn-login span:after {
+  width: 0%;
+  height: 2px;
+}
+.btn-login span:hover:before {
+  height: 100%;
+}
+.btn-login span:hover:after {
+  width: 100%;
 }

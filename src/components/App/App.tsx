@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -14,9 +13,8 @@ import NotFount from '../404/404';
 
 function App() {
   const islLogged = useAppSelector((state) => state.user.logged);
-  console.log(`is logged: ${islLogged}`);
   return (
-    <div className="App">
+    <div className="app">
       <Header />
       <Routes>
         {islLogged ? (

@@ -12,27 +12,48 @@ $breakpoints: (
   }
 }
 
+.btn-functionality {
+  width: 100%;
+  border-radius: 1rem 0 1rem 0;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
 .landingPage {
+  height: 86vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
 
+  &_btn {
+    background-color: v.$bgColor-primary;
+  }
+
+  &_BoxFunctionality {
+    background: v.$textColor-colorWhite;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  }
+
+  &_title {
+    text-align: center;
+    padding: 0.3rem 0 0 0;
+  }
+
   &_img {
-    width: 20%;
-    height: 20%;
-    margin: 1rem auto;
+    margin: 0rem auto;
     @include media(desktop) {
-      width: 30%;
-      height: 30%;
+      width: 80%;
+      height: 50vh;
       margin: 0;
     }
   }
 
   &_listeFonctionnalite {
-    background-color: v.$textColor-colorWhite;
+    // background-color: v.$textColor-colorWhite;
     list-style: none;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    padding: 1rem;
+
+    padding: 0 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -45,10 +66,9 @@ $breakpoints: (
 
   &_listeItem {
     width: 40%;
+    text-align: center;
+    padding: 1rem 0;
 
-    &-btn {
-      width: 100%;
-    }
     @include media(desktop) {
       padding: auto;
       margin: 0.5rem;
@@ -56,124 +76,57 @@ $breakpoints: (
   }
 
   &_divDescription {
-    height: 73vh;
-    width: 50%;
+    width: 100%;
     flex-direction: column;
     padding: 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
   }
   &_description {
-    width: 50%;
+    text-align: center;
+    width: 100%;
     padding: 1rem;
   }
+}
 
-  &_actionBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.btn-signin {
+  // position: fixed;
+  background-color: v.$bgColor-primary;
+  width: 40%;
+  border-radius: 1rem 0 1rem 0;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  border: none;
+  transition: all 0.2s ease-in-out;
 
-  &_btn {
-    width: 70%;
-    margin: auto;
-
-    @include media(desktop) {
-      margin: 0;
-      width: 240px;
-      height: 50px;
-      color: v.$textColor-colorDark;
-      border-radius: 10px 0 10px 0;
-      // padding: 10px 25px;
-      font-family: 'Lato', sans-serif;
-      font-weight: bold;
-      background: v.$bgColor-primary;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      display: inline-block;
-      box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-        7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-      outline: none;
-    }
-  }
-
-  .btn-signin {
-    background: v.$bgColor-primary;
+  @include media(desktop) {
+    margin: 0;
     width: 240px;
-    height: 60px;
-    line-height: 42px;
-    padding: 0;
-    border: none;
-  }
-  .btn-signin span {
+    height: 40px;
+    color: v.$textColor-colorDark;
+    border-radius: 1.5rem 0 1.5rem 0;
+    // padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    background: v.$bgColor-primary;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
   }
-  .btn-signin:before,
-  .btn-signin:after {
-    position: absolute;
-    content: '';
-    right: 0;
-    top: 0;
-    background: v.$bgColor-primary;
-    transition: all 0.3s ease;
-  }
-  .btn-signin:before {
-    height: 0%;
-    width: 2px;
-  }
-  .btn-signin:after {
-    width: 0%;
-    height: 2px;
-  }
-  .btn-signin:hover {
-    background: transparent;
-    box-shadow: none;
-  }
-  .btn-signin:hover:before {
-    height: 100%;
-  }
-  .btn-signin:hover:after {
-    width: 100%;
-  }
-  .btn-signin span:hover {
-    border-radius: 10px 0 10px;
-    color: rgba(2, 126, 251, 1);
-  }
-  .btn-signin span:before,
-  .btn-signin span:after {
-    position: absolute;
-    content: '';
-    left: 0;
-    bottom: 0;
-    background: v.$bgColor-primary;
-    transition: all 0.3s ease;
-  }
-  .btn-signin span:before {
-    width: 2px;
-    height: 0%;
-  }
-  .btn-signin span:after {
-    width: 0%;
-    height: 2px;
-  }
-  .btn-signin span:hover:before {
-    height: 100%;
-  }
-  .btn-signin span:hover:after {
-    width: 100%;
-  }
-  .landingPage_btn-text {
-    padding-top: 10px;
-  }
+}
+
+.btn-signin:hover {
+  background: v.$btnBg-landing;
 }
 
 .btn-functionality {
   background: v.$bgColor-primary;
+  transition: all 0.2s ease-in-out;
 
   border: none;
 }

@@ -13,22 +13,23 @@ $breakpoints: (
 }
 
 .userDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @include media(desktop) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   &_avatar {
+    margin-right: 2rem;
+    padding: 0.2rem;
+    width: 60px;
     @include media(desktop) {
-      width: 60px;
     }
   }
 
   &_name {
+    font-weight: bold;
     @include media(desktop) {
-      padding-right: 10px;
-      font-weight: bold;
     }
   }
 }
