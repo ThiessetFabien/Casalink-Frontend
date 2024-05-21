@@ -1,0 +1,84 @@
+// @use '../../styles/variables' as v;
+
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+  tablet_mini: '(min-width:450px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.task_background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: RGBA(0, 0, 0, 0.5);
+  z-index: 1;
+
+  .task_modal {
+    position: absolute;
+    @include media(tablet_mini) {
+      left: 60vw;
+      transform: translateX(-50%);
+    }
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    z-index: 1;
+    width: 100%;
+    background-color: #ececec;
+    @include media(tablet_mini) {
+      max-width: 400px;
+    }
+
+    &_exit_button {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      border: none;
+    }
+
+    &_form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      @include media(tablet_mini) {
+        gap: 2rem;
+      }
+
+      input {
+        border: none;
+        border-bottom: 1px solid black;
+        width: 100%;
+        background-color: transparent;
+      }
+
+      &_dateTime {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        border: none;
+        padding: 0;
+      }
+
+      button {
+        border-radius: 10px;
+        border: none;
+        background-color: #007a04;
+        color: white;
+        font-weight: 500;
+      }
+    }
+  }
+}

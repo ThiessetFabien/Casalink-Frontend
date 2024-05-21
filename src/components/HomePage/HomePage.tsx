@@ -1,43 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
-import { Calendar, DateLocalizer, dateFnsLocalizer } from 'react-big-calendar';
+import { useCallback, useEffect, useState } from 'react';
+import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import fr from 'date-fns/locale/fr';
+import { addHours } from 'date-fns';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
-
-const locales = {
-  fr,
-};
-
-const mlocalizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
-
-const messages = {
-  allDay: 'Toute la journée',
-  previous: 'Précédent',
-  next: 'Suivant',
-  today: "Aujourd'hui",
-  month: 'Mois',
-  week: 'Semaine',
-  day: 'Jour',
-  agenda: 'Agenda',
-  date: 'Date',
-  time: 'Heure',
-  event: 'Événement',
-  showMore: (total: number) => `+ ${total}`,
-};
+import Task from '../Modals/Task/Task';
+import { mlocalizer, messages } from '../../utils/calendarParams';
 
 interface EventsI {
-  id: number;
+  id?: number;
   title: string;
   content: string | null;
   start: Date;
@@ -55,13 +28,13 @@ const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 function HomePage() {
   const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-  const calendarRef = useRef<HTMLElement>(null);
+  const [eventSelected, setEventSelected] = useState<null | EventsI>(null);
+  const [taskModalMode, setTaskModalMode] = useState<'add' | 'edit'>('add');
+  const taskModalIsOpen = useAppSelector(
+    (state) => state.modal.taskModalIsOpen
+  );
 
-  useEffect(() => {
-    if (calendarRef.current) {
-      calendarRef.current.focus();
-    }
-  }, []);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,46 +42,81 @@ function HomePage() {
     };
     window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resite', handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  const handleSelectSlot = ({ start, end }: { start: Date; end: Date }) => {
-    const title = window.prompt('Quel est le nom de la tâche');
-    const content = window.prompt('Quel est la description de la tâche');
-    if (title)
-      setEvents((prev) => [
-        ...prev,
-        { id: events.length, start, end, title, content },
-      ]);
+  const addTask = (start: Date, end: Date, title: string, content: string) => {
+    setEvents((prev) => [
+      ...prev,
+      { id: events.length, start, end, title, content },
+    ]);
+    dispatch(actionSwitchTaskModal());
   };
 
-  const handleSelectEvent = (event: EventsI) => {
-    console.log(event.title);
-    console.log(event.content);
+  const editTask = (
+    id: number,
+    start: Date,
+    end: Date,
+    title: string,
+    content: string
+  ) => {
+    setEvents((prev) =>
+      prev.map((event) => {
+        if (event.id === id) return { ...event, start, end, title, content };
+        return event;
+      })
+    );
+    dispatch(actionSwitchTaskModal());
   };
 
-  const handleEventDrop = ({ event, start, end }: DragNDropI) => {
-    setEvents((prev) => {
-      const filtered = prev.filter((ev) => ev.id !== event.id);
-      return [...filtered, { ...event, start, end }];
-    });
-  };
+  // We put a useCallback to avoid the function recreation at each render
+  const handleSelectSlot = useCallback(
+    ({ start }: { start: Date }) => {
+      const endWithOneHour = addHours(start, 1);
+      setTaskModalMode('add');
+      setEventSelected({ start, end: endWithOneHour, title: '', content: '' });
+      dispatch(actionSwitchTaskModal());
+    },
+    // We put dispatch in the dependencies array to avoid the linter warning
+    // He will never change
+    [dispatch]
+  );
 
-  const handleEventResize = ({ event, start, end }: DragNDropI) => {
-    setEvents((prev) => {
-      const filtered = prev.filter((ev) => ev.id !== event.id);
-      return [...filtered, { ...event, start, end }];
-    });
-  };
+  const handleSelectEvent = useCallback(
+    (event: EventsI) => {
+      setTaskModalMode('edit');
+      setEventSelected({ ...event });
+      dispatch(actionSwitchTaskModal());
+    },
+    [dispatch]
+  );
+
+  const handleEventDrop = useCallback(
+    ({ event, start, end }: DragNDropI) => {
+      setEvents((prev) => {
+        const filtered = prev.filter((ev) => ev.id !== event.id);
+        return [...filtered, { ...event, start, end }];
+      });
+    },
+    [setEvents]
+  );
+
+  const handleEventResize = useCallback(
+    ({ event, start, end }: DragNDropI) => {
+      setEvents((prev) => {
+        const filtered = prev.filter((ev) => ev.id !== event.id);
+        return [...filtered, { ...event, start, end }];
+      });
+    },
+    [setEvents]
+  );
 
   const formats = {
     dateFormat: 'd',
     dayFormat: isMobileView ? 'dd' : 'dd eee',
     weekdayFormat: 'cccc',
-
     timeGutterFormat: 'p',
-
     monthHeaderFormat: 'MMMM yyyy',
     dayRangeHeaderFormat: (
       { start, end }: { start: Date; end: Date },
@@ -120,13 +128,20 @@ function HomePage() {
       return `${s} - ${e}`;
     },
     dayHeaderFormat: 'cccc do MMM',
-
     agendaDateFormat: 'ccc MMM dd',
     agendaTimeFormat: 'p',
   };
 
   return (
     <div className="HomePage">
+      {taskModalIsOpen && (
+        <Task
+          taskModalMode={taskModalMode}
+          eventSelect={eventSelected}
+          addTask={addTask}
+          editTask={editTask}
+        />
+      )}
       <section>
         <div className="category">
           <button className="category_btn" type="button">
@@ -157,15 +172,17 @@ function HomePage() {
           </button>
         </div>
       </section>
-      <main ref={calendarRef}>
+      <main>
         <DragNDropCalendar
           localizer={mlocalizer}
           formats={formats}
           defaultView="week"
-          selectable
           culture="fr"
           messages={messages}
           events={events}
+          popup
+          selectable
+          longPressThreshold={5}
           onSelectSlot={handleSelectSlot}
           onSelectEvent={handleSelectEvent}
           onEventDrop={({ event, start, end }) => {

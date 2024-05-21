@@ -16,7 +16,7 @@ function LoginForm({ handleLogin }: LoginFormProps) {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Conexion</h1>
+      <h1>Connexion</h1>
       <div className="login_field">
         <input
           className="input_required"
@@ -25,7 +25,7 @@ function LoginForm({ handleLogin }: LoginFormProps) {
           id="username"
           required
         />
-        <label htmlFor="username">Nom d'utilisateur</label>
+        <label htmlFor="username">Nom d&apos;utilisateur</label>
       </div>
       <div className="login_field">
         <input

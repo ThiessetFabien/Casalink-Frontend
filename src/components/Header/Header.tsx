@@ -24,7 +24,7 @@ function Header() {
         {!isConnected && <BtnConnect />}
       </div>
 
-      {loginModalIsOpen && <Login loginIsOpen={loginModalIsOpen} />}
+      {loginModalIsOpen && <Login />}
     </div>
   );
 }
