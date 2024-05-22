@@ -75,12 +75,9 @@ function Login() {
                 })
               );
             }}
-            handleLogin={() => {
-              dispatch(actionCheckLogin());
-            }}
           />
         )}
-        {!loginForm && <SignupForm  />}
+        {!loginForm && <SignupForm />}
         {loginForm ? (
           <button
             className="login_modal_changeFormBtn"

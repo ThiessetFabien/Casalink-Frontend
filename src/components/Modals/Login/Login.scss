@@ -87,6 +87,10 @@ $breakpoints: (
         color: white;
         font-weight: 500;
       }
+
+      .errorMessage {
+        color: red;
+      }
     }
 
     .login_modal_changeFormBtn {

@@ -1,26 +1,25 @@
 import { FormEvent } from 'react';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
+import actionCheckLogin from '../../../store/thunks/checkLogin';
 
 interface LoginFormProps {
   email: string;
   password: string;
   changeField: (name: 'emailSignin' | 'passwordSignin', value: string) => void;
-  handleLogin: () => void;
 }
 
-function LoginForm({
-  email,
-  password,
-  changeField,
-  handleLogin,
-}: LoginFormProps) {
+function LoginForm({ email, password, changeField }: LoginFormProps) {
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const errorMessages = useAppSelector((state) => state.user.error);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleLogin();
-    dispatch(actionSwitchLoginModal());
+    console.log(errorMessages);
+    const resultAction = await dispatch(actionCheckLogin());
+    if (actionCheckLogin.fulfilled.match(resultAction))
+      dispatch(actionSwitchLoginModal());
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -53,6 +52,7 @@ function LoginForm({
         />
         <label htmlFor="password">Mot de passe</label>
       </div>
+      <span className="errorMessage">{errorMessages}</span>
       <button type="submit">Se connecter</button>
     </form>
   );
