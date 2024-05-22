@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 
 interface LoginFormProps {
@@ -16,7 +16,6 @@ function LoginForm({
   handleLogin,
 }: LoginFormProps) {
   const dispatch = useAppDispatch();
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleLogin();

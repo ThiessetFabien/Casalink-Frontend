@@ -15,13 +15,13 @@ function Header() {
   return (
     <div className="header">
       <div className="header_menuItems">
-        <BurgerNav />
         {isConnected && <UserHeader />}
         <Link to="/" className="header_title">
           CasaLink
         </Link>
 
         {!isConnected && <BtnConnect />}
+        <BurgerNav />
       </div>
 
       {loginModalIsOpen && <Login />}

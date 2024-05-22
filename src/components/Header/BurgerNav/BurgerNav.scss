@@ -19,7 +19,6 @@ $breakpoints: (
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  width: 100%;
   min-height: 75px;
   color: v.$textColor-colorWhite;
 
@@ -59,7 +58,7 @@ $breakpoints: (
   &_item:hover {
     box-shadow: -5px 4px 10px red;
     border-radius: 6rem 0 6rem 0;
-    width: 90vw;
+    width: 60vw;
     padding: auto;
     text-align: center;
     background-color: v.$bgColor-primary;
@@ -136,5 +135,5 @@ $breakpoints: (
 }
 
 .navbar_menu-open {
-  z-index: 2;
+  // z-index: 2;
 }

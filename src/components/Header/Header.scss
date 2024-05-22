@@ -23,6 +23,7 @@ $breakpoints: (
   height: 9vh;
 
   &_title {
+    padding-left: 2rem;
     text-decoration: none;
     color: v.$textColor-colorDark;
     font-size: 2rem;
@@ -67,7 +68,7 @@ $breakpoints: (
     font-size: 1rem;
     padding-right: 1rem;
     font-weight: bold;
-    z-index: 1;
+    // z-index: 1;
   }
 }
 

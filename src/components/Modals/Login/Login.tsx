@@ -80,7 +80,7 @@ function Login() {
             }}
           />
         )}
-        {!loginForm && <SignupForm  />}
+        {!loginForm && <SignupForm />}
         {loginForm ? (
           <button
             className="login_modal_changeFormBtn"

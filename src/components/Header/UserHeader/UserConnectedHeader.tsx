@@ -1,10 +1,23 @@
+import { LogOut } from 'react-feather';
+import { useAppDispatch } from '../../../hooks/redux';
+
 import './UserConnectedHeader.scss';
+import { actionLogout } from '../../../store/reducer/user';
 
 function UserHeader() {
+  const dispatch = useAppDispatch();
+  // const handleLogout = () => {
+  //   console.log('jai cliqué');
+  // };
   return (
     <div className="userDiv">
       <span className="userDiv_name">User1</span>
-      <img className="userDiv_avatar" src="public/logo512.png" alt="test" />
+      <LogOut
+        className="userDiv_logout"
+        onClick={() => {
+          dispatch(actionLogout());
+        }}
+      />
     </div>
   );
 }
