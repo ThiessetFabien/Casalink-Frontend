@@ -1,5 +1,5 @@
 import './SideNavBurger.scss';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Moon, Sun, ToggleLeft, ToggleRight } from 'react-feather';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
@@ -7,8 +7,13 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../../store/reducer/modal';
+import { actionLogout } from '../../../store/reducer/user';
 
-function SideNavBurger() {
+interface SideNavPropsI {
+  isConnected: boolean;
+}
+
+function SideNavBurger({ isConnected }: SideNavPropsI) {
   const [hideToggleLeft, setHideToggleLeft] = useState(false);
   const [hideToggleRight, setHideToggleRight] = useState(true);
 
@@ -62,6 +67,18 @@ function SideNavBurger() {
         >
           Site map
         </NavLink>
+        {isConnected && (
+          <Link
+            to="/"
+            className="btn_deco"
+            onClick={() => {
+              dispatch(actionLogout());
+            }}
+          >
+            Déconnexion
+          </Link>
+        )}
+
         <ToggleLeft
           className={`test ${!hideToggleRight && 'test-hidden'}`}
           onClick={() => {

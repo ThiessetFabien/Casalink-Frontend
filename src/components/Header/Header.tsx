@@ -15,9 +15,8 @@ function Header() {
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
     <div className="header">
-      <SideNavBurger />
+      <SideNavBurger isConnected={isConnected} />
       <div className="header_menuItems">
-        {isConnected && <UserHeader />}
         <Link to="/" className="header_title">
           CasaLink
         </Link>
@@ -27,7 +26,7 @@ function Header() {
 
         {/* <BurgerNav /> */}
       </div>
-
+      {isConnected && <UserHeader />}
       {loginModalIsOpen && <Login />}
     </div>
   );
