@@ -1,4 +1,5 @@
-import { LogOut } from 'react-feather';
+import { useState } from 'react';
+import { LogOut, ArrowRight } from 'react-feather';
 import { useAppDispatch } from '../../../hooks/redux';
 
 import './UserConnectedHeader.scss';
@@ -6,6 +7,7 @@ import { actionLogout } from '../../../store/reducer/user';
 
 function UserHeader() {
   const dispatch = useAppDispatch();
+  const [sideMenuIsHidden, setSideMenuIsHidden] = useState(false);
   // const handleLogout = () => {
   //   console.log('jai cliqué');
   // };

@@ -20,7 +20,7 @@ $breakpoints: (
   justify-content: space-between;
   position: fixed;
   min-height: 75px;
-  color: v.$textColor-colorWhite;
+  // color: v.$textColor-colorWhite;
 
   &_links {
     display: flex;
@@ -132,8 +132,4 @@ $breakpoints: (
   &_menu-open &-bar::after {
     transform: rotate(-45deg);
   }
-}
-
-.navbar_menu-open {
-  // z-index: 2;
 }

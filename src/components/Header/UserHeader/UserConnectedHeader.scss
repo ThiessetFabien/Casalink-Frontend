@@ -13,8 +13,10 @@ $breakpoints: (
 }
 
 .userDiv {
-  // z-index: 10;
+  position: relative;
+  right: 10rem;
   display: flex;
+  // flex-direction: column;
   align-items: center;
   justify-content: center;
   @include media(desktop) {
@@ -35,9 +37,31 @@ $breakpoints: (
   }
 
   &_logout {
-    width: 15px;
-    height: 15px;
-    position: relative;
-    left: 1rem;
+    display: block;
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    @include media(desktop) {
+      position: relative;
+      left: 0.3rem;
+      top: 0.3rem;
+    }
   }
+}
+
+.sideMenu_Btn-open {
+  display: none;
+  @include media(desktop) {
+    display: block;
+    position: relative;
+    right: 39.8rem;
+    top: 0rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+}
+
+.sideMenu_Btn-close {
+  display: none;
 }

@@ -1,0 +1,77 @@
+@use '../../../styles/variables' as v;
+
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.BtnSideBarMenu {
+  display: none;
+  @include media(desktop) {
+    display: block;
+    position: fixed;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  &-open {
+    background-color: v.$bgColor-primary;
+    border-radius: 20px;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  &-open &-bar::before {
+    transform: rotate(45deg);
+    height: 3px;
+  }
+
+  &-open &-bar {
+    background: transparent;
+    width: 0;
+  }
+  &-open &-bar::after {
+    transform: rotate(-45deg);
+    height: 3px;
+  }
+
+  &-bar,
+  &-bar::before,
+  &-bar::after {
+    display: block;
+    width: 1.8rem;
+    height: 2px;
+    position: relative;
+    right: 0.05rem;
+    border-radius: 3px;
+    background: v.$textColor-colorDark;
+    transition: all 0.4s ease-in-out;
+  }
+
+  &-bar::before,
+  &-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  &-bar::before {
+    transform: translateY(-8px);
+  }
+
+  &-bar::after {
+    transform: translateY(8px);
+  }
+}
