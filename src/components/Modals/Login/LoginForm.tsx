@@ -11,14 +11,10 @@ interface LoginFormProps {
 
 function LoginForm({ email, password, changeField }: LoginFormProps) {
   const dispatch = useAppDispatch();
-<<<<<<< HEAD
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-=======
 
   const errorMessages = useAppSelector((state) => state.user.error);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
->>>>>>> 40cb50ca072146d609eb005ba8737aa1ddda0d3a
     event.preventDefault();
     const resultAction = await dispatch(actionCheckLogin());
     if (actionCheckLogin.fulfilled.match(resultAction))
