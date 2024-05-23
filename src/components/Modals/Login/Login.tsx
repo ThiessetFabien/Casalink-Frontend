@@ -7,14 +7,15 @@ import SignupForm from './SignupForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import {
-  actionChangeCredentials,
-  actionLogin,
+  actionChangeCredentialsSignin,
+  actionChangeCredentialsSignup,
+  actionResetCredential,
+  actionResetErrorMessage,
 } from '../../../store/reducer/user';
-import actionCheckLogin from '../../../store/thunks/checkLogin';
 
 function Login() {
   const dispatch = useAppDispatch();
-  const [loginForm, setLoginForm] = useState(true);
+  const [loginForm, setLoginForm] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
   // Input controlled by redux for the login form
@@ -23,7 +24,7 @@ function Login() {
   );
 
   // Input controlled by redux for the signup form
-  const { email, password, passwordConfirm, street, postalCode, country } =
+  const { email, password, passwordConfirm, firstname, lastname } =
     useAppSelector((state) => state.user.credentials.signup);
 
   useEffect(() => {
@@ -67,9 +68,9 @@ function Login() {
           <LoginForm
             email={emailSignin}
             password={passwordSignin}
-            changeField={(name, value) => {
+            changeFieldSignin={(name, value) => {
               dispatch(
-                actionChangeCredentials({
+                actionChangeCredentialsSignin({
                   name,
                   value,
                 })
@@ -82,12 +83,11 @@ function Login() {
             email={email}
             password={password}
             passwordConfirm={passwordConfirm}
-            street={street}
-            postalCode={postalCode}
-            country={country}
-            changeField={(name, value) => {
+            firstname={firstname}
+            lastname={lastname}
+            changeFieldSignup={(name, value) => {
               dispatch(
-                actionChangeCredentials({
+                actionChangeCredentialsSignup({
                   name,
                   value,
                 })
@@ -101,6 +101,8 @@ function Login() {
             type="button"
             onClick={() => {
               setLoginForm(false);
+              dispatch(actionResetErrorMessage());
+              dispatch(actionResetCredential());
             }}
           >
             Pas de compte ?
@@ -111,6 +113,8 @@ function Login() {
             type="button"
             onClick={() => {
               setLoginForm(true);
+              dispatch(actionResetErrorMessage());
+              dispatch(actionResetCredential());
             }}
           >
             Déjà un compte ?
