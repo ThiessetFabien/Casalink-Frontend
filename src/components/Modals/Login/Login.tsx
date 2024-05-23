@@ -75,9 +75,6 @@ function Login() {
                 })
               );
             }}
-            handleLogin={() => {
-              dispatch(actionCheckLogin());
-            }}
           />
         )}
         {!loginForm && <SignupForm />}

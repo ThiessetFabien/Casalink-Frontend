@@ -52,6 +52,7 @@ export const actionChangeCredentials = createAction<{
 
 export const actionLogout = createAction('user/LOG_OUT');
 
+// jwt & pseudo: prorpiétés
 export const actionLogin = createAction<{
   jwt: string;
   pseudo: string | null;
@@ -74,12 +75,12 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionCheckLogin.fulfilled, (state, action) => {
       state.logged = true;
-      state.pseudo = action.payload.pseudo;
-      state.token = action.payload.token;
+      // state.pseudo = action.payload.pseudo;
+      // state.token = action.payload.token;
       state.error = null;
     })
     .addCase(actionCheckLogin.rejected, (state, action) => {
-      state.error = 'Erreur de connexion';
+      state.error = 'Identifiant ou mot de passe inccorect';
     });
 });
 
