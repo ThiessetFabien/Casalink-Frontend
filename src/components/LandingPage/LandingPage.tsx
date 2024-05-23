@@ -41,7 +41,7 @@ function LandingPage() {
               type="button"
               onClick={() => setImgTestVisiteur('public/logo192.png')}
             >
-              courses
+              Courses
             </button>
           </li>
           <li className="landingPage_listeItem">
@@ -70,7 +70,7 @@ function LandingPage() {
               dispatch(actionSwitchLoginModal());
             }}
           >
-            <span className="landingPage_btn-text">S&apos;inscrire</span>
+            <span className="landingPage_btn-text">INSCRIVEZ-VOUS !</span>
           </button>
         </div>
       </div>
