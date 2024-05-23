@@ -6,10 +6,13 @@ import actionCheckLogin from '../../../store/thunks/checkLogin';
 interface LoginFormProps {
   email: string;
   password: string;
-  changeField: (name: 'emailSignin' | 'passwordSignin', value: string) => void;
+  changeFieldSignin: (
+    name: 'emailSignin' | 'passwordSignin',
+    value: string
+  ) => void;
 }
 
-function LoginForm({ email, password, changeField }: LoginFormProps) {
+function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
   const dispatch = useAppDispatch();
 
   const errorMessages = useAppSelector((state) => state.user.error);
@@ -27,7 +30,7 @@ function LoginForm({ email, password, changeField }: LoginFormProps) {
         <input
           value={email}
           onChange={(e) => {
-            changeField('emailSignin', e.target.value);
+            changeFieldSignin('emailSignin', e.target.value);
           }}
           className="input_required"
           type="text"
@@ -41,7 +44,7 @@ function LoginForm({ email, password, changeField }: LoginFormProps) {
         <input
           value={password}
           onChange={(e) => {
-            changeField('passwordSignin', e.target.value);
+            changeFieldSignin('passwordSignin', e.target.value);
           }}
           className="input_required"
           type="password"
