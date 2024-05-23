@@ -12,22 +12,21 @@ $breakpoints: (
   }
 }
 
-.BtnSideBarMenu {
-  display: none;
-  @include media(desktop) {
-    display: block;
-    position: fixed;
-    left: 1rem;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-  }
+.btnSideBarMenu {
+  border-radius: 20px;
+  display: block;
+  position: fixed;
+  border: none;
+  left: 1rem;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
 
   &-open {
-    background-color: v.$bgColor-primary;
+    background-color: v.$textColor-colorDark;
     border-radius: 20px;
     box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
       7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
@@ -36,6 +35,7 @@ $breakpoints: (
   &-open &-bar::before {
     transform: rotate(45deg);
     height: 3px;
+    background: white;
   }
 
   &-open &-bar {
@@ -45,6 +45,7 @@ $breakpoints: (
   &-open &-bar::after {
     transform: rotate(-45deg);
     height: 3px;
+    background: white;
   }
 
   &-bar,
@@ -74,4 +75,101 @@ $breakpoints: (
   &-bar::after {
     transform: translateY(8px);
   }
+}
+
+.sideMenu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  left: -100%;
+  bottom: 0;
+
+  background-color: white;
+  height: 91vh;
+  width: 100vw;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(82, 79, 79, 0.1);
+  transition: all 0.6s ease-in-out;
+
+  &-open {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    @include media(desktop) {
+      width: 17vw;
+    }
+  }
+}
+
+.sideMenu a {
+  color: black;
+  width: 99%;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  padding: 0.6rem;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.sideMenu a.active {
+  width: 99%;
+  padding: auto;
+  border-radius: 0.6rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px 3px rgb(94, 89, 89);
+}
+
+.sideMenu a:hover {
+  width: 99%;
+  padding: auto;
+  border-radius: 0.6rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px 3px rgb(94, 89, 89);
+}
+
+.test {
+  display: block;
+  position: absolute;
+  left: 1rem;
+  bottom: 0.3rem;
+  color: black;
+  height: 3rem;
+}
+
+.test2 {
+  display: block;
+  position: absolute;
+  left: 1rem;
+  bottom: 0.3rem;
+  color: black;
+  height: 3rem;
+}
+
+.test2-hidden {
+  display: none;
+}
+
+.test-hidden {
+  display: none;
+}
+
+.darkModeIcon {
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 2rem;
+  bottom: 1rem;
+  left: 2.2rem;
+}
+
+.sunModeIcon {
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 2rem;
+  bottom: 1rem;
+  left: 2.2rem;
 }

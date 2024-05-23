@@ -142,7 +142,7 @@ function HomePage() {
           editTask={editTask}
         />
       )}
-      <section>
+      {/* <section>
         <div className="category">
           <button className="category_btn" type="button">
             Foyer
@@ -171,7 +171,7 @@ function HomePage() {
             Préférences
           </button>
         </div>
-      </section>
+      </section> */}
       <main>
         <DragNDropCalendar
           localizer={mlocalizer}

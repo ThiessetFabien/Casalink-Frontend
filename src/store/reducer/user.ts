@@ -24,7 +24,7 @@ interface UserStateI {
 }
 
 export const initialState: UserStateI = {
-  logged: false,
+  logged: true,
   foyer: 'ma maison',
   credentials: {
     login: {

@@ -25,7 +25,7 @@ function Header() {
         {!isConnected && <BtnConnect />}
         {/* {isConnected && <SideNavBurger />} */}
 
-        <BurgerNav />
+        {/* <BurgerNav /> */}
       </div>
 
       {loginModalIsOpen && <Login />}
