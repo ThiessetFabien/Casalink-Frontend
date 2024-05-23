@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
-import { actionSwitchLoginModal } from '../../store/reducer/modal';
+import {
+  actionSetModeLoginModal,
+  actionSwitchLoginModal,
+} from '../../store/reducer/modal';
 import './LandingPage.scss';
 
 function LandingPage() {
@@ -67,6 +70,7 @@ function LandingPage() {
             className="btn-signin"
             type="button"
             onClick={() => {
+              dispatch(actionSetModeLoginModal('signup'));
               dispatch(actionSwitchLoginModal());
             }}
           >

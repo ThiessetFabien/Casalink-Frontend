@@ -5,7 +5,10 @@ import { X } from 'react-feather';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { actionSwitchLoginModal } from '../../../store/reducer/modal';
+import {
+  actionSetModeLoginModal,
+  actionSwitchLoginModal,
+} from '../../../store/reducer/modal';
 import {
   actionChangeCredentialsSignin,
   actionChangeCredentialsSignup,
@@ -15,8 +18,9 @@ import {
 
 function Login() {
   const dispatch = useAppDispatch();
-  const [loginForm, setLoginForm] = useState(false);
   const backgroundRef = useRef<HTMLDivElement>(null);
+
+  const modLoginModal = useAppSelector((state) => state.modal.loginModalIsMode);
 
   // Input controlled by redux for the login form
   const { emailSignin, passwordSignin } = useAppSelector(
@@ -64,7 +68,7 @@ function Login() {
         >
           <X />
         </button>
-        {loginForm && (
+        {modLoginModal === 'signin' && (
           <LoginForm
             email={emailSignin}
             password={passwordSignin}
@@ -78,7 +82,7 @@ function Login() {
             }}
           />
         )}
-        {!loginForm && (
+        {modLoginModal === 'signup' && (
           <SignupForm
             email={email}
             password={password}
@@ -95,12 +99,12 @@ function Login() {
             }}
           />
         )}
-        {loginForm ? (
+        {modLoginModal === 'signin' ? (
           <button
             className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
-              setLoginForm(false);
+              dispatch(actionSetModeLoginModal('signup'));
               dispatch(actionResetErrorMessage());
               dispatch(actionResetCredential());
             }}
@@ -112,7 +116,7 @@ function Login() {
             className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
-              setLoginForm(true);
+              dispatch(actionSetModeLoginModal('signin'));
               dispatch(actionResetErrorMessage());
               dispatch(actionResetCredential());
             }}

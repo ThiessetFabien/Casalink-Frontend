@@ -34,7 +34,7 @@ function SignupForm({
     if (name === 'email' && !validateEmail(value)) {
       error = 'Email invalide';
     } else if (name === 'password' && !validePassword(value)) {
-      error = `Mot de passe invalide ${password}`;
+      error = `Mot de passe invalide`;
     } else if (name === 'passwordConfirm' && value !== password) {
       error = `Mot de passe différent`;
     } else if (
