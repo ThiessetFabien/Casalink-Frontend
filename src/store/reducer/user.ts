@@ -14,7 +14,7 @@ interface UserStateI {
       password: string;
       passwordConfirm: string;
       street: string;
-      postalCode: string;
+      postalCode: number;
       country: string;
     };
   };
@@ -36,7 +36,7 @@ export const initialState: UserStateI = {
       password: '',
       passwordConfirm: '',
       street: '',
-      postalCode: '',
+      postalCode: 0,
       country: '',
     },
   },
@@ -50,6 +50,17 @@ export const actionChangeCredentials = createAction<{
   value: string;
 }>('user/CHNAGE_CREDENTIAL');
 
+export const actionChangeCredentialsSignup = createAction<{
+  name:
+    | 'email'
+    | 'password'
+    | 'passwordConfirm'
+    | 'street'
+    | 'postalCode'
+    | 'country';
+  value: string;
+}>('user/CHNAGE_CREDENTIAL_SIGNUP');
+
 export const actionLogout = createAction('user/LOG_OUT');
 
 // jwt & pseudo: prorpiétés
@@ -62,6 +73,9 @@ const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(actionChangeCredentials, (state, action) => {
       state.credentials.login[action.payload.name] = action.payload.value;
+    })
+    .addCase(actionChangeCredentialsSignup, (state, action) => {
+      state.credentials.signup[action.payload.name] = action.payload.value;
     })
     .addCase(actionLogout, (state) => {
       state.logged = false;

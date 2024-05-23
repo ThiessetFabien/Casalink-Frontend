@@ -77,7 +77,24 @@ function Login() {
             }}
           />
         )}
-        {!loginForm && <SignupForm />}
+        {!loginForm && (
+          <SignupForm
+            email={email}
+            password={password}
+            passwordConfirm={passwordConfirm}
+            street={street}
+            postalCode={postalCode}
+            country={country}
+            changeField={(name, value) => {
+              dispatch(
+                actionChangeCredentials({
+                  name,
+                  value,
+                })
+              );
+            }}
+          />
+        )}
         {loginForm ? (
           <button
             className="login_modal_changeFormBtn"

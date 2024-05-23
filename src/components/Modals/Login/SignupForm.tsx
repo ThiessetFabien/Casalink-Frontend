@@ -1,4 +1,33 @@
-function SignupForm() {
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+
+interface SignupFormProps {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  street: string;
+  postalCode: number;
+  country: string;
+  changeField: (name: 'emailSignin' | 'passwordSignin', value: string) => void;
+}
+function SignupForm({
+  email,
+  password,
+  passwordConfirm,
+  street,
+  postalCode,
+  country,
+  changeField,
+}: SignupFormProps) {
+  const dispatch = useAppDispatch();
+
+  const errorMessages = useAppSelector((state) => state.user.error);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const resultAction = await dispatch(actionCheckLogin());
+    if (actionCheckLogin.fulfilled.match(resultAction))
+      dispatch(actionSwitchLoginModal());
+  };
   return (
     <form>
       <h1>Inscription</h1>
