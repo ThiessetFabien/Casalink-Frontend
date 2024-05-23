@@ -16,7 +16,6 @@ function LoginForm({ email, password, changeField }: LoginFormProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(errorMessages);
     const resultAction = await dispatch(actionCheckLogin());
     if (actionCheckLogin.fulfilled.match(resultAction))
       dispatch(actionSwitchLoginModal());
