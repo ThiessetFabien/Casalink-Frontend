@@ -18,6 +18,7 @@ $breakpoints: (
   position: fixed;
   border: none;
   left: 1rem;
+  top: 2rem;
   width: 40px;
   height: 40px;
   background-color: transparent;
@@ -77,6 +78,11 @@ $breakpoints: (
   }
 }
 
+.btnSideBarMenu:hover {
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(82, 79, 79, 0.1);
+}
+
 .sideMenu {
   z-index: 1;
   position: fixed;
@@ -95,11 +101,19 @@ $breakpoints: (
   transition: all 0.6s ease-in-out;
 
   &-open {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     @include media(desktop) {
       width: 17vw;
+    }
+  }
+
+  &-hover {
+    @include media(desktop) {
+      width: 5vw;
+      bottom: 0;
+      left: 0;
     }
   }
 }
@@ -173,4 +187,16 @@ $breakpoints: (
   height: 2rem;
   bottom: 1rem;
   left: 2.2rem;
+}
+
+.navLink_desc {
+  display: inline;
+}
+
+.navLink_desc-hidden {
+  display: none;
+}
+
+.sideNavIcon {
+  display: inline;
 }

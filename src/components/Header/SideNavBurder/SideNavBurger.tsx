@@ -1,6 +1,16 @@
 import './SideNavBurger.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { Moon, Sun, ToggleLeft, ToggleRight } from 'react-feather';
+import {
+  AtSign,
+  Home,
+  LogOut,
+  Map,
+  Moon,
+  Sun,
+  ToggleLeft,
+  ToggleRight,
+  Users,
+} from 'react-feather';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import {
@@ -16,8 +26,9 @@ interface SideNavPropsI {
 function SideNavBurger({ isConnected }: SideNavPropsI) {
   const [hideToggleLeft, setHideToggleLeft] = useState(false);
   const [hideToggleRight, setHideToggleRight] = useState(true);
+  const [hoverBtnIsActive, setHoverBtnIsActive] = useState(false);
 
-  const taskModalIsOpen = useAppSelector(
+  const sideMenuModalIsOpen = useAppSelector(
     (state) => state.modal.sideMenuModalIsOpen
   );
   const DarkModeIsActive = useAppSelector(
@@ -28,15 +39,27 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
   return (
     <>
       <button
-        className={`btnSideBarMenu ${taskModalIsOpen && 'btnSideBarMenu-open'}`}
+        className={`btnSideBarMenu ${
+          sideMenuModalIsOpen && 'btnSideBarMenu-open'
+        }`}
         type="button"
         onClick={() => {
           dispatch(actionSwitchSideMenuModal());
         }}
+        onMouseEnter={() => {
+          setHoverBtnIsActive((oldHover) => !oldHover);
+        }}
+        onMouseLeave={() => {
+          setHoverBtnIsActive((oldHover) => !oldHover);
+        }}
       >
         <span className="btnSideBarMenu-bar" />
       </button>
-      <nav className={`sideMenu ${taskModalIsOpen && 'sideMenu-open'}`}>
+      <nav
+        className={`sideMenu ${sideMenuModalIsOpen && 'sideMenu-open'} ${
+          hoverBtnIsActive && 'sideMenu-hover'
+        } `}
+      >
         <NavLink
           to="/"
           className={({ isActive }) => (isActive ? 'active' : '')}
@@ -47,25 +70,61 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           //   };
           // }}
         >
-          Accueil
+          {!sideMenuModalIsOpen && (
+            <Home className="sideNavIcon sideNavIcon-hidden" />
+          )}
+          <span
+            className={`navLink_desc ${
+              hoverBtnIsActive && 'navLink_desc-hidden'
+            }  `}
+          >
+            Accueil
+          </span>
         </NavLink>
         <NavLink
           to="/foyer"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Mon foyer
+          {!sideMenuModalIsOpen && (
+            <Users className="sideNavIcon sideNavIcon-hidden" />
+          )}
+          <span
+            className={`navLink_desc ${
+              hoverBtnIsActive && 'navLink_desc-hidden'
+            }  `}
+          >
+            Mon foyer
+          </span>
         </NavLink>
         <NavLink
           to="/contact"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Contact et mention légales
+          {!sideMenuModalIsOpen && (
+            <AtSign className="sideNavIcon sideNavIcon-hidden" />
+          )}
+          <span
+            className={`navLink_desc ${
+              hoverBtnIsActive && 'navLink_desc-hidden'
+            }  `}
+          >
+            Contact et mention légales
+          </span>
         </NavLink>
         <NavLink
           to="/sitemap"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          Site map
+          {!sideMenuModalIsOpen && (
+            <Map className="sideNavIcon sideNavIcon-hidden" />
+          )}
+          <span
+            className={`navLink_desc ${
+              hoverBtnIsActive && 'navLink_desc-hidden'
+            }  `}
+          >
+            Site map
+          </span>
         </NavLink>
         {isConnected && (
           <Link
@@ -75,7 +134,16 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
               dispatch(actionLogout());
             }}
           >
-            Déconnexion
+            {!sideMenuModalIsOpen && (
+              <LogOut className="sideNavIcon sideNavIcon-hidden" />
+            )}
+            <span
+              className={`navLink_desc ${
+                hoverBtnIsActive && 'navLink_desc-hidden'
+              }  `}
+            >
+              Déconnexion
+            </span>
           </Link>
         )}
 
