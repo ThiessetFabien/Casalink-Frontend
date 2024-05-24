@@ -8,7 +8,7 @@ import actionGetMembers from '../../../store/thunks/checkProfile';
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
-  const membersList = useAppSelector((state) => state.profile.members);
+  const membersList = useAppSelector((state) => state.profile.members) || [];
 
   useEffect(() => {
     if (accountId) {
@@ -43,14 +43,18 @@ function ProfilePage() {
               <h5 className="profilePage_container_member_card_task-to_do">
                 Tâches à faire :
               </h5>
-              <h6 className="profilePage_container_member_card_task_name">
-                - Faire la vaisselle
-              </h6>
+              {member.tasks.map((task, index) => (
+                <h6
+                  key={index}
+                  className="profilePage_container_member_card_task_name"
+                >
+                  - {task}
+                </h6>
+              ))}
               <FaEdit className="profilePage_container_member_card_iconEdit" />
               <FaTrashAlt className="profilePage_container_member_card_iconDelete" />
             </div>
           ))}
-          ;
         </div>
       </div>
     </div>
