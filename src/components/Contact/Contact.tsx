@@ -5,10 +5,10 @@ function Contact() {
     <>
       <div className="contact_background">
         <div className="contact_presentation">
-          <h4 className="contact_titre">
+          <h2 className="contact_title">
             Des questions sans réponses ? Une intérogation particulière ? Nous
             sommes la pour y répondre.
-          </h4>
+          </h2>
           <p className="contact_text">
             CasaLink est une application web conçue pour simplifier la gestion
             des emplois du temps, des tâches domestiques et des événements au

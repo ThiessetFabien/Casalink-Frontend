@@ -3,6 +3,7 @@ import { SiginCredentialsI } from './signinCredentials';
 
 export interface UserStateI {
   logged: boolean;
+  id: null | number;
   foyer: string;
   credentials: {
     login: SiginCredentialsI;
