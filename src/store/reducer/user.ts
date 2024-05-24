@@ -4,12 +4,13 @@ import { UserStateI } from '../../@types/userStateI';
 import actionCheckSignup from '../thunks/checkSignup';
 
 export const initialState: UserStateI = {
-  logged: true,
+  logged: false,
+  id: null,
   foyer: 'ma maison',
   credentials: {
     login: {
-      emailSignin: '',
-      passwordSignin: '',
+      emailSignin: 'toto@gmail.com',
+      passwordSignin: 'Toto#123',
     },
     signup: {
       email: '',
@@ -79,6 +80,8 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionCheckLogin.fulfilled, (state, action) => {
       state.logged = true;
+      console.log(action.payload);
+      state.id = action.payload.id;
       // state.pseudo = action.payload.pseudo;
       // state.token = action.payload.token;
       state.error = null;
