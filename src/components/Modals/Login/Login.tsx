@@ -5,17 +5,22 @@ import { X } from 'react-feather';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import {
-  actionChangeCredentials,
-  actionLogin,
+  actionSetModeLoginModal,
+  actionSwitchLoginModal,
+} from '../../../store/reducer/modal';
+import {
+  actionChangeCredentialsSignin,
+  actionChangeCredentialsSignup,
+  actionResetCredential,
+  actionResetErrorMessage,
 } from '../../../store/reducer/user';
-import actionCheckLogin from '../../../store/thunks/checkLogin';
 
 function Login() {
   const dispatch = useAppDispatch();
-  const [loginForm, setLoginForm] = useState(true);
   const backgroundRef = useRef<HTMLDivElement>(null);
+
+  const modLoginModal = useAppSelector((state) => state.modal.loginModalIsMode);
 
   // Input controlled by redux for the login form
   const { emailSignin, passwordSignin } = useAppSelector(
@@ -23,7 +28,7 @@ function Login() {
   );
 
   // Input controlled by redux for the signup form
-  const { email, password, passwordConfirm, street, postalCode, country } =
+  const { email, password, passwordConfirm, firstname, lastname } =
     useAppSelector((state) => state.user.credentials.signup);
 
   useEffect(() => {
@@ -63,13 +68,13 @@ function Login() {
         >
           <X />
         </button>
-        {loginForm && (
+        {modLoginModal === 'signin' && (
           <LoginForm
             email={emailSignin}
             password={passwordSignin}
-            changeField={(name, value) => {
+            changeFieldSignin={(name, value) => {
               dispatch(
-                actionChangeCredentials({
+                actionChangeCredentialsSignin({
                   name,
                   value,
                 })
@@ -77,13 +82,31 @@ function Login() {
             }}
           />
         )}
-        {!loginForm && <SignupForm />}
-        {loginForm ? (
+        {modLoginModal === 'signup' && (
+          <SignupForm
+            email={email}
+            password={password}
+            passwordConfirm={passwordConfirm}
+            firstname={firstname}
+            lastname={lastname}
+            changeFieldSignup={(name, value) => {
+              dispatch(
+                actionChangeCredentialsSignup({
+                  name,
+                  value,
+                })
+              );
+            }}
+          />
+        )}
+        {modLoginModal === 'signin' ? (
           <button
             className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
-              setLoginForm(false);
+              dispatch(actionSetModeLoginModal('signup'));
+              dispatch(actionResetErrorMessage());
+              dispatch(actionResetCredential());
             }}
           >
             Pas de compte ?
@@ -93,7 +116,9 @@ function Login() {
             className="login_modal_changeFormBtn"
             type="button"
             onClick={() => {
-              setLoginForm(true);
+              dispatch(actionSetModeLoginModal('signin'));
+              dispatch(actionResetErrorMessage());
+              dispatch(actionResetCredential());
             }}
           >
             Déjà un compte ?

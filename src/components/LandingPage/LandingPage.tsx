@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
-import { actionSwitchLoginModal } from '../../store/reducer/modal';
+import {
+  actionSetModeLoginModal,
+  actionSwitchLoginModal,
+} from '../../store/reducer/modal';
 import './LandingPage.scss';
 
 function LandingPage() {
@@ -41,7 +44,7 @@ function LandingPage() {
               type="button"
               onClick={() => setImgTestVisiteur('public/logo192.png')}
             >
-              courses
+              Courses
             </button>
           </li>
           <li className="landingPage_listeItem">
@@ -67,10 +70,11 @@ function LandingPage() {
             className="btn-signin"
             type="button"
             onClick={() => {
+              dispatch(actionSetModeLoginModal('signup'));
               dispatch(actionSwitchLoginModal());
             }}
           >
-            <span className="landingPage_btn-text">S&apos;inscrire</span>
+            <span className="landingPage_btn-text">INSCRIVEZ-VOUS !</span>
           </button>
         </div>
       </div>

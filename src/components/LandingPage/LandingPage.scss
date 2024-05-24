@@ -13,8 +13,8 @@ $breakpoints: (
 }
 
 .btn-functionality {
-  width: 50%;
-  border-radius: 0.2rem;
+  min-width: 8rem;
+  border-radius: 5px;
   padding: 0.2rem;
   font-size: 20px;
   font-weight: bold;
@@ -23,24 +23,21 @@ $breakpoints: (
 }
 
 .landingPage {
-  height: 86vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
 
   &_btn {
-    background-color: v.$bgColor-primary;
+    background-color: v.$textColor-colorBlue;
   }
 
   &_BoxFunctionality {
     background: v.$textColor-colorWhite;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
   }
 
   &_title {
     text-align: center;
-    padding: 0.3rem 0 0 0;
+    padding: 1rem 0 1rem 0;
   }
 
   &_img {
@@ -55,12 +52,12 @@ $breakpoints: (
   &_listeFonctionnalite {
     // background-color: v.$textColor-colorWhite;
     list-style: none;
-
     padding: 0 1rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
+
     @include media(desktop) {
       display: flex;
       flex-wrap: nowrap;
@@ -68,9 +65,8 @@ $breakpoints: (
   }
 
   &_listeItem {
-    width: 40%;
     text-align: center;
-    padding: 1rem 0;
+    padding: 0.3rem 0;
 
     @include media(desktop) {
       padding: auto;
@@ -95,9 +91,12 @@ $breakpoints: (
 
 .btn-signin {
   // position: fixed;
-  background-color: v.$bgColor-primary;
+  background-color: v.$textColor-colorBlue;
   width: 40%;
-  border-radius: 1rem 0 1rem 0;
+  height: 40px;
+  font-weight: bold;
+  color: v.$textColor-colorWhite;
+  border-radius: 5px;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   border: none;
@@ -107,12 +106,12 @@ $breakpoints: (
     margin: 0;
     width: 240px;
     height: 40px;
-    color: v.$textColor-colorDark;
-    border-radius: 1.5rem 0 1.5rem 0;
+    color: v.$textColor-colorWhite;
+    border-radius: 5px;
     // padding: 10px 25px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
-    background: v.$bgColor-primary;
+    background: v.$textColor-colorBlue;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -128,7 +127,8 @@ $breakpoints: (
 }
 
 .btn-functionality {
-  background: v.$bgColor-primary;
+  background: v.$textColor-colorBlue;
+  color: v.$textColor-colorWhite;
   transition: all 0.2s ease-in-out;
 
   border: none;

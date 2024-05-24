@@ -13,14 +13,13 @@ $breakpoints: (
 }
 
 .header {
-  // trouver un moyen de fixed le header
-  // position: fixed;
-  // top: 0;
-  // left: 0;
+  // trouver un moyen de fixed le header. réponse c'est sticky
+  position: sticky;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 9vh;
+  box-shadow: 0px -2px 6px 0px rgb(9, 7, 7);
 
   &_title {
     padding-left: 2rem;
@@ -48,11 +47,11 @@ $breakpoints: (
     width: 160px;
     height: 40px;
     color: v.$textColor-colorDark;
-    border-radius: 20px 0 20px 0;
+    border-radius: 5px;
     padding: 5px 15px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
-    background: v.$bgColor-primary;
+    background: v.$textColor-colorBlue;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -73,10 +72,11 @@ $breakpoints: (
 }
 
 .btn-login {
-  background: v.$bgColor-primary;
+  background: v.$textColor-colorBlue;
   width: 100px;
   height: 40px;
   line-height: 42px;
+  color: v.$textColor-colorWhite;
   padding: 0;
   border: none;
 }
@@ -93,7 +93,7 @@ $breakpoints: (
   content: '';
   right: 0;
   top: 0;
-  background: rgba(2, 126, 251, 1);
+  background: v.$textColor-colorBlue;
   transition: all 0.3s ease;
 }
 .btn-login:before {
@@ -116,7 +116,7 @@ $breakpoints: (
 }
 .btn-login span:hover {
   border-radius: 10px 0 10px;
-  color: rgba(2, 126, 251, 1);
+  color: v.$textColor-colorBlue;
 }
 .btn-login span:before,
 .btn-login span:after {
@@ -124,7 +124,7 @@ $breakpoints: (
   content: '';
   left: 0;
   bottom: 0;
-  background: rgba(2, 126, 251, 1);
+  background: v.$textColor-colorBlue;
   transition: all 0.3s ease;
 }
 .btn-login span:before {

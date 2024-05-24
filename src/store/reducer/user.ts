@@ -1,27 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionCheckLogin from '../thunks/checkLogin';
-
-interface UserStateI {
-  logged: boolean;
-  foyer: string;
-  credentials: {
-    login: {
-      emailSignin: string;
-      passwordSignin: string;
-    };
-    signup: {
-      email: string;
-      password: string;
-      passwordConfirm: string;
-      street: string;
-      postalCode: string;
-      country: string;
-    };
-  };
-  pseudo: null | string;
-  token: null | string;
-  error: null | string;
-}
+import { UserStateI } from '../../@types/userStateI';
+import actionCheckSignup from '../thunks/checkSignup';
 
 export const initialState: UserStateI = {
   logged: true,
@@ -35,9 +15,8 @@ export const initialState: UserStateI = {
       email: '',
       password: '',
       passwordConfirm: '',
-      street: '',
-      postalCode: '',
-      country: '',
+      firstname: '',
+      lastname: '',
     },
   },
   pseudo: null,
@@ -45,12 +24,21 @@ export const initialState: UserStateI = {
   error: null,
 };
 
-export const actionChangeCredentials = createAction<{
+export const actionChangeCredentialsSignin = createAction<{
   name: 'emailSignin' | 'passwordSignin';
   value: string;
-}>('user/CHNAGE_CREDENTIAL');
+}>('user/CHANGE_CREDENTIAL_SIGNIN');
+
+export const actionChangeCredentialsSignup = createAction<{
+  name: 'email' | 'password' | 'passwordConfirm' | 'firstname' | 'lastname';
+  value: string;
+}>('user/CHANGE_CREDENTIAL_SIGNUP');
 
 export const actionLogout = createAction('user/LOG_OUT');
+
+export const actionResetErrorMessage = createAction('user/RESET_ERROR_MESSAGE');
+
+export const actionResetCredential = createAction('user/RESET_CREDENTIAL');
 
 // jwt & pseudo: prorpiétés
 export const actionLogin = createAction<{
@@ -60,8 +48,24 @@ export const actionLogin = createAction<{
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(actionChangeCredentials, (state, action) => {
+    .addCase(actionChangeCredentialsSignin, (state, action) => {
       state.credentials.login[action.payload.name] = action.payload.value;
+    })
+    .addCase(actionChangeCredentialsSignup, (state, action) => {
+      (state.credentials.signup[action.payload.name] as string) =
+        action.payload.value;
+    })
+    .addCase(actionResetErrorMessage, (state) => {
+      state.error = null;
+    })
+    .addCase(actionResetCredential, (state) => {
+      state.credentials.login.emailSignin = '';
+      state.credentials.login.passwordSignin = '';
+      state.credentials.signup.email = '';
+      state.credentials.signup.password = '';
+      state.credentials.signup.passwordConfirm = '';
+      state.credentials.signup.firstname = '';
+      state.credentials.signup.lastname = '';
     })
     .addCase(actionLogout, (state) => {
       state.logged = false;
@@ -79,8 +83,20 @@ const userReducer = createReducer(initialState, (builder) => {
       // state.token = action.payload.token;
       state.error = null;
     })
-    .addCase(actionCheckLogin.rejected, (state, action) => {
+    .addCase(actionCheckLogin.rejected, (state) => {
       state.error = 'Identifiant ou mot de passe inccorect';
+    })
+    .addCase(actionCheckSignup.fulfilled, (state, action) => {
+      state.logged = true;
+      // state.pseudo = action.payload.pseudo;
+      // state.token = action.payload.token;
+      state.error = null;
+    })
+    .addCase(actionCheckSignup.rejected, (state, action) => {
+      if (typeof action.payload === 'object' && action.payload !== null) {
+        const { message } = action.payload as { message: string };
+        if (typeof message === 'string') state.error = message;
+      }
     });
 });
 

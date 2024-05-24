@@ -2,6 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit';
 
 interface ModalStateI {
   loginModalIsOpen: boolean;
+  loginModalIsMode: 'signin' | 'signup';
   taskModalIsOpen: boolean;
   sideMenuModalIsOpen: boolean;
   darkModeIsActive: boolean;
@@ -9,6 +10,7 @@ interface ModalStateI {
 
 export const initialState: ModalStateI = {
   loginModalIsOpen: false,
+  loginModalIsMode: 'signin',
   taskModalIsOpen: false,
   sideMenuModalIsOpen: false,
   darkModeIsActive: false,
@@ -20,6 +22,9 @@ export const actionSwitchSideMenuModal = createAction(
   'modal/SWITCH_SIDEMENU_MODAL'
 );
 export const actionSwitchDarkMode = createAction('modal/SWITCH_DARKMODE_MODAL');
+export const actionSetModeLoginModal = createAction<'signin' | 'signup'>(
+  'modal/SET_MODE_LOGIN_MODAL'
+);
 
 const modalReducer = createReducer(initialState, (builder) => {
   builder
@@ -34,6 +39,9 @@ const modalReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionSwitchDarkMode, (state) => {
       state.darkModeIsActive = !state.darkModeIsActive;
+    })
+    .addCase(actionSetModeLoginModal, (state, action) => {
+      state.loginModalIsMode = action.payload;
     });
 });
 

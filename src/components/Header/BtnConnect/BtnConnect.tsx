@@ -1,5 +1,8 @@
 import { useAppDispatch } from '../../../hooks/redux';
-import { actionSwitchLoginModal } from '../../../store/reducer/modal';
+import {
+  actionSetModeLoginModal,
+  actionSwitchLoginModal,
+} from '../../../store/reducer/modal';
 
 function BtnConnect() {
   const dispatch = useAppDispatch();
@@ -8,6 +11,7 @@ function BtnConnect() {
       className="header_btn btn-login"
       type="button"
       onClick={() => {
+        dispatch(actionSetModeLoginModal('signin'));
         dispatch(actionSwitchLoginModal());
       }}
     >

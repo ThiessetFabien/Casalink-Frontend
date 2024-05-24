@@ -1,4 +1,4 @@
-// @use '../../styles/variables' as v;
+ @use '../../../styles/variables' as v;
 
 $breakpoints: (
   mobile: '(max-width: 424px)',
@@ -81,15 +81,18 @@ $breakpoints: (
       }
 
       button {
-        border-radius: 10px;
+        border-radius: 5px;
+        padding: 0.3rem;
         border: none;
-        background-color: #007a04;
+        cursor: pointer;
+        background-color: v.$textColor-colorBlue;
         color: white;
         font-weight: 500;
       }
 
       .errorMessage {
         color: red;
+        font-size: 0.9rem;
       }
     }
 
