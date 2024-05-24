@@ -37,7 +37,7 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
   const dispatch = useAppDispatch();
 
   return (
-    <>
+    <div className="sideMenuContainer">
       <button
         className={`btnSideBarMenu ${
           sideMenuModalIsOpen && 'btnSideBarMenu-open'
@@ -169,7 +169,7 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           <Moon className="sunModeIcon" />
         )}
       </nav>
-    </>
+    </div>
   );
 }
 

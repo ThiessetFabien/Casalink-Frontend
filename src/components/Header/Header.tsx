@@ -16,13 +16,17 @@ function Header() {
     <div className="header">
       <div className="header_menuItems">
         <Link to="/" className="header_title">
-          CasaLink
+          <img
+            className="header_logo"
+            src="public/logo-casalink-lettre.svg"
+            alt="logo casaLink"
+          />
         </Link>
 
         {!isConnected && <BtnConnect />}
         {/* {isConnected && <SideNavBurger />} */}
-        <SideNavBurger isConnected={isConnected} />
       </div>
+      <SideNavBurger isConnected={isConnected} />
       {isConnected && <UserHeader />}
       {loginModalIsOpen && <Login />}
     </div>

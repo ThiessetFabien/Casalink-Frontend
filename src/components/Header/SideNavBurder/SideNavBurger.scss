@@ -84,7 +84,6 @@ $breakpoints: (
 }
 
 .sideMenu {
-  z-index: 1;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -92,8 +91,7 @@ $breakpoints: (
   justify-content: start;
   left: -100%;
   bottom: 0;
-
-  background-color: white;
+  // background-color: white;
   height: 91vh;
   width: 100vw;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
@@ -199,4 +197,9 @@ $breakpoints: (
 
 .sideNavIcon {
   display: inline;
+}
+
+.sideMenuContainer {
+  z-index: 50;
+  background-color: red;
 }

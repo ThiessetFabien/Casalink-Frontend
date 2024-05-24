@@ -29,6 +29,12 @@ $breakpoints: (
     font-weight: bold;
   }
 
+  &_logo {
+    width: 10%;
+    height: 10%;
+    margin: auto;
+  }
+
   &_menuItems {
     padding-left: 1rem;
     width: 100%;
