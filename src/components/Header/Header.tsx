@@ -14,6 +14,8 @@ function Header() {
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
     <div className="header">
+      <SideNavBurger isConnected={isConnected} />
+
       <div className="header_menuItems">
         <Link to="/" className="header_title">
           <img
@@ -22,12 +24,12 @@ function Header() {
             alt="logo casaLink"
           />
         </Link>
+        {isConnected && <UserHeader />}
 
         {!isConnected && <BtnConnect />}
         {/* {isConnected && <SideNavBurger />} */}
       </div>
-      <SideNavBurger isConnected={isConnected} />
-      {isConnected && <UserHeader />}
+
       {loginModalIsOpen && <Login />}
     </div>
   );

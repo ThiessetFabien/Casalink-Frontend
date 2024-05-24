@@ -14,11 +14,13 @@ $breakpoints: (
 
 .header {
   // trouver un moyen de fixed le header. réponse c'est sticky
+  z-index: 10;
   position: sticky;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 9vh;
+  height: 8vh;
   box-shadow: 0px -2px 6px 0px rgb(9, 7, 7);
 
   &_title {
@@ -39,8 +41,8 @@ $breakpoints: (
     padding-left: 1rem;
     width: 100%;
     display: flex;
-    align-items: baseline;
-    justify-content: start;
+    align-items: center;
+    justify-content: center;
 
     @include media(desktop) {
       justify-content: center;
@@ -85,6 +87,8 @@ $breakpoints: (
   color: v.$textColor-colorWhite;
   padding: 0;
   border: none;
+  position: fixed;
+  right: 1rem;
 }
 
 .btn-login span {
