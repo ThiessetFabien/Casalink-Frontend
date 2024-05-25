@@ -17,8 +17,8 @@ $breakpoints: (
   display: block;
   position: fixed;
   border: none;
-  left: 1rem;
-  top: 2rem;
+  left: 0.5rem;
+  top: 1.5rem;
   width: 40px;
   height: 40px;
   background-color: transparent;
@@ -89,31 +89,61 @@ $breakpoints: (
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  left: -100%;
+  left: 0;
+  padding-right: 0.2rem;
   bottom: 0;
   background-color: white;
   height: 92vh;
-  width: 100vw;
+  width: 5vw;
   box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(82, 79, 79, 0.1);
   transition: all 0.6s ease-in-out;
 
-  &-open {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    @include media(desktop) {
-      width: 17vw;
-    }
-  }
+  // &-open {
+  //   position: fixed;
+  //   left: 0;
+  //   bottom: 0;
+  //   @include media(desktop) {
+  //     width: 17vw;
+  //   }
+  // }
+}
 
-  &-hover {
-    @include media(desktop) {
-      width: 5vw;
-      bottom: 0;
-      left: 0;
-    }
-  }
+.sideMenu-open {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  left: 0;
+  padding-right: 0.2rem;
+  bottom: 0;
+  background-color: white;
+  height: 92vh;
+  width: 17vw;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(82, 79, 79, 0.1);
+  transition: all 0.6s ease-in-out;
+
+  // &-open {
+  //   position: fixed;
+  //   left: 0;
+  //   bottom: 0;
+  //   @include media(desktop) {
+  //     width: 17vw;
+  //   }
+  // }
+}
+
+.sideMenu-open a {
+  color: black;
+  width: 99%;
+  border: none;
+  background-color: transparent;
+  text-align: start;
+  padding: 0.6rem 1.3rem;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
 }
 
 .sideMenu a {
@@ -122,12 +152,13 @@ $breakpoints: (
   border: none;
   background-color: transparent;
   text-align: center;
-  padding: 0.6rem;
+  padding: 0.6rem 1.3rem;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 
-.sideMenu a.active {
+.sideMenu a.active,
+.sideMenu-open a.active {
   width: 99%;
   padding: auto;
   border-radius: 0.6rem;
@@ -135,7 +166,8 @@ $breakpoints: (
   box-shadow: 2px 2px 5px 3px rgb(94, 89, 89);
 }
 
-.sideMenu a:hover {
+.sideMenu a:hover,
+.sideMenu-open a:hover {
   width: 99%;
   padding: auto;
   border-radius: 0.6rem;
@@ -143,63 +175,54 @@ $breakpoints: (
   box-shadow: 2px 2px 5px 3px rgb(94, 89, 89);
 }
 
-.test {
+.toggleLeft {
   display: block;
-  position: absolute;
-  left: 1rem;
-  bottom: 0.3rem;
+  position: fixed;
+  left: 3.5rem;
+  bottom: 0.2rem;
   color: black;
   height: 3rem;
 }
 
-.test2 {
+.toggleLeft-hidden {
+  display: none;
+}
+
+.toggleRight {
   display: block;
-  position: absolute;
-  left: 1rem;
-  bottom: 0.3rem;
+  position: fixed;
+  left: 3.5rem;
+  bottom: 0.2rem;
   color: black;
   height: 3rem;
 }
 
-.test2-hidden {
+.toggleRight-hidden {
   display: none;
-}
-
-.test-hidden {
-  display: none;
-}
-
-.darkModeIcon {
-  display: block;
-  position: absolute;
-  width: 60px;
-  height: 2rem;
-  bottom: 1rem;
-  left: 2.2rem;
 }
 
 .sunModeIcon {
   display: block;
-  position: absolute;
+  position: fixed;
   width: 60px;
   height: 2rem;
-  bottom: 1rem;
-  left: 2.2rem;
-}
+  bottom: 0.8rem;
+  left: 0rem;
 
-.navLink_desc {
-  display: inline;
-}
-
-.navLink_desc-hidden {
-  display: none;
+  &-open {
+    width: 60px;
+    position: fixed;
+    bottom: 0.8rem;
+    left: 0rem;
+  }
 }
 
 .sideNavIcon {
   display: inline;
+  text-align: center;
+  margin: auto;
 }
 
-.sideMenuContainer {
-  z-index: 50;
-  background-color: red;
+.navLink_desc-hidden {
+  display: none;
 }

@@ -26,7 +26,6 @@ interface SideNavPropsI {
 function SideNavBurger({ isConnected }: SideNavPropsI) {
   const [hideToggleLeft, setHideToggleLeft] = useState(false);
   const [hideToggleRight, setHideToggleRight] = useState(true);
-  const [hoverBtnIsActive, setHoverBtnIsActive] = useState(false);
 
   const sideMenuModalIsOpen = useAppSelector(
     (state) => state.modal.sideMenuModalIsOpen
@@ -46,19 +45,11 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
         onClick={() => {
           dispatch(actionSwitchSideMenuModal());
         }}
-        onMouseEnter={() => {
-          setHoverBtnIsActive((oldHover) => !oldHover);
-        }}
-        onMouseLeave={() => {
-          setHoverBtnIsActive((oldHover) => !oldHover);
-        }}
       >
         <span className="btnSideBarMenu-bar" />
       </button>
       <nav
-        className={`sideMenu ${sideMenuModalIsOpen && 'sideMenu-open'} ${
-          hoverBtnIsActive && 'sideMenu-hover'
-        } `}
+        className={` ${sideMenuModalIsOpen ? 'sideMenu-open' : 'sideMenu'} `}
       >
         <NavLink
           to="/"
@@ -70,13 +61,11 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           //   };
           // }}
         >
-          {!sideMenuModalIsOpen && (
-            <Home className="sideNavIcon sideNavIcon-hidden" />
-          )}
+          <Home className="sideNavIcon" />
           <span
             className={`navLink_desc ${
-              hoverBtnIsActive && 'navLink_desc-hidden'
-            }  `}
+              sideMenuModalIsOpen ? '' : 'navLink_desc-hidden'
+            } `}
           >
             Accueil
           </span>
@@ -85,12 +74,10 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           to="/foyer"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          {!sideMenuModalIsOpen && (
-            <Users className="sideNavIcon sideNavIcon-hidden" />
-          )}
+          <Users className="sideNavIcon" />
           <span
             className={`navLink_desc ${
-              hoverBtnIsActive && 'navLink_desc-hidden'
+              sideMenuModalIsOpen ? '' : 'navLink_desc-hidden'
             }  `}
           >
             Mon foyer
@@ -100,28 +87,24 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           to="/contact"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          {!sideMenuModalIsOpen && (
-            <AtSign className="sideNavIcon sideNavIcon-hidden" />
-          )}
+          <AtSign className="sideNavIcon" />
           <span
             className={`navLink_desc ${
-              hoverBtnIsActive && 'navLink_desc-hidden'
-            }  `}
+              sideMenuModalIsOpen ? '' : 'navLink_desc-hidden'
+            } `}
           >
-            Contact et mention légales
+            Contact
           </span>
         </NavLink>
         <NavLink
           to="/sitemap"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
-          {!sideMenuModalIsOpen && (
-            <Map className="sideNavIcon sideNavIcon-hidden" />
-          )}
+          <Map className="sideNavIcon" />
           <span
             className={`navLink_desc ${
-              hoverBtnIsActive && 'navLink_desc-hidden'
-            }  `}
+              sideMenuModalIsOpen ? '' : 'navLink_desc-hidden'
+            } `}
           >
             Site map
           </span>
@@ -134,13 +117,11 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
               dispatch(actionLogout());
             }}
           >
-            {!sideMenuModalIsOpen && (
-              <LogOut className="sideNavIcon sideNavIcon-hidden" />
-            )}
+            <LogOut className="sideNavIcon" />
             <span
               className={`navLink_desc ${
-                hoverBtnIsActive && 'navLink_desc-hidden'
-              }  `}
+                sideMenuModalIsOpen ? '' : 'navLink_desc-hidden'
+              } `}
             >
               Déconnexion
             </span>
@@ -148,7 +129,9 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
         )}
 
         <ToggleLeft
-          className={`test ${!hideToggleRight && 'test-hidden'}`}
+          className={`${
+            sideMenuModalIsOpen ? 'toggleLeft' : 'toggleLeft-hidden'
+          } ${!hideToggleRight && 'toggleLeft-hidden'}`}
           onClick={() => {
             setHideToggleRight((oldHide) => !oldHide);
             setHideToggleLeft((oldHide) => !oldHide);
@@ -156,7 +139,9 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           }}
         />
         <ToggleRight
-          className={`test2 ${hideToggleRight ? 'test2-hidden' : ''}`}
+          className={`${
+            sideMenuModalIsOpen ? 'toggleRight' : 'toggleRight-hidden'
+          } ${hideToggleRight && 'toggleRight-hidden'}`}
           onClick={() => {
             setHideToggleRight(!hideToggleRight);
             setHideToggleLeft(!hideToggleLeft);
@@ -164,9 +149,21 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
           }}
         />
         {DarkModeIsActive ? (
-          <Sun className="darkModeIcon" />
+          <Sun
+            className={`${
+              sideMenuModalIsOpen
+                ? 'sunModeIcon sunModeIcon-open'
+                : 'sunModeIcon'
+            } `}
+          />
         ) : (
-          <Moon className="sunModeIcon" />
+          <Moon
+            className={`${
+              sideMenuModalIsOpen
+                ? 'sunModeIcon sunModeIcon-open'
+                : 'sunModeIcon'
+            } `}
+          />
         )}
       </nav>
     </div>

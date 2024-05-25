@@ -14,7 +14,7 @@ function Header() {
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
     <div className="header">
-      <SideNavBurger isConnected={isConnected} />
+      {/* <SideNavBurger isConnected={isConnected} /> */}
 
       <div className="header_menuItems">
         <Link to="/" className="header_title">

@@ -8,6 +8,20 @@ html {
 .app {
   width: 100vw;
   height: 100vh;
+  position: relative;
+}
+
+.mainContainer {
+  display: flex;
+  height: 87vh;
+}
+
+.mainContainer:nth-child(1) {
+  flex-grow: 0;
+}
+
+.mainContainer:nth-child(2) {
+  flex-grow: 1;
 }
 
 ul {
