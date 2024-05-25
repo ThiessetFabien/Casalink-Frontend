@@ -25,14 +25,16 @@ const actionGetMembers = createAsyncThunk<
   ProfilePayload,
   { state: RootState }
 >('profile/GET_MEMBERS', async (payload: ProfilePayload, thunkAPI) => {
-  const state = thunkAPI.getState() as RootState;
+  // const state = thunkAPI.getState() as RootState;
   try {
+    console.log('Fetching members...');
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
+    console.log('Members received:', response.data);
     // const { pseudo, token } = response.data;
     // addTokenJwtToAxiosInstance(token);
     // addTokenAndPseudoToLocalStorage(token, pseudo);
     //  return { pseudo, token };
-    return response.data;
+    return { members: response.data.data.profile };
   } catch (error) {
     const axiosError = error as AxiosError;
     return thunkAPI.rejectWithValue(axiosError.response?.data);
