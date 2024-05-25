@@ -13,18 +13,18 @@ import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import SiteMap from '../SiteMap/SiteMap';
 import NotFount from '../404/404';
 import ProfilePage from './ProfilePage/profilePage';
-import Test2 from '../test/test';
+import SideMenu from '../SideMenu/SideMenu';
 
 function App() {
-  const islLogged = useAppSelector((state) => state.user.logged);
+  const isLogged = useAppSelector((state) => state.user.logged);
   return (
     <div className="app">
       <Header />
       <div className="mainContainer">
-        <Test2 />
+        {isLogged && <SideMenu />}
 
         <Routes>
-          {islLogged ? (
+          {isLogged ? (
             <Route path="/" element={<HomePage />} />
           ) : (
             <Route path="/" element={<LandingPage />} />

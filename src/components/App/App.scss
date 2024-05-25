@@ -18,10 +18,12 @@ html {
 
 .mainContainer:nth-child(1) {
   flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .mainContainer:nth-child(2) {
   flex-grow: 1;
+  flex-shrink: 1;
 }
 
 ul {

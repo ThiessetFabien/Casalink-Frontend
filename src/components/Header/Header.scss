@@ -12,7 +12,20 @@ $breakpoints: (
   }
 }
 
+.dark.header {
+  background: linear-gradient(
+    to right,
+    v.$textColor-colorDark-Blue 20%,
+    white 50%,
+    white 50%,
+    v.$textColor-colorDark-Blue 100%
+  );
+
+  transition: all 0.6s ease-in-out;
+}
+
 .header {
+  transition: all 0.6s ease-in-out;
   // trouver un moyen de fixed le header. réponse c'est sticky
   z-index: 10;
   position: sticky;
@@ -21,8 +34,14 @@ $breakpoints: (
   justify-content: center;
   align-items: center;
   height: 8vh;
-  box-shadow: 0px -2px 6px 0px rgb(9, 7, 7);
-
+  background: linear-gradient(
+    to right,
+    v.$textColor-colorBlue 20%,
+    white 50%,
+    white 50%,
+    v.$textColor-colorBlue 100%
+  );
+  // box-shadow: 0px -2px 6px 0px rgb(9, 7, 7);
   &_title {
     padding-left: 2rem;
     text-decoration: none;

@@ -5,18 +5,17 @@ import Login from '../Modals/Login/Login';
 import UserHeader from './UserHeader/UserConnectedHeader';
 import BtnConnect from './BtnConnect/BtnConnect';
 import { useAppSelector } from '../../hooks/redux';
-import SideNavBurger from './SideNavBurder/SideNavBurger';
 
 function Header() {
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
   const loginModalIsOpen = useAppSelector(
     (state) => state.modal.loginModalIsOpen
   );
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
-    <div className="header">
-      {/* <SideNavBurger isConnected={isConnected} /> */}
-
+    <div className={`${isDarkMode ? 'dark' : ''} header`}>
       <div className="header_menuItems">
+        {isConnected && <UserHeader />}
         <Link to="/" className="header_title">
           <img
             className="header_logo"
@@ -24,10 +23,8 @@ function Header() {
             alt="logo casaLink"
           />
         </Link>
-        {isConnected && <UserHeader />}
 
         {!isConnected && <BtnConnect />}
-        {/* {isConnected && <SideNavBurger />} */}
       </div>
 
       {loginModalIsOpen && <Login />}

@@ -22,17 +22,16 @@ $breakpoints: (
   @include media(desktop) {
   }
 
-  &_avatar {
-    margin-right: 2rem;
-    padding: 0.2rem;
-    width: 60px;
-    @include media(desktop) {
-    }
-  }
-
   &_name {
     font-weight: bold;
     @include media(desktop) {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      text-align: center;
+      position: fixed;
+      left: 2rem;
+      background-image: 'public/testavatar.png';
     }
   }
 

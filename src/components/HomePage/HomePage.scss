@@ -15,9 +15,13 @@ $breakpoints: (
 
 .HomePage {
   display: flex;
-  width: 100%;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
   height: 84vh;
   position: relative;
+  margin: auto;
+  padding: auto;
 
   section {
     border-right: 1px solid black;
