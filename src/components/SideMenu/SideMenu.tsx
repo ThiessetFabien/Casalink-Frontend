@@ -8,16 +8,19 @@ import './SideMenu.scss';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { actionSwitchDarkMode } from '../../store/reducer/modal';
+import {
+  actionSwitchDarkMode,
+  actionSwitchSideMenuModal,
+} from '../../store/reducer/modal';
 
 function SideMenu() {
   const dispatch = useAppDispatch();
 
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
+  const openMenu = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
 
-  const [openMenu, setOpenMenu] = useState(false);
   const openOrCloseMenu = () => {
-    setOpenMenu(!openMenu);
+    dispatch(actionSwitchSideMenuModal());
   };
   const navigate = useNavigate();
   const handleHomeClick = () => {
