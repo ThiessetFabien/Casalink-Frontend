@@ -82,11 +82,32 @@ $breakpoints: (
         text-align: center;
       }
 
-      .profilePage_container_member_card_task_name {
+      .profilePage_container_member_card_task {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        box-shadow: 1px 5px 5px 0px lightgrey;
+
+      }
+
+      .profilePage_container_member_card_task_headerDate {
+        width: 100%;
+        background-color: v.$textColor-colorOrange;
+        color: white;
+        font-weight: 500;
+        border-radius: 5px 5px 0 0;
+      }
+
+      .profilePage_container_member_card_task_containerName {
+        width: 100%;
+        background-color: white;
+      }
+
+      .profilePage_container_member_card_task_name, .profilePage_container_member_card_task_date {
         font-size: 1rem;
-        margin: 1rem 0;
-        font-weight: 200;
-        text-align: justify;
+        font-weight: 500;
+        text-align: center;
+        padding: 0.4rem 0;
       }
 
       .profilePage_container_member_card_icones {

@@ -25,23 +25,16 @@ function ProfilePage() {
     }
   }, [dispatch, membersList]);
 
-  console.log('!!!! ProfilePage Members:', membersList);
-  console.log('!!!! ProfilePage Tasks:', tasksList);
-
   const tasksByMember = useMemo(() => {
     const result = membersList.reduce((acc, member) => {
       if (member.id !== null) {
         const memberTasks = tasksList.filter((task) => {
-          console.log('profile id: ', task.profile_id);
-          console.log('member.id:', member.id);
           return task.profile_id === member.id;
         });
-        console.log(`Tasks for member ${member.id}:`, memberTasks);
         acc[member.id] = memberTasks;
       }
       return acc;
     }, {} as Record<number, typeof tasksList>);
-    console.log('Tasks grouped by member:', result);
     return result;
   }, [membersList, tasksList]);
 
@@ -92,28 +85,25 @@ function ProfilePage() {
                   </h5>
                   {tasksByMember[member.id] &&
                   tasksByMember[member.id].length > 0 ? (
-                    (console.log(
-                      'Tasks for member in boucle',
-                      member.id,
-                      ':',
-                      tasksByMember[member.id]
-                    ),
                     tasksByMember[member.id].map((task) => (
                       <div
                         key={task.id}
                         className="profilePage_container_member_card_task"
                       >
-                        <h6 className="profilePage_container_member_card_task_name">
-                          - {task.name}
-                        </h6>
-                        <p>
-                          Date :{' '}
-                          {format(new Date(task.start_date), 'dd MMMM yyyy', {
-                            locale: fr,
-                          })}
-                        </p>
+                        <div className="profilePage_container_member_card_task_headerDate">
+                          <p className="profilePage_container_member_card_task_date">
+                            {format(new Date(task.start_date), 'dd MMMM yyyy', {
+                              locale: fr,
+                            })}
+                          </p>
+                        </div>
+                        <div className="profilePage_container_member_card_task_containerName">
+                          <h6 className="profilePage_container_member_card_task_name">
+                            - {task.name}
+                          </h6>
+                        </div>
                       </div>
-                    )))
+                    ))
                   ) : (
                     <p>Aucune tâche assignée.</p>
                   )}
