@@ -18,4 +18,7 @@ export interface MemberStateI {
   score: number;
   tasks: string[];
   avatar: string;
+  role: string;
+  pin: number;
+  email: string;
 }
