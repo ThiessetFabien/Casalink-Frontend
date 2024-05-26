@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { TbMoonFilled } from 'react-icons/tb';
+import { BiHomeAlt2 } from 'react-icons/bi';
+import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
+import { HiMail } from 'react-icons/hi';
+import { IoLogOut } from 'react-icons/io5';
 
 import './Header.scss';
 import Login from '../Modals/Login/Login';
-import UserHeader from './UserHeader/UserConnectedHeader';
 import BtnConnect from './BtnConnect/BtnConnect';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { actionSwitchSideMenuModal } from '../../store/reducer/modal';
+import {
+  actionSwitchDarkMode,
+  actionSwitchSideMenuModal,
+} from '../../store/reducer/modal';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -16,6 +22,10 @@ function Header() {
   );
   const isMenuOpen = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
   const isConnected = useAppSelector((state) => state.user.logged);
+
+  const HandleSwitchDarkMode = () => {
+    dispatch(actionSwitchDarkMode());
+  };
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       <img
@@ -39,21 +49,58 @@ function Header() {
           isMenuOpen ? 'header_menuMobile-open' : 'header_menuMobile'
         }`}
       >
-        <Link to="/" className="header_menuMobile_link">
-          Accueil
-        </Link>
-        <Link to="/" className="header_menuMobile_link">
-          Mon foyer
-        </Link>
-        <Link to="/" className="header_menuMobile_link">
-          Préférences
-        </Link>
-        <Link to="/" className="header_menuMobile_link">
-          Contact
-        </Link>
-        <Link to="/" className="header_menuMobile_link">
-          Déconnexion
-        </Link>
+        <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
+          <div>
+            <BiHomeAlt2 className="header_menuMobile_icon" />
+          </div>
+          <Link to="/" className="header_menuMobile_link">
+            Accueil
+          </Link>
+        </div>
+        <div className="header_menuMobileDiv">
+          <MdFamilyRestroom className="header_menuMobile_icon" />
+          <Link to="/foyer" className="header_menuMobile_link">
+            Mon foyer
+          </Link>
+        </div>
+        <div className="header_menuMobileDiv">
+          <MdSettingsSuggest className="header_menuMobile_icon" />
+          <Link to="/setting" className="header_menuMobile_link">
+            Préférences
+          </Link>
+        </div>
+        <div className="header_menuMobileDiv">
+          <HiMail className="header_menuMobile_icon" />
+          <Link to="/contact" className="header_menuMobile_link">
+            Contact
+          </Link>
+        </div>
+        <div className="header_menuMobileDiv">
+          <IoLogOut className="header_menuMobile_icon" />
+          <Link to="/" className="header_menuMobile_link">
+            Déconnexion
+          </Link>
+        </div>
+        <div className="header_menuMobileDiv">
+          {isDarkMode ? (
+            <TbMoonFilled
+              className={`header_menuMobile_icon `}
+              onClick={HandleSwitchDarkMode}
+            />
+          ) : (
+            <MdWbSunny
+              className="header_menuMobile_icon"
+              onClick={HandleSwitchDarkMode}
+            />
+          )}
+          <Link
+            to="/"
+            className="header_menuMobile_link"
+            onClick={HandleSwitchDarkMode}
+          >
+            {isDarkMode ? 'Switch light' : 'Switch dark'}
+          </Link>
+        </div>
       </div>
       {/* <div className="header_BtnMenuMobileDiv">
         <GiHamburgerMenu

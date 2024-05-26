@@ -16,13 +16,35 @@ $breakpoints: (
   background: linear-gradient(
     to right,
     v.$textColor-colorDark-Blue 20%,
-    white 50%,
-    white 50%,
+    white 40%,
+    white 60%,
     v.$textColor-colorDark-Blue 100%
   );
 
   transition: all 0.6s ease-in-out;
   position: relative;
+}
+.dark .header_menuMobile-open {
+  background-color: v.$textColor-colorDark-Blue;
+}
+
+.dark .header_BtnMenuMobile {
+  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
+    0px 0px 10px 0px v.$textColor-colorWhite,
+    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  background-color: v.$bgColor-White;
+}
+
+.dark .header_menuMobile_icon {
+  background-color: v.$textColor-colorBlue;
+  color: v.$textColor-colorDark-Blue;
+  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
+    0px 0px 10px 0px v.$textColor-colorWhite,
+    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+}
+
+.dark .header_menuMobile_link {
+  color: v.$textColor-colorBlue;
 }
 
 .header {
@@ -34,14 +56,14 @@ $breakpoints: (
   position: sticky;
   top: 0;
   height: 8vh;
+
   background: linear-gradient(
-    to right,
+    217deg,
     v.$textColor-colorBlue 20%,
     white 50%,
     white 50%,
     v.$textColor-colorBlue 100%
   );
-
   &_BtnMenuMobile {
     display: flex;
     align-items: center;
@@ -72,9 +94,10 @@ $breakpoints: (
   &-bar::after {
     position: relative;
     width: 1.5rem;
-    height: 0.2rem;
+    height: 0.15rem;
     background-color: v.$textColor-colorBlue;
     transition: 0.6s ease-in-out all;
+    border-radius: 20%;
   }
 
   &-bar::before,
@@ -108,15 +131,15 @@ $breakpoints: (
   }
 
   &_menuMobile {
-    background: transparent;
+    background-color: v.$bgColor-White;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     // background-color: red;
     position: fixed;
-    bottom: 80%;
-    right: 80%;
+    bottom: 100%;
+    right: 40%;
     height: 100vh;
     width: 100vw;
     font-size: 0;
@@ -146,16 +169,44 @@ $breakpoints: (
     }
   }
 
-  &_menuMobile_link {
+  &_menuMobileDiv {
+    margin: 0.5rem;
+    position: relative;
+    width: 100vw;
+    text-align: center;
+    border-top: 2px solid v.$textColor-colorBlue;
+    padding: 1rem;
     color: v.$textColor-colorBlue;
+    transition: all 0.4s ease-in-out;
+  }
+
+  &_menuMobile_link {
+    color: inherit;
     font-weight: bold;
     font-size: 1.3rem;
-    border-top: 1px solid v.$textColor-colorBlue;
     width: 100%;
     text-align: center;
     margin: 0.5rem;
     text-decoration: none;
-    padding-top: 0.8rem;
+  }
+
+  &_menuMobile_icon {
+    color: v.$textColor-colorBlue;
+    background-color: v.$textColor-colorWhite;
+    position: absolute;
+    top: -30%;
+    right: 46.5%;
+    font-size: 2rem;
+    padding: 0.5rem;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
+      7px 7px 20px 0px v.$textColor-colorWhite,
+      4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  }
+
+  &_menuMobileDiv:hover {
+    background-color: v.$textColor-colorBlue;
+    color: v.$bgColor-White;
   }
 
   &_avatar {
@@ -175,6 +226,7 @@ $breakpoints: (
   &_avatar-menuOpen {
     display: none;
     @include media(desktop) {
+      display: block;
       width: 100px;
       height: 100px;
       border-radius: 100%;
