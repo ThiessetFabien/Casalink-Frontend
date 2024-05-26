@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import type { RootState } from '..';
 import axiosInstance from '../../axios/axios';
+import { TaskStateI } from '../../@types/memberStateI';
 
 interface Task {
   id: null | number;
@@ -13,30 +14,28 @@ interface Task {
   reward_point: number;
   category_id: number;
   priority: string;
-  profileId: number;
-}
-
-interface TasksState {
-  tasks: Task[];
+  profile_id: number;
 }
 
 interface TaskPayload {
   id: number | null;
+  profile_id: number;
 }
 
-export const initialState: TasksState = {
-  tasks: [],
-};
-
 const actionFetchTasks = createAsyncThunk<
-  TasksState,
+  { tasks: TaskStateI[] },
   TaskPayload,
   { state: RootState }
 >('profile/FETCH_TASKS', async (payload: TaskPayload, thunkAPI) => {
+  // try {
+  //   const response = await axiosInstance.get(`/task/profile/${payload.id}`);
+  //   return { tasks: response.data.data.tasks, profile_id: payload.profile_id };
+  // } catch (error) {
+  //   const axiosError = error as AxiosError;
+  //   return thunkAPI.rejectWithValue(axiosError.response?.data);
+  // }
   try {
-    console.log('Fetching tasks...');
-    const response = await axiosInstance.get(`/task/profile/${payload.id}`);
-    console.log('tasks received:', response.data);
+    const response = await axiosInstance.get(`/task/`);
     return { tasks: response.data.data.tasks };
   } catch (error) {
     const axiosError = error as AxiosError;

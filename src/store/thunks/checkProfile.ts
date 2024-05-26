@@ -2,34 +2,20 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import type { RootState } from '..';
 import axiosInstance from '../../axios/axios';
-
-interface Member {
-  id: null | number;
-  name: string;
-  birthday: Date;
-  score: number;
-  tasks: string[];
-  avatar: string;
-}
-
-interface MembersState {
-  members: Member[];
-}
+import { MemberStateI } from '../../@types/memberStateI';
 
 interface ProfilePayload {
   id: number | null;
 }
 
 const actionGetMembers = createAsyncThunk<
-  MembersState,
+  { members: MemberStateI[] },
   ProfilePayload,
   { state: RootState }
 >('profile/GET_MEMBERS', async (payload: ProfilePayload, thunkAPI) => {
   // const state = thunkAPI.getState() as RootState;
   try {
-    console.log('Fetching members...');
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
-    console.log('Members received:', response.data);
     // const { pseudo, token } = response.data;
     // addTokenJwtToAxiosInstance(token);
     // addTokenAndPseudoToLocalStorage(token, pseudo);

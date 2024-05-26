@@ -8,13 +8,13 @@ export interface TaskStateI {
   reward_point: number;
   category_id: number;
   priority: string;
-  profileId: number;
+  profile_id: number;
 }
 
 export interface MemberStateI {
   id: number | null;
   name: string;
-  birthday: Date;
+  birthdate: Date;
   score: number;
   tasks: string[];
   avatar: string;

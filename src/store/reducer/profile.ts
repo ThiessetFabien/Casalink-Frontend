@@ -15,15 +15,20 @@ export const initialState: MembersState = {
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
-    console.log('Members received in reducer:', action.payload.members);
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
     console.log('Updated members in state:', state.members);
     console.log('liste des membres', action.payload.members);
   });
+  // builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
+  //   state.tasks = Array.isArray(action.payload.tasks)
+  //     ? action.payload.tasks.map((task) => ({
+  //         ...task,
+  //         profile_id: action.payload.member.id,
+  //       }))
+  //     : [];
   builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
-    console.log('tasks received in reducer:', action.payload.tasks);
     state.tasks = Array.isArray(action.payload.tasks)
       ? action.payload.tasks
       : [];

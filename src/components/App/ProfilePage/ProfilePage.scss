@@ -89,10 +89,15 @@ $breakpoints: (
         text-align: justify;
       }
 
+      .profilePage_container_member_card_icones {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: nowrap;
+        margin-bottom: 0.3rem;
+      }
+
       .profilePage_container_member_card_iconEdit {
-        position: absolute;
-        top: 12px;
-        right: 12px;
         font-size: 1.2rem;
         color: v.$textColor-colorOrange;
         cursor: pointer;
@@ -103,10 +108,9 @@ $breakpoints: (
         }
       }
 
+
+
       .profilePage_container_member_card_iconDelete {
-        position: absolute;
-        top: 12px;
-        left: 12px;
         font-size: 1.2rem;
         color: v.$textColor-colorOrange;
         cursor: pointer;
