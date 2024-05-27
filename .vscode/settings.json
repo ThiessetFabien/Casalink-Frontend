@@ -34,5 +34,6 @@
   "workbench.iconTheme": "material-icon-theme",
   "cSpell.words": [
     "airbnb"
-  ]
+  ],
+  "git.mergeEditor": true
 }

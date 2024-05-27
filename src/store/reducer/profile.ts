@@ -1,28 +1,39 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
-
-interface Member {
-  id: null | number;
-  name: string;
-  birthday: Date;
-  score: number;
-  tasks: string[];
-  avatar: string;
-}
+import actionFetchTasks from '../thunks/fetchTasksByProfile';
+import actionDeleteProfile from '../thunks/deleteProfile';
+import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
 interface MembersState {
-  members: Member[];
+  members: MemberStateI[];
+  tasks: TaskStateI[];
 }
 
-// État initial
 export const initialState: MembersState = {
   members: [],
+  tasks: [],
 };
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
-    state.members = action.payload.members;
+    state.members = Array.isArray(action.payload.members)
+      ? action.payload.members
+      : [];
+    console.log('Updated members in state:', state.members);
     console.log('liste des membres', action.payload.members);
+  });
+  builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
+    state.tasks = Array.isArray(action.payload.tasks)
+      ? action.payload.tasks
+      : [];
+    console.log('Updated tasks in state:', state.tasks);
+    console.log('liste des tâches', action.payload.tasks);
+  });
+  builder.addCase(actionDeleteProfile.fulfilled, (state, action) => {
+    state.members = state.members.filter(
+      (member) => member.id !== action.meta.arg
+    );
+    console.log('Updated members after deletion:', state.members);
   });
   // .addCase(actionAddMember, (state, action) => {
   //   state.members.push(action.payload);
