@@ -5,12 +5,15 @@ import {
   actionSwitchLoginModal,
 } from '../../store/reducer/modal';
 import './LandingPage.scss';
+const baseUrl = import.meta.env.VITE_APP_API_URL;
 
 function LandingPage() {
   const dispatch = useAppDispatch();
   const [imgTestVisiteur, setImgTestVisiteur] = useState(
     'src/assets/AgendaVisiteurCasalink.png'
   );
+  console.log(baseUrl);
+  
   return (
     <div className="landingPage">
       <div className="landingPage_BoxFunctionality">
