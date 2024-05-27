@@ -103,15 +103,6 @@ function Header() {
           </Link>
         </div>
       </div>
-      {/* <div className="header_BtnMenuMobileDiv">
-        <GiHamburgerMenu
-          className={`${
-            isMenuOpen ? 'header_btnMenuMobile-open' : 'header_btnMenuMobile'
-          }`}
-          onClick={() => {
-            dispatch(actionSwitchSideMenuModal());
-          }}
-        /> */}
       <div
         className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
       >
@@ -127,7 +118,8 @@ function Header() {
       </div>
 
       {/* </div> */}
-      {!isConnected && <BtnConnect />}
+      <BtnConnect />
+      {/* {!isConnected && <BtnConnect />} */}
       {loginModalIsOpen && <Login />}
     </div>
   );
