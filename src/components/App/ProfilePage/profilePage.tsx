@@ -1,17 +1,22 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { MemberStateI } from '../../../@types/memberStateI';
 import actionGetMembers from '../../../store/thunks/checkProfile';
 import actionFetchTasks from '../../../store/thunks/fetchTasksByProfile';
+import DeleteProfileModal from '../../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
+  const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
+    null
+  );
 
   useEffect(() => {
     if (accountId) {
@@ -38,6 +43,14 @@ function ProfilePage() {
     return result;
   }, [membersList, tasksList]);
 
+  const handleDeleteClick = (member: MemberStateI) => {
+    setSelectedProfile(member);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProfile(null);
+  };
+
   if (!Array.isArray(membersList)) {
     return <div>Erreur : les membres ne sont pas disponibles.</div>;
   }
@@ -58,7 +71,10 @@ function ProfilePage() {
                   className="profilePage_container_member_card"
                 >
                   <div className="profilePage_container_member_card_icones">
-                    <FaTrashAlt className="profilePage_container_member_card_iconDelete" />
+                    <FaTrashAlt
+                      className="profilePage_container_member_card_iconDelete"
+                      onClick={() => handleDeleteClick(member)}
+                    />
                     <FaEdit className="profilePage_container_member_card_iconEdit" />
                   </div>
                   <img
@@ -112,6 +128,9 @@ function ProfilePage() {
           )}
         </div>
       </div>
+      {selectedProfile && (
+        <DeleteProfileModal profile={selectedProfile} onClose={handleCloseModal} />
+      )}
     </div>
   );
 }
