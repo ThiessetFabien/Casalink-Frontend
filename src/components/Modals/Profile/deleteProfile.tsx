@@ -24,7 +24,9 @@ function DeleteProfileModal({ profile }: DeleteProfileModalProps) {
     <div className="profile_background">
       <div className="delete_modal">
         <form onSubmit={handleDelete}>
-          <h1 className='delete_modal_title'>Supprimer le profil de {profile.name}</h1>
+          <h1 className="delete_modal_title">
+            Supprimer le profil de {profile.name}
+          </h1>
           <p>Êtes-vous sûr de vouloir supprimer ce profil ?</p>
           <span className="errorMessage">{errorMessages}</span>
           <button type="submit">Supprimer le profil</button>

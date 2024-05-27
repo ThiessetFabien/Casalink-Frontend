@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { MemberStateI } from '../../../@types/memberStateI';
 import actionGetMembers from '../../../store/thunks/checkProfile';
@@ -126,10 +126,27 @@ function ProfilePage() {
                 </div>
               )
           )}
+          <div className="profilePage_container_member_card">
+            <img
+              className="profilePage_container_memberCard_image addProfile_img"
+              src="./../../../src/assets/avatars/default-avatar.webp"
+              alt="avatar de l'utilisateur"
+            />
+            <h4 className="profilePage_container_member_card_name">
+              Nouveau Profil
+            </h4>
+            <FaPlusCircle
+              className="profilePage_container_member_card_iconAddProfile"
+              onClick={() => handleAddClick(member)}
+            />
+          </div>
         </div>
       </div>
       {selectedProfile && (
-        <DeleteProfileModal profile={selectedProfile} onClose={handleCloseModal} />
+        <DeleteProfileModal
+          profile={selectedProfile}
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   );
