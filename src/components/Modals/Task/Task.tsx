@@ -6,14 +6,8 @@ import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
-
-interface EventsI {
-  id?: number;
-  title: string;
-  content: string | null;
-  start: Date;
-  end: Date;
-}
+import { TaskInputI } from '../../../@types/taskStateI';
+import { EventsI } from '../../../@types/events';
 
 interface TaskI {
   taskModalMode: 'add' | 'edit';
@@ -49,7 +43,6 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
     nameTask,
     descriptionTask,
   } = useAppSelector((state) => state.task.input);
-  console.log(eventSelect);
 
   useEffect(() => {
     if (backgroundTaskRef.current) {
@@ -59,9 +52,39 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
 
   useEffect(() => {
     if (eventSelect) {
-      console.log(eventSelect);
+      dispatch(actionChangeTask({ name: 'id', value: eventSelect.id }));
       dispatch(
-        actionChangeTask({ name: 'nameTask', value: eventSelect.title })
+        actionChangeTask({ name: 'nameTask', value: eventSelect.nameTask })
+      );
+      dispatch(
+        actionChangeTask({
+          name: 'descriptionTask',
+          value: eventSelect.descriptionTask,
+        })
+      );
+      dispatch(
+        actionChangeTask({
+          name: 'startDate',
+          value: format(eventSelect.start, 'yyyy-MM-dd'),
+        })
+      );
+      dispatch(
+        actionChangeTask({
+          name: 'startTime',
+          value: format(eventSelect.start, 'HH:mm'),
+        })
+      );
+      dispatch(
+        actionChangeTask({
+          name: 'endDate',
+          value: format(eventSelect.end, 'yyyy-MM-dd'),
+        })
+      );
+      dispatch(
+        actionChangeTask({
+          name: 'endTime',
+          value: format(eventSelect.end, 'HH:mm'),
+        })
       );
       // setStartDate(format(eventSelect.start, 'yyyy-MM-dd'));
       // setStartTime(format(eventSelect.start, 'HH:mm'));
@@ -78,8 +101,8 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
     event.stopPropagation();
   };
 
-  const handleChange = (name_task: string, value: string) => {
-    dispatch(actionChangeTask({ name_task, value }));
+  const handleChange = (name: keyof TaskInputI, value: string) => {
+    dispatch(actionChangeTask({ name, value }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -128,7 +151,7 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
             placeholder="Nom de la tâche"
             required
             value={nameTask}
-            onChange={(e) => handleChange('name', e.target.value)}
+            onChange={(e) => handleChange('nameTask', e.target.value)}
           />
           <fieldset className="task_modal_form_dateTime">
             <input
@@ -136,16 +159,16 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
               type="date"
               name="task_start_date"
               required
-              value={startDate.toISOString().split('T')[0]}
-              onChange={(e) => handleChange('task_start_date', e.target.value)}
+              value={startDate}
+              onChange={(e) => handleChange('startDate', e.target.value)}
             />
             <input
               className=""
               type="time"
               name="task_start_time"
               required
-              value={startTime?.toDateString()}
-              onChange={(e) => handleChange('task_start_time', e.target.value)}
+              value={startTime}
+              onChange={(e) => handleChange('startTime', e.target.value)}
             />
           </fieldset>
 
@@ -155,16 +178,16 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
               type="date"
               name="task_end_date"
               required
-              value={endDate?.toDateString()}
-              onChange={(e) => handleChange('task_end_date', e.target.value)}
+              value={endDate}
+              onChange={(e) => handleChange('endDate', e.target.value)}
             />
             <input
               className=""
               type="time"
               name="task_end_time"
               required
-              value={endTime?.toDateString()}
-              onChange={(e) => handleChange('task_end_time', e.target.value)}
+              value={endTime}
+              onChange={(e) => handleChange('endTime', e.target.value)}
             />
           </fieldset>
 
@@ -174,7 +197,7 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
             name="task_description"
             placeholder="Description.."
             value={descriptionTask}
-            onChange={(e) => handleChange('task_description', e.target.value)}
+            onChange={(e) => handleChange('descriptionTask', e.target.value)}
           />
           <button type="submit">Valider</button>
         </form>

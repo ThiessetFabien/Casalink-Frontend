@@ -1,21 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { addHours } from 'date-fns';
+import { addHours, format, parseISO } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
 import Task from '../Modals/Task/Task';
 import { mlocalizer, messages } from '../../utils/calendarParams';
-
-interface EventsI {
-  id?: number;
-  title: string;
-  content: string | null;
-  start: Date;
-  end: Date;
-}
+import { actionAddTask, actionEditTask } from '../../store/reducer/task';
+import { EventsI } from '../../@types/events';
 
 interface DragNDropI {
   event: EventsI;
@@ -26,12 +21,20 @@ interface DragNDropI {
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
-  const [events, setEvents] = useState<EventsI[]>([]);
+  // const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [eventSelected, setEventSelected] = useState<null | EventsI>(null);
   const [taskModalMode, setTaskModalMode] = useState<'add' | 'edit'>('add');
   const taskModalIsOpen = useAppSelector(
     (state) => state.modal.taskModalIsOpen
+  );
+  const events = useAppSelector((state) =>
+    state.task.list.map((task) => ({
+      ...task,
+      title: task.nameTask,
+      start: new Date(task.start),
+      end: new Date(task.end),
+    }))
   );
 
   const dispatch = useAppDispatch();
@@ -46,25 +49,49 @@ function HomePage() {
     };
   }, []);
 
-  const addTask = (start: Date, end: Date, title: string, content: string) => {
-    setEvents((prev) => [
-      ...prev,
-      { id: events.length, start, end, title, content },
-    ]);
+  const setEvents = useCallback(
+    (eventsList: EventsI[]) => {
+      dispatch(actionAddTask(eventsList));
+    },
+    [dispatch]
+  );
+
+  const addTask = (
+    startUnserielized: Date,
+    endUnserielized: Date,
+    title: string,
+    content: string
+  ) => {
+    const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
+    const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
+    dispatch(
+      actionAddTask({
+        id: uuidv4(),
+        start,
+        end,
+        nameTask: title,
+        descriptionTask: content,
+      })
+    );
     dispatch(actionSwitchTaskModal());
   };
 
   const editTask = (
     id: number,
-    start: Date,
-    end: Date,
+    startUnserielized: Date,
+    endUnserielized: Date,
     title: string,
     content: string
   ) => {
-    setEvents((prev) =>
-      prev.map((event) => {
-        if (event.id === id) return { ...event, start, end, title, content };
-        return event;
+    const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
+    const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
+    dispatch(
+      actionEditTask({
+        id,
+        start,
+        end,
+        nameTask: title,
+        descriptionTask: content,
       })
     );
     dispatch(actionSwitchTaskModal());
@@ -75,7 +102,13 @@ function HomePage() {
     ({ start }: { start: Date }) => {
       const endWithOneHour = addHours(start, 1);
       setTaskModalMode('add');
-      setEventSelected({ start, end: endWithOneHour, title: '', content: '' });
+      setEventSelected({
+        id: 0,
+        start,
+        end: endWithOneHour,
+        nameTask: '',
+        descriptionTask: '',
+      });
       dispatch(actionSwitchTaskModal());
     },
     // We put dispatch in the dependencies array to avoid the linter warning
@@ -94,20 +127,20 @@ function HomePage() {
 
   const handleEventDrop = useCallback(
     ({ event, start, end }: DragNDropI) => {
-      setEvents((prev) => {
-        const filtered = prev.filter((ev) => ev.id !== event.id);
-        return [...filtered, { ...event, start, end }];
-      });
+      // setEvents((prev) => {
+      //   const filtered = prev.filter((ev) => ev.id !== event.id);
+      //   return [...filtered, { ...event, start, end }];
+      // });
     },
     [setEvents]
   );
 
   const handleEventResize = useCallback(
     ({ event, start, end }: DragNDropI) => {
-      setEvents((prev) => {
-        const filtered = prev.filter((ev) => ev.id !== event.id);
-        return [...filtered, { ...event, start, end }];
-      });
+      // setEvents((prev) => {
+      //   const filtered = prev.filter((ev) => ev.id !== event.id);
+      //   return [...filtered, { ...event, start, end }];
+      // });
     },
     [setEvents]
   );
@@ -142,36 +175,6 @@ function HomePage() {
           editTask={editTask}
         />
       )}
-      {/* <section>
-        <div className="category">
-          <button className="category_btn" type="button">
-            Foyer
-          </button>
-        </div>
-        <div className="category">
-          <button className="category_btn" type="button">
-            Membres
-          </button>
-        </div>
-        <div className="category">
-          <button className="category_btn" type="button">
-            Tâches
-          </button>
-          <p className="category_infos">Tâches du foyer: </p>
-          <p className="category_infos">Tâches à effectuer aujourd&apos;hui</p>
-        </div>
-        <div className="category">
-          <button className="category_btn" type="button">
-            Priorités
-          </button>
-          <p className="category_infos">Tâches importantes du foyer</p>
-        </div>
-        <div className="category">
-          <button className="category_btn" type="button">
-            Préférences
-          </button>
-        </div>
-      </section> */}
       <main>
         <DragNDropCalendar
           localizer={mlocalizer}
