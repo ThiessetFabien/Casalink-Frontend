@@ -14,6 +14,7 @@ import {
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
 
+// coucou c'est moi
 function Header() {
   const dispatch = useAppDispatch();
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
