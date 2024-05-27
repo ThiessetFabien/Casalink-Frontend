@@ -68,7 +68,7 @@ $breakpoints: (
 
   &_link:hover {
     text-decoration: underline;
-   }
+  }
 
   &_burger {
     display: block;
@@ -130,14 +130,14 @@ $breakpoints: (
     &navbar_item {
       width: 100%;
     }
-    
+
     &_menu-open &_links {
       width: 15%;
     }
   }
 
   &_menu-open &-bar::before {
-   transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 
   &_menu-open &-bar {

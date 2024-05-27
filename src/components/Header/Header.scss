@@ -12,32 +12,255 @@ $breakpoints: (
   }
 }
 
-.header {
-  // trouver un moyen de fixed le header. réponse c'est sticky
-  position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 9vh;
-  box-shadow: 0px -2px 6px 0px rgb(9, 7, 7);
+.dark.header {
+  background: linear-gradient(
+    to right,
+    v.$textColor-colorDark-Blue 20%,
+    white 40%,
+    white 60%,
+    v.$textColor-colorDark-Blue 100%
+  );
 
-  &_title {
-    padding-left: 2rem;
-    text-decoration: none;
-    color: v.$textColor-colorDark;
-    font-size: 2rem;
+  transition: all 0.6s ease-in-out;
+  position: relative;
+}
+.dark .header_menuMobile-open {
+  background-color: v.$textColor-colorDark-Blue;
+}
+
+.dark .header_BtnMenuMobile {
+  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
+    0px 0px 10px 0px v.$textColor-colorWhite,
+    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  background-color: v.$bgColor-White;
+}
+
+.dark .header_menuMobile_icon {
+  background-color: v.$textColor-colorBlue;
+  color: v.$textColor-colorDark-Blue;
+  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
+    0px 0px 10px 0px v.$textColor-colorWhite,
+    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+}
+
+.dark .header_menuMobile_link {
+  color: v.$textColor-colorBlue;
+}
+
+.header {
+  transition: all 0.6s ease-in-out;
+  // trouver un moyen de fixed le header. réponse c'est sticky
+  z-index: 10;
+  // position: sticky;
+  position: relative;
+  position: sticky;
+  top: 0;
+  height: 8vh;
+
+  background: linear-gradient(
+    217deg,
+    v.$textColor-colorBlue 20%,
+    white 50%,
+    white 50%,
+    v.$textColor-colorBlue 100%
+  );
+  &_BtnMenuMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0.5rem;
+    bottom: -1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    font-size: 1.4rem;
+    background-color: v.$textColor-colorWhite;
+    border: none;
+    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
+      7px 7px 20px 0px v.$textColor-colorWhite,
+      4px 4px 5px 0px v.$textColor-colorDark-Blue;
+    cursor: pointer;
+    @include media(desktop) {
+      display: none;
+    }
+  }
+
+  &_btnDiv {
+  }
+
+  &-bar,
+  &-bar::before,
+  &-bar::after {
+    position: relative;
+    width: 1.5rem;
+    height: 0.15rem;
+    background-color: v.$textColor-colorBlue;
+    transition: 0.6s ease-in-out all;
+    border-radius: 20%;
+  }
+
+  &-bar::before,
+  &-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  &-bar::before {
+    transform: translateY(-6px);
+  }
+
+  &-bar::after {
+    transform: translateY(6px);
+  }
+
+  &_btnDiv-open &-bar::before {
+    transform: rotate(45deg);
+  }
+
+  &_btnDiv-open &-bar {
+    position: absolute;
+    left: 0.5rem;
+    width: 0;
+    background: transparent;
+  }
+
+  &_btnDiv-open &-bar::after {
+    transform: rotate(-45deg);
+  }
+
+  &_menuMobile {
+    background-color: v.$bgColor-White;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // background-color: red;
+    position: fixed;
+    bottom: 100%;
+    right: 40%;
+    height: 100vh;
+    width: 100vw;
+    font-size: 0;
+    border-bottom-right-radius: 100%;
+
+    transition: all 0.6s ease-in-out;
+    @include media(desktop) {
+      display: none;
+    }
+  }
+
+  &_menuMobile-open {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: v.$bgColor-White;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 1.2rem;
+    transition: all 0.6s ease-in-out;
+    @include media(desktop) {
+      display: none;
+    }
+  }
+
+  &_menuMobileDiv {
+    margin: 0.5rem;
+    position: relative;
+    width: 100vw;
+    text-align: center;
+    border-top: 2px solid v.$textColor-colorBlue;
+    padding: 1rem;
+    color: v.$textColor-colorBlue;
+    transition: all 0.4s ease-in-out;
+  }
+
+  &_menuMobile_link {
+    color: inherit;
     font-weight: bold;
+    font-size: 1.3rem;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem;
+    text-decoration: none;
+  }
+
+  &_menuMobile_icon {
+    color: v.$textColor-colorBlue;
+    background-color: v.$textColor-colorWhite;
+    position: absolute;
+    top: -30%;
+    right: 46.5%;
+    font-size: 2rem;
+    padding: 0.5rem;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
+      7px 7px 20px 0px v.$textColor-colorWhite,
+      4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  }
+
+  &_menuMobileDiv:hover {
+    background-color: v.$textColor-colorBlue;
+    color: v.$bgColor-White;
+  }
+
+  &_avatar {
+    display: none;
+    @include media(desktop) {
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      position: absolute;
+      left: 0;
+      bottom: -3rem;
+      transition: all 0.6s ease-in-out;
+    }
+  }
+
+  &_avatar-menuOpen {
+    display: none;
+    @include media(desktop) {
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      position: absolute;
+      left: 2.3rem;
+      bottom: -3rem;
+      transform: rotate(360deg);
+      transition: all 0.6s ease-in-out;
+    }
+  }
+
+  &_logoDiv {
+  }
+
+  &_logo {
+    width: 80px;
+    margin: auto;
+    padding: auto;
+    // max-width: 20%;
+    // min-width: 10%;
+    // margin: auto;
+    // padding: auto;
   }
 
   &_menuItems {
-    padding-left: 1rem;
-    width: 100%;
-    display: flex;
-    align-items: baseline;
-    justify-content: start;
+    width: 10%;
+    height: 100%;
+    margin: auto;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
 
     @include media(desktop) {
-      justify-content: center;
+      // justify-content: center;
     }
   }
 
@@ -79,6 +302,8 @@ $breakpoints: (
   color: v.$textColor-colorWhite;
   padding: 0;
   border: none;
+  position: fixed;
+  right: 1rem;
 }
 
 .btn-login span {

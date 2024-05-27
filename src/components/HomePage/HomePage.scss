@@ -14,9 +14,18 @@ $breakpoints: (
 }
 
 .HomePage {
+  // z-index: 10;
   display: flex;
-  height: 90vh;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  height: 89.3vh;
   position: relative;
+  margin: auto;
+  padding: auto;
+  @include media(desktop) {
+    height: 84vh;
+  }
 
   section {
     border-right: 1px solid black;

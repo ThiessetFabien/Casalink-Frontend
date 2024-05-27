@@ -3,8 +3,9 @@ import './Task.scss';
 import { X } from 'react-feather';
 
 import { format } from 'date-fns';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
+import { actionChangeTask } from '../../../store/reducer/task';
 
 interface EventsI {
   id?: number;
@@ -28,16 +29,27 @@ interface TaskI {
 }
 
 function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
-  const [startDate, setStartDate] = useState(Date);
-  const [startTime, setStartTime] = useState(Date);
-  const [endDate, setEndDate] = useState(Date);
-  const [endTime, setEndTime] = useState(Date);
-  const [id, setId] = useState(0);
-  const [taskTitle, setTaskTitle] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
+  // const [startDate, setStartDate] = useState(Date);
+  // const [startTime, setStartTime] = useState(Date);
+  // const [endDate, setEndDate] = useState(Date);
+  // const [endTime, setEndTime] = useState(Date);
+  // const [id, setId] = useState(0);
+  // const [taskTitle, setTaskTitle] = useState('');
+  // const [taskDescription, setTaskDescription] = useState('');
 
   const dispatch = useAppDispatch();
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
+
+  const {
+    startDate,
+    startTime,
+    endTime,
+    endDate,
+    id,
+    nameTask,
+    descriptionTask,
+  } = useAppSelector((state) => state.task.input);
+  console.log(eventSelect);
 
   useEffect(() => {
     if (backgroundTaskRef.current) {
@@ -47,27 +59,35 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
 
   useEffect(() => {
     if (eventSelect) {
-      setStartDate(format(eventSelect.start, 'yyyy-MM-dd'));
-      setStartTime(format(eventSelect.start, 'HH:mm'));
-      setEndDate(format(eventSelect.end, 'yyyy-MM-dd'));
-      setEndTime(format(eventSelect.end, 'HH:mm'));
-      setTaskTitle(eventSelect.title);
-      setTaskDescription(eventSelect.content || '');
-      if (eventSelect.id) setId(eventSelect.id);
+      console.log(eventSelect);
+      dispatch(
+        actionChangeTask({ name: 'nameTask', value: eventSelect.title })
+      );
+      // setStartDate(format(eventSelect.start, 'yyyy-MM-dd'));
+      // setStartTime(format(eventSelect.start, 'HH:mm'));
+      // setEndDate(format(eventSelect.end, 'yyyy-MM-dd'));
+      // setEndTime(format(eventSelect.end, 'HH:mm'));
+      // setTaskTitle(eventSelect.title);
+      // setTaskDescription(eventSelect.content || '');
+      // if (eventSelect.id) setId(eventSelect.id);
     }
-  }, [eventSelect]);
+  }, [dispatch, eventSelect]);
 
   // Prevent the click propagation to parent
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
 
+  const handleChange = (name_task: string, value: string) => {
+    dispatch(actionChangeTask({ name_task, value }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const start = new Date(`${startDate}T${startTime}:00.000`);
     const end = new Date(`${endDate}T${endTime}:00.000`);
-    const title = taskTitle;
-    const description = taskDescription;
+    const title = nameTask;
+    const description = descriptionTask;
     if (taskModalMode === 'add') addTask(start, end, title, description);
     else if (taskModalMode === 'edit')
       editTask(id, start, end, title, description);
@@ -107,8 +127,8 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
             name="task_name"
             placeholder="Nom de la tâche"
             required
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
+            value={nameTask}
+            onChange={(e) => handleChange('name', e.target.value)}
           />
           <fieldset className="task_modal_form_dateTime">
             <input
@@ -116,16 +136,16 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
               type="date"
               name="task_start_date"
               required
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              value={startDate.toISOString().split('T')[0]}
+              onChange={(e) => handleChange('task_start_date', e.target.value)}
             />
             <input
               className=""
               type="time"
               name="task_start_time"
               required
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
+              value={startTime?.toDateString()}
+              onChange={(e) => handleChange('task_start_time', e.target.value)}
             />
           </fieldset>
 
@@ -135,16 +155,16 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
               type="date"
               name="task_end_date"
               required
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              value={endDate?.toDateString()}
+              onChange={(e) => handleChange('task_end_date', e.target.value)}
             />
             <input
               className=""
               type="time"
               name="task_end_time"
               required
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
+              value={endTime?.toDateString()}
+              onChange={(e) => handleChange('task_end_time', e.target.value)}
             />
           </fieldset>
 
@@ -153,8 +173,8 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
             rows={3}
             name="task_description"
             placeholder="Description.."
-            value={taskDescription}
-            onChange={(e) => setTaskDescription(e.target.value)}
+            value={descriptionTask}
+            onChange={(e) => handleChange('task_description', e.target.value)}
           />
           <button type="submit">Valider</button>
         </form>

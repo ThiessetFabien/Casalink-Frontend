@@ -1,24 +1,17 @@
-import { useState } from 'react';
-import { LogOut, ArrowRight } from 'react-feather';
-import { useAppDispatch } from '../../../hooks/redux';
-
+import { useAppSelector } from '../../../hooks/redux';
 import './UserConnectedHeader.scss';
-import { actionLogout } from '../../../store/reducer/user';
 
 function UserHeader() {
-  const dispatch = useAppDispatch();
-  const [sideMenuIsHidden, setSideMenuIsHidden] = useState(false);
-  // const handleLogout = () => {
-  //   console.log('jai cliqué');
-  // };
+  const isMenuOpen = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
+
   return (
     <div className="userDiv">
-      <span className="userDiv_name">User1</span>
-      <LogOut
-        className="userDiv_logout"
-        onClick={() => {
-          dispatch(actionLogout());
-        }}
+      <img
+        src="public/testavatar.png"
+        alt="userAvatar"
+        className={`${
+          isMenuOpen ? 'userDiv_avatar-menuOpen' : 'userDiv_avatar'
+        }`}
       />
     </div>
   );
