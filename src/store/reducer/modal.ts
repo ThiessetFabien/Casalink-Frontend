@@ -43,6 +43,7 @@ const modalReducer = createReducer(initialState, (builder) => {
     .addCase(actionSetModeLoginModal, (state, action) => {
       state.loginModalIsMode = action.payload;
     });
+  // coucou
 });
 
 export default modalReducer;
