@@ -28,12 +28,14 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
           <h1 className="delete_modal_title">
             Supprimer le profil de {profile.name}
           </h1>
-          <p>Êtes-vous sûr de vouloir supprimer ce profil ?</p>
+          <p className='delete_modal_subtitle'>Êtes-vous sûr de vouloir supprimer ce profil ?</p>
           <span className="errorMessage">{errorMessages}</span>
-          <button type="submit">Supprimer le profil</button>
-          <button type="button" onClick={() => closeModal()}>
-            Annuler
-          </button>
+          <div className="delete_modal_profile_containerButton">
+            <button type="submit">Supprimer le profil</button>
+            <button type="button" onClick={() => closeModal()}>
+              Annuler
+            </button>
+          </div>
         </form>
       </div>
     </div>

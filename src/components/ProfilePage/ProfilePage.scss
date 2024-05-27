@@ -44,6 +44,7 @@ $breakpoints: (
   .profilePage_container_member_list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     .profilePage_container_member_card {
       background-color: white;
@@ -90,31 +91,127 @@ $breakpoints: (
         text-align: justify;
       }
 
-      .profilePage_container_member_card_iconEdit {
-        top: 12px;
-        right: 12px;
+      .profilePage_container_member_card_icones {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        .profilePage_container_member_card_iconEdit {
+          top: 12px;
+          right: 12px;
+          font-size: 1.2rem;
+          color: v.$textColor-colorOrange;
+          cursor: pointer;
+          transition: color 0.2s;
+
+          &:hover {
+            color: black;
+          }
+        }
+
+        .profilePage_container_member_card_iconDelete {
+          top: 12px;
+          left: 12px;
+          font-size: 1.2rem;
+          color: v.$textColor-colorOrange;
+          cursor: pointer;
+          transition: color 0.2s;
+
+          &:hover {
+            color: red;
+          }
+        }
+      
+      }
+
+      .profilePage_container_member_card_iconAddProfile {
         font-size: 1.2rem;
         color: v.$textColor-colorOrange;
         cursor: pointer;
         transition: color 0.2s;
+        width: 50%;
+        height: 35%;
+        margin: 0 auto;
+
 
         &:hover {
-          color: black;
+          color: v.$textColor-colorBlue;
         }
       }
 
-      .profilePage_container_member_card_iconDelete {
-        top: 12px;
-        left: 12px;
-        font-size: 1.2rem;
-        color: v.$textColor-colorOrange;
-        cursor: pointer;
-        transition: color 0.2s;
+    }
+  }
+}
 
-        &:hover {
-          color: red;
-        }
+.profile_background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: RGBA(0, 0, 0, 0.5);
+  z-index: 1;
+
+  .delete_modal {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    z-index: 1;
+    width: 90%;
+    background-color: #ececec;
+    @include media(tablet_mini) {
+      max-width: 400px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      @include media(tablet_mini) {
+        gap: 2rem;
+      }
+
+      .delete_modal_title {
+        font-size: 2rem;
+        font-weight: 500;
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .delete_modal_subtitle {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin: 1rem 0;
+        text-align: center;
+      }
+
+      .delete_modal_profile_containerButton {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      button {
+        border-radius: 5px;
+        padding: 0.5rem;
+        width: 80%;
+        border: none;
+        cursor: pointer;
+        background-color: v.$textColor-colorBlue;
+        color: white;
+        font-weight: 500;
+      }
+
+      .errorMessage {
+        color: red;
+        font-size: 0.9rem;
       }
     }
   }
 }
+

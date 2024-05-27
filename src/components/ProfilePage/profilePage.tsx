@@ -136,7 +136,7 @@ function ProfilePage() {
               alt="avatar de l'utilisateur"
             />
             <h4 className="profilePage_container_member_card_name">
-              Nouveau Profil
+              Ajouter un Profil
             </h4>
             <FaPlusCircle
               className="profilePage_container_member_card_iconAddProfile"
