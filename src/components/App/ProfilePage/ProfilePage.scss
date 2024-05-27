@@ -44,6 +44,8 @@ $breakpoints: (
   .profilePage_container_member_list {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
 
     .profilePage_container_member_card {
       background-color: white;
@@ -51,7 +53,10 @@ $breakpoints: (
       box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
       margin: 1rem;
       padding: 1rem;
-      max-width: 30rem;
+      width: 90%;
+      @include media(desktop) {
+        max-width: 15rem;
+      }
 
       .profilePage_container_memberCard_image {
         border-radius: 50%;
