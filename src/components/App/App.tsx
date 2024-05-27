@@ -12,7 +12,7 @@ import HomePage from '../HomePage/HomePage';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import SiteMap from '../SiteMap/SiteMap';
 import NotFount from '../404/404';
-import ProfilePage from './ProfilePage/profilePage';
+import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 
 function App() {

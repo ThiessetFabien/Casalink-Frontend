@@ -6,9 +6,10 @@ import { actionDeleteProfile } from '../../../store/thunks/deleteProfile';
 
 interface DeleteProfileModalProps {
   profile: MemberStateI;
+  closeModal: () => void;
 }
 
-function DeleteProfileModal({ profile }: DeleteProfileModalProps) {
+function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
   const dispatch = useAppDispatch();
   const errorMessages = useAppSelector((state) => state.user.error);
 
@@ -30,10 +31,7 @@ function DeleteProfileModal({ profile }: DeleteProfileModalProps) {
           <p>Êtes-vous sûr de vouloir supprimer ce profil ?</p>
           <span className="errorMessage">{errorMessages}</span>
           <button type="submit">Supprimer le profil</button>
-          <button
-            type="button"
-            onClick={() => dispatch(actionSwitchProfileModal())}
-          >
+          <button type="button" onClick={() => closeModal()}>
             Annuler
           </button>
         </form>

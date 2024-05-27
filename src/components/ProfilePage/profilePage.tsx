@@ -1,24 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { MemberStateI } from '../../../@types/memberStateI';
-import actionGetMembers from '../../../store/thunks/checkProfile';
-import actionFetchTasks from '../../../store/thunks/fetchTasksByProfile';
-import DeleteProfileModal from '../../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { MemberStateI } from '../../@types/memberStateI';
+import actionGetMembers from '../../store/thunks/checkProfile';
+import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
+import DeleteProfileModal from '../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
-  console.log(membersList);
-
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
   const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
     null
   );
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
   useEffect(() => {
     if (accountId) {
@@ -45,16 +44,14 @@ function ProfilePage() {
     return result;
   }, [membersList, tasksList]);
 
-  const handleAddClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
-  };
-
   const handleDeleteClick = (member: MemberStateI) => {
     setSelectedProfile(member);
+    setDeleteModalIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setSelectedProfile(null);
+    setDeleteModalIsOpen(false);
   };
 
   if (!Array.isArray(membersList)) {
@@ -148,10 +145,10 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-      {selectedProfile && (
+      {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
           profile={selectedProfile}
-          onClose={handleCloseModal}
+          closeModal={handleCloseModal}
         />
       )}
     </div>
