@@ -49,4 +49,30 @@ export const actionUpdateProfile = createAsyncThunk<
   }
 });
 
-export default { actionDeleteProfile, actionUpdateProfile };
+export const actionAddProfile = createAsyncThunk<
+  MemberStateI,
+  MemberStateI,
+  { rejectValue: string }
+>('profile/ADD_PROFILE', async (addProfile, thunkAPI) => {
+  try {
+    console.log('Updated Profile in Thunk:', addProfile);
+    console.log('Updated Profile id:', addProfile.id);
+    const state = thunkAPI.getState() as RootState;
+    const response = await axiosInstance.post(`/profile/`, {
+      name: addProfile.name,
+      role: addProfile.role,
+      email: addProfile.email,
+      pin: addProfile.pin,
+      birthdate: addProfile.birthdate,
+      score: 0,
+    });
+    return response.data.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    return thunkAPI.rejectWithValue(
+      axiosError.response?.data || 'Erreur lors de l\'ajout d\'un profil'
+    );
+  }
+});
+
+export default { actionDeleteProfile, actionUpdateProfile, actionAddProfile };

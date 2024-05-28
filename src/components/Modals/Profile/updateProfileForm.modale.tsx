@@ -1,9 +1,10 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
 import { actionUpdateProfile } from '../../../store/thunks/changeProfile';
+import actionGetMembers from '../../../store/thunks/checkProfile';
 
 interface EditProfileModalProps {
   profile: MemberStateI;
@@ -18,15 +19,23 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     profile.role === 'adult'
   );
 
+  const accountId = useAppSelector((state) => state.user.id);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const resultAction = await dispatch(actionUpdateProfile(updatedProfile));
     if (actionUpdateProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
-      // closeModal();
+      dispatch(actionGetMembers({ id: accountId }));
+      closeModal();
     }
   };
 
+  useEffect(() => {
+    if (accountId) {
+      dispatch(actionGetMembers({ id: accountId }));
+    }
+  }, [dispatch, accountId]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'role') {
