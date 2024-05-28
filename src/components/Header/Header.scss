@@ -269,6 +269,8 @@ $breakpoints: (
   }
 
   &_btn {
+    position: absolute;
+    top: 0.3rem;
     font-size: 0.8rem;
     margin: 0;
     width: 160px;
@@ -334,7 +336,8 @@ $breakpoints: (
   height: 2px;
 }
 .btn-login:hover {
-  background: transparent;
+  border-radius: 5px;
+  background: v.$bgColor-White;
   box-shadow: none;
 }
 .btn-login:hover:before {
