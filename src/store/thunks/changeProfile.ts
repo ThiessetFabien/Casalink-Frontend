@@ -22,17 +22,24 @@ export const actionDeleteProfile = createAsyncThunk<
 });
 
 export const actionUpdateProfile = createAsyncThunk<
-  void,
+  MemberStateI,
   MemberStateI,
   { rejectValue: string }
 >('profile/UPDATE_PROFILE', async (updatedProfile, thunkAPI) => {
   try {
+    console.log('Updated Profile in Thunk:', updatedProfile);
+    console.log('Updated Profile id:', updatedProfile.id);
     const state = thunkAPI.getState() as RootState;
     const response = await axiosInstance.patch(
       `/profile/${updatedProfile.id}`,
-      updatedProfile
+      {
+        name: updatedProfile.name,
+        role: updatedProfile.role,
+        email: updatedProfile.email,
+        pin: updatedProfile.pin,
+        birthdate: updatedProfile.birthdate,
+      }
     );
-    console.log(updatedProfile);
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;

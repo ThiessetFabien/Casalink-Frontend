@@ -20,9 +20,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resultAction = await dispatch(
-      actionUpdateProfile({ ...profile, ...updatedProfile })
-    );
+    const resultAction = await dispatch(actionUpdateProfile(updatedProfile));
     if (actionUpdateProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
       // closeModal();
