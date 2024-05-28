@@ -18,6 +18,7 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
     const resultAction = await dispatch(actionDeleteProfile(profile.id));
     if (actionDeleteProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
+      closeModal();
     }
   };
 

@@ -58,6 +58,7 @@ export const actionAddProfile = createAsyncThunk<
     console.log('Updated Profile in Thunk:', addProfile);
     console.log('Updated Profile id:', addProfile.id);
     const state = thunkAPI.getState() as RootState;
+    console.log('State:', state.user.id);
     const response = await axiosInstance.post(`/profile/`, {
       name: addProfile.name,
       role: addProfile.role,
@@ -65,6 +66,7 @@ export const actionAddProfile = createAsyncThunk<
       pin: addProfile.pin,
       birthdate: addProfile.birthdate,
       score: 0,
+      account_id: state.user.id,
     });
     return response.data.data;
   } catch (error) {
