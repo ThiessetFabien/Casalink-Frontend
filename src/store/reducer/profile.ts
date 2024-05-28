@@ -1,7 +1,7 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
 import actionFetchTasks from '../thunks/fetchTasksByProfile';
-import actionDeleteProfile from '../thunks/deleteProfile';
+import { actionDeleteProfile, actionUpdateProfile } from '../thunks/changeProfile';
 import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
 interface MembersState {
@@ -34,6 +34,15 @@ const profileReducer = createReducer(initialState, (builder) => {
       (member) => member.id !== action.meta.arg
     );
     console.log('Updated members after deletion:', state.members);
+  });
+  builder.addCase(actionUpdateProfile.fulfilled, (state, action) => {
+    const index = state.members.findIndex(
+      (member) => member.id === action.payload.id
+    );
+    if (index !== -1) {
+      state.members[index] = action.payload;
+    }
+    console.log('Updated members after modification:', state.members);
   });
   // .addCase(actionAddMember, (state, action) => {
   //   state.members.push(action.payload);

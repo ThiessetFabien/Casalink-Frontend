@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
-import { actionDeleteProfile } from '../../../store/thunks/deleteProfile';
+import { actionDeleteProfile } from '../../../store/thunks/changeProfile';
 
 interface AddProfileModalProps {
   onClose: () => void; // Callback function for closing the modal
