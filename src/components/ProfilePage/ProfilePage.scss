@@ -204,6 +204,55 @@ $breakpoints: (
           gap: 2rem;
         }
 
+        .profile_field_role {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+
+          .input_checkbox_adult, .input_checkbox_child {
+            width: 20%;
+            margin-top: 0.5rem;
+          }
+
+          .input_checkbox_child_title, .input_checkbox_adult_title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+          }
+        }
+
+        .profile_field {
+          position: relative;
+  
+          input {
+            border: none;
+            border-bottom: 1px solid black;
+            width: 100%;
+            background-color: transparent;
+          }
+  
+          input:focus {
+            outline: none !important;
+            border:1px solid v.$textColor-colorBlue;
+            border-radius: 5px;
+          }
+
+          label {
+            pointer-events: none;
+            color: black;
+            transition: 0.3s;
+          }
+
+            input:focus ~ label,
+          .input_required:valid ~ label {
+            top: -0.9rem;
+            font-size: 1rem;
+            font-weight: 400;
+            color: v.$textColor-colorBlue;
+            margin-bottom: 1rem;
+          }
+        }
+
         .delete_modal_title, .update_modal_title {
           font-size: 2rem;
           font-weight: 500;

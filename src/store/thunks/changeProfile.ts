@@ -26,7 +26,10 @@ export const actionUpdateProfile = createAsyncThunk<
   { rejectValue: string }
 >('profile/UPDATE_PROFILE', async (profile_id, thunkAPI) => {
   try {
-    const response = await axiosInstance.patch(`/profile/${profile_id}`);
+    const response = await axiosInstance.patch(
+      `/profile/${profile_id}`,
+      updatedProfile
+    );
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;

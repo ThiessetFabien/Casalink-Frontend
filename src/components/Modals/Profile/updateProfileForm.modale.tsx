@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -15,17 +14,20 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const dispatch = useAppDispatch();
   const [updatedProfile, setUpdatedProfile] = useState(profile);
   const errorMessages = useAppSelector((state) => state.user.error);
-  const [isAdultChecked, setIsAdultChecked] = useState(false);
+  const [isAdultChecked, setIsAdultChecked] = useState(
+    profile.role === 'adult'
+  );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const resultAction = await dispatch(actionUpdateProfile(updatedProfile));
     if (actionUpdateProfile.fulfilled.match(resultAction))
       dispatch(actionSwitchProfileModal());
+    closeModal();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     if (name === 'role') {
       setIsAdultChecked(value === 'adult');
       if (value === 'child') {
@@ -50,11 +52,21 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     }
   };
 
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdatedProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="profile_background">
       <div className="update_modal">
         <form onSubmit={handleSubmit}>
-          <h1 className='update_modal_title'>Modifier le profil de {updatedProfile.name}</h1>
+          <h1 className="update_modal_title">
+            Modifier le profil de {updatedProfile.name}
+          </h1>
           <div className="profile_field">
             <label htmlFor="name">Nom</label>
             <input
@@ -70,43 +82,57 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
           <div className="profile_field">
             <label htmlFor="birthdate">Date de naissance</label>
             <input
-              value={updatedProfile.birthdate}
-              onChange={handleChange}
+              value={format(new Date(updatedProfile.birthdate), 'yyyy-MM-dd')}
+              onChange={handleDateChange}
               className="input_required"
               type="date"
               name="birthdate"
               id="birthdate"
-              placeholder={updatedProfile.birthdate || 'jj/mm/aaaa'}
               required
             />
           </div>
           <div className="profile_field">
+            <label htmlFor="image">Modifier sa Photo de profil</label>
+            <input
+              onChange={handleDateChange}
+              className="profile_field_image"
+              type="file"
+              accept=".jpeg, .jpg, .png, .webp"
+              name="image"
+              id="image"
+            />
+          </div>
+          <div className="profile_field">
             <label htmlFor="role">Type de profil</label>
-            <input
-              type="radio"
-              name="role"
-              id="Adulte"
-              value="adult"
-              onChange={handleChange}
-              className="input_checkbox_adult"
-            />
-            Adulte
-            <input
-              type="radio"
-              name="role"
-              id="Enfant"
-              value="child"
-              onChange={handleChange}
-              className="input_checkbox_child"
-            />
-            Enfant
+            <div className="profile_field_role">
+              <input
+                type="radio"
+                name="role"
+                id="Adulte"
+                value="adult"
+                onChange={handleChange}
+                checked={updatedProfile.role === 'adult'}
+                className="input_checkbox_adult"
+              />
+              <span className="input_checkbox_adult_title">Adulte</span>
+              <input
+                type="radio"
+                name="role"
+                id="Enfant"
+                value="child"
+                onChange={handleChange}
+                checked={updatedProfile.role === 'child'}
+                className="input_checkbox_child"
+              />
+              <span className="input_checkbox_child_title">Enfant</span>
+            </div>
           </div>
           {isAdultChecked && (
             <>
               <div className="profile_field">
                 <label htmlFor="email">Email</label>
                 <input
-                  value={updatedProfile.email}
+                  value={profile.email}
                   onChange={handleChange}
                   className="input_email"
                   type="email"
@@ -118,13 +144,12 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
               <div className="profile_field">
                 <label htmlFor="pin">Code Pin</label>
                 <input
-                  value={updatedProfile.pin}
+                  value={profile.pin}
                   onChange={handleChange}
                   className="input_pin"
-                  type="number"
+                  type="password"
                   name="pin"
-                  id="pin"
-                  placeholder={profile.pin || 'Entrer votre code pin'}
+                  placeholder="****"
                   required
                 />
               </div>
