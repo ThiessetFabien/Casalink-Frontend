@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { MemberStateI } from '../../@types/memberStateI';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
-import DeleteProfileModal from '../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
+import DeleteProfileModal from '../Modals/Profile/deleteProfile';
+import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,8 @@ function ProfilePage() {
     null
   );
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   useEffect(() => {
     if (accountId) {
@@ -49,6 +52,11 @@ function ProfilePage() {
     setDeleteModalIsOpen(true);
   };
 
+  const handleEditClick = (member: MemberStateI) => {
+    setSelectedProfile(member);
+    setEditModalIsOpen(true);
+  };
+
   const handleCloseModal = () => {
     setSelectedProfile(null);
     setDeleteModalIsOpen(false);
@@ -78,7 +86,10 @@ function ProfilePage() {
                       className="profilePage_container_member_card_iconDelete"
                       onClick={() => handleDeleteClick(member)}
                     />
-                    <FaEdit className="profilePage_container_member_card_iconEdit" />
+                    <FaEdit
+                      className="profilePage_container_member_card_iconEdit"
+                      onClick={() => handleEditClick(member)}
+                    />
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
@@ -151,6 +162,13 @@ function ProfilePage() {
           closeModal={handleCloseModal}
         />
       )}
+      {selectedProfile && editModalIsOpen && (
+        <EditProfileModal
+          profile={selectedProfile}
+          closeModal={handleCloseModal}
+        />
+      )}
+      {addModalIsOpen && <AddProfileModal closeModal={handleCloseModal} />}
     </div>
   );
 }
