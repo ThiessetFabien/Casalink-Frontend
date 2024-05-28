@@ -44,79 +44,226 @@ $breakpoints: (
   .profilePage_container_member_list {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
 
-    .profilePage_container_member_card {
-      background-color: white;
+  .profilePage_container_member_card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 1rem;
+    width: 90%;
+    @include media(desktop) {
+      max-width: 15rem;
+    }
+
+    .profilePage_container_memberCard_image {
+      border-radius: 50%;
+      height: 100px;
+      margin: auto;
+      width: 100px;
+    }
+
+    .profilePage_container_member_card_name {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 1rem auto;
+      text-align: center;
+    }
+
+    .profilePage_container_member_card_birthday,
+    .profilePage_container_member_card_score {
+      font-size: 1rem;
+      margin: 1rem 0;
+      font-weight: 200;
+      text-align: justify;
+    }
+
+    .profilePage_container_member_card_task-to-do {
+      font-size: 1rem;
+      margin: 1rem 0;
+      font-weight: 500;
+      text-decoration: underline;
+      text-align: center;
+    }
+
+    .profilePage_container_member_card_task {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
       border-radius: 5px;
-      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-      margin: 1rem;
-      padding: 1rem;
-      max-width: 30rem;
+      box-shadow: 1px 5px 5px 0px lightgrey;
+    }
 
-      .profilePage_container_memberCard_image {
-        border-radius: 50%;
-        height: 100px;
-        margin: auto;
-        width: 100px;
+    .profilePage_container_member_card_task_headerDate {
+      width: 100%;
+      background-color: v.$textColor-colorOrange;
+      color: white;
+      font-weight: 500;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .profilePage_container_member_card_task_containerName {
+      width: 100%;
+      background-color: white;
+    }
+
+    .profilePage_container_member_card_task_name,
+    .profilePage_container_member_card_task_date {
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      padding: 0.4rem 0;
+    }
+
+    .profilePage_container_member_card_icones {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: nowrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .profilePage_container_member_card_iconEdit {
+      font-size: 1.2rem;
+      color: v.$textColor-colorOrange;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: black;
+      }
+    }
+
+    .profilePage_container_member_card_iconDelete {
+      font-size: 1.2rem;
+      color: v.$textColor-colorOrange;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: red;
+      }
+    }
+
+    .addProfile_img {
+      margin-top: 2rem;
+    }
+
+    .profilePage_container_member_card_iconAddProfile {
+      height: 40%;
+      width: 40%;
+      color: v.$textColor-colorOrange;
+      cursor: pointer;
+      transition: color 0.2s;
+      margin: 1rem auto;
+
+      &:hover {
+        color: v.$textColor-colorBlue;
+      }
+    }
+  }
+}
+
+.profile_background {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: RGBA(0, 0, 0, 0.5);
+  z-index: 1;
+
+  .delete_modal {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    z-index: 1;
+    width: 90%;
+    background-color: #ececec;
+    @include media(tablet_mini) {
+      max-width: 400px;
+    }
+
+    .exit_button {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      border: none;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      @include media(tablet_mini) {
+        gap: 2rem;
       }
 
-      .profilePage_container_member_card_name {
-        font-size: 1.2rem;
-        font-weight: 500;
-        margin: 1rem auto;
-        text-align: center;
-      }
+      .login_field {
+        position: relative;
 
-      .profilePage_container_member_card_birthday,
-      .profilePage_container_member_card_score {
-        font-size: 1rem;
-        margin: 1rem 0;
-        font-weight: 200;
-        text-align: justify;
-      }
+        input {
+          border: none;
+          border-bottom: 1px solid black;
+          width: 100%;
+          background-color: transparent;
+          margin-top: 1rem;
+        }
 
-      .profilePage_container_member_card_task-to-do {
-        font-size: 1rem;
-        margin: 1rem 0;
-        font-weight: 500;
-        text-decoration: underline;
-        text-align: center;
-      }
+        input:focus {
+          outline: none !important;
+          border: 1px solid v.$textColor-colorBlue;
+          border-radius: 5px;
+        }
 
-      .profilePage_container_member_card_task_name {
-        font-size: 1rem;
-        margin: 1rem 0;
-        font-weight: 200;
-        text-align: justify;
-      }
+        label {
+          position: absolute;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+          color: #595959;
+          transition: 0.3s;
+        }
 
-      .profilePage_container_member_card_iconEdit {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        font-size: 1.2rem;
-        color: v.$textColor-colorOrange;
-        cursor: pointer;
-        transition: color 0.2s;
-
-        &:hover {
-          color: black;
+        /* We select label when input is focus */
+        input:focus ~ label,
+        .input_required:valid ~ label {
+          top: -0.9rem;
+          font-size: 1rem;
+          font-weight: 400;
+          color: v.$textColor-colorBlue;
+          margin-bottom: 1rem;
         }
       }
 
-      .profilePage_container_member_card_iconDelete {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        font-size: 1.2rem;
-        color: v.$textColor-colorOrange;
+      button {
+        border-radius: 5px;
+        padding: 0.3rem;
+        border: none;
         cursor: pointer;
-        transition: color 0.2s;
-
-        &:hover {
-          color: red;
-        }
+        background-color: v.$textColor-colorBlue;
+        color: white;
+        font-weight: 500;
       }
+
+      .errorMessage {
+        color: red;
+        font-size: 0.9rem;
+      }
+    }
+
+    .profile_modal_changeFormBtn {
+      padding-top: 1rem;
+      border: none;
+      background-color: transparent;
+      font-style: italic;
+      width: 100%;
     }
   }
 }

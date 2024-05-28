@@ -5,7 +5,7 @@ import actionCheckSignup from '../thunks/checkSignup';
 
 export const initialState: UserStateI = {
   id: 1,
-  logged: false,
+  logged: true,
   foyer: 'ma maison',
   credentials: {
     login: {

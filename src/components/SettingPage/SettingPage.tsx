@@ -9,6 +9,7 @@ function SettingPage() {
   const dispatch = useDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const members = useAppSelector((state) => state.profile.members);
+
   useEffect(() => {
     if (accountId) {
       dispatch(actionGetMembers({ id: accountId }));
@@ -28,7 +29,9 @@ function SettingPage() {
           className="settingPageDiv_checkbox"
         />
       </div>
-      <RestrictionEnfant />
+      {members.map((member) => {
+        <RestrictionEnfant key={member.id} member={member} />;
+      })}
     </div>
   );
 }

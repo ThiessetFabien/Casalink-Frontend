@@ -3,11 +3,11 @@ import './ProfilePage.scss';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { MemberStateI } from '../../../@types/memberStateI';
-import actionGetMembers from '../../../store/thunks/checkProfile';
-import actionFetchTasks from '../../../store/thunks/fetchTasksByProfile';
-import DeleteProfileModal from '../../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { MemberStateI } from '../../@types/memberStateI';
+import actionGetMembers from '../../store/thunks/checkProfile';
+import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
+import DeleteProfileModal from '../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
