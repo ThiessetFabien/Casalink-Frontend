@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { FaFileExport } from 'react-icons/fa';
 import axiosInstance from '../../axios/axios';
 import { MemberStateI } from '../../@types/memberStateI';
+import type { RootState } from '..';
 
 export const actionDeleteProfile = createAsyncThunk<
   void,
@@ -22,14 +23,16 @@ export const actionDeleteProfile = createAsyncThunk<
 
 export const actionUpdateProfile = createAsyncThunk<
   void,
-  number,
+  MemberStateI,
   { rejectValue: string }
->('profile/UPDATE_PROFILE', async (profile_id, thunkAPI) => {
+>('profile/UPDATE_PROFILE', async (updatedProfile, thunkAPI) => {
   try {
+    const state = thunkAPI.getState() as RootState;
     const response = await axiosInstance.patch(
-      `/profile/${profile_id}`,
+      `/profile/${updatedProfile.id}`,
       updatedProfile
     );
+    console.log(updatedProfile);
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;

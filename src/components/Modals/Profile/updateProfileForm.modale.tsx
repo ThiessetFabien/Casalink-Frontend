@@ -20,10 +20,13 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resultAction = await dispatch(actionUpdateProfile(updatedProfile));
-    if (actionUpdateProfile.fulfilled.match(resultAction))
+    const resultAction = await dispatch(
+      actionUpdateProfile({ ...profile, ...updatedProfile })
+    );
+    if (actionUpdateProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
-    closeModal();
+      // closeModal();
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,19 +135,19 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
               <div className="profile_field">
                 <label htmlFor="email">Email</label>
                 <input
-                  value={profile.email}
+                  value={updatedProfile.email}
                   onChange={handleChange}
                   className="input_email"
                   type="email"
                   name="email"
                   id="email"
-                  placeholder={profile.email || 'Entrer votre email'}
+                  placeholder={updatedProfile.email || 'Entrer votre email'}
                 />
               </div>
               <div className="profile_field">
                 <label htmlFor="pin">Code Pin</label>
                 <input
-                  value={profile.pin}
+                  value={updatedProfile.pin}
                   onChange={handleChange}
                   className="input_pin"
                   type="password"
