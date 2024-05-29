@@ -1,5 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { format } from 'date-fns';
+import {
+  actionAddTask,
+  actionDeleteTask,
+  actionGetTask,
+  actionModifyTask,
+} from '../thunks/checkTask';
 import { TaskI, TaskInputI } from '../../@types/taskStateI';
 import { EventsI } from '../../@types/events';
 
@@ -11,6 +17,14 @@ interface TaskStateI {
 interface ChangeTaskPayload {
   name: keyof TaskInputI;
   value: string | number | null;
+}
+
+interface ApiTask {
+  task_id: number | null;
+  task_start_date: string | Date;
+  task_end_date: string | Date;
+  task_name: string;
+  task_description: string | null;
 }
 
 export const initialState: TaskStateI = {
@@ -26,21 +40,6 @@ export const initialState: TaskStateI = {
   list: [],
 };
 
-// export const actionChangeTask = createAction<{
-//   name: keyof TaskStateI;
-//   valueString: string | null;
-//   valueDate: Date | null;
-// }>('user/CHANGE_TASK');
-
-// const taskReducer = createReducer(initialState, (builder) => {
-//   builder.addCase(actionChangeTask, (state, action) => {
-//     const { name, valueString, valueDate } = action.payload;
-//     if (valueString === 'string') {
-//       state.input[name] = valueString;
-//     } else if (valueDate instanceof Date) state.input[name] = valueDate;
-//   });
-// });
-
 const taskSlice = createSlice({
   name: 'task',
   initialState,
@@ -49,25 +48,58 @@ const taskSlice = createSlice({
       const { name, value } = action.payload;
       (state.input[name] as string | number | null) = value;
     },
-    actionAddTask(state, action) {
-      const { id, start, end, nameTask, descriptionTask } = action.payload;
-      state.list.push({ id, start, end, nameTask, descriptionTask });
-    },
+
     actionEditTask(state, action) {
       const { id, start, end, nameTask, descriptionTask } = action.payload;
       state.list = state.list.map((ev) =>
         ev.id === id ? { ...ev, start, end, nameTask, descriptionTask } : ev
       );
     },
-    actionDragAndDropTask(state, action) {
-      const { event, start, end } = action.payload;
-    },
-    actionResizeTask(state, action) {
-      const { event, start, end } = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(actionAddTask.fulfilled, (state, action) => {
+      const { id, start, end, nameTask, descriptionTask } = action.payload;
+      state.list.push({ id, start, end, nameTask, descriptionTask });
+    });
+    builder.addCase(actionAddTask.rejected, (state, action) => {
+      // Gérer l'erreur
+    });
+    builder.addCase(actionModifyTask.fulfilled, (state, action) => {
+      const { id, start, end, nameTask, descriptionTask } = action.payload;
+      state.list = state.list.map((ev) =>
+        ev.id === id ? { ...ev, start, end, nameTask, descriptionTask } : ev
+      );
+    });
+    builder.addCase(actionModifyTask.rejected, (state, action) => {
+      // Gérer l'erreur
+    });
+    builder.addCase(
+      actionGetTask.fulfilled,
+      (state, action: PayloadAction<ApiTask[]>) => {
+        // const { id, start, end, nameTask, descriptionTask } = action.payload;
+        action.payload.forEach((task: ApiTask) => {
+          state.list.push({
+            id: task.task_id,
+            start: task.task_start_date,
+            end: task.task_end_date,
+            nameTask: task.task_name,
+            descriptionTask: task.task_description,
+          });
+        });
+      }
+    );
+    builder.addCase(actionGetTask.rejected, (state, action) => {
+      // Gérer l'erreur
+    });
+    builder.addCase(actionDeleteTask.fulfilled, (state, action) => {
+      // const { id, start, end, nameTask, descriptionTask } = action.payload;
+      state.list = state.list.filter((task) => task.id !== action.payload);
+    });
+    builder.addCase(actionDeleteTask.rejected, (state, action) => {
+      // Gérer l'erreur
+    });
   },
 });
 
-export const { actionChangeTask, actionAddTask, actionEditTask } =
-  taskSlice.actions;
+export const { actionChangeTask, actionEditTask } = taskSlice.actions;
 export default taskSlice.reducer;

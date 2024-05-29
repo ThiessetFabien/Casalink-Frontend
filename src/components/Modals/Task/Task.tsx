@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import './Task.scss';
-import { X } from 'react-feather';
+import { Trash2, X } from 'react-feather';
 
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
@@ -8,10 +8,11 @@ import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
 import { TaskInputI } from '../../../@types/taskStateI';
 import { EventsI } from '../../../@types/events';
+import { actionDeleteTask } from '../../../store/thunks/checkTask';
 
 interface TaskI {
   taskModalMode: 'add' | 'edit';
-  eventSelect: EventsI | null;
+  eventSelect: EventsI;
   addTask: (start: Date, end: Date, title: string, description: string) => void;
   editTask: (
     id: number,
@@ -134,15 +135,28 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
         role="presentation"
         onClick={handleModalClick}
       >
-        <button
-          type="button"
-          className="task_modal_exit_button"
-          onClick={() => {
-            dispatch(actionSwitchTaskModal());
-          }}
-        >
-          <X />
-        </button>
+        <div className="task_modal_btns">
+          <button
+            type="button"
+            className="task_modal_btns_delete"
+            onClick={() => {
+              dispatch(actionDeleteTask({ id: eventSelect?.id }));
+              dispatch(actionSwitchTaskModal());
+            }}
+          >
+            <Trash2 />
+          </button>
+          <button
+            type="button"
+            className="task_modal_btns_exit"
+            onClick={() => {
+              dispatch(actionSwitchTaskModal());
+            }}
+          >
+            <X />
+          </button>
+        </div>
+
         <form className="task_modal_form" onSubmit={handleSubmit}>
           <input
             className=""

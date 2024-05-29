@@ -1,21 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import { addHours, format, parseISO } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
+import { addHours, format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
 import Task from '../Modals/Task/Task';
 import { mlocalizer, messages } from '../../utils/calendarParams';
-import { actionAddTask, actionEditTask } from '../../store/reducer/task';
 import { EventsI } from '../../@types/events';
+import {
+  actionAddTask,
+  actionGetTask,
+  actionModifyTask,
+} from '../../store/thunks/checkTask';
 
 interface DragNDropI {
   event: EventsI;
-  start: Date;
-  end: Date;
+  startUnserielized: Date;
+  endUnserielized: Date;
 }
 
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
@@ -28,6 +31,7 @@ function HomePage() {
   const taskModalIsOpen = useAppSelector(
     (state) => state.modal.taskModalIsOpen
   );
+  const accountId = useAppSelector((state) => state.user.id);
   const events = useAppSelector((state) =>
     state.task.list.map((task) => ({
       ...task,
@@ -40,6 +44,8 @@ function HomePage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(actionGetTask({ id: accountId }));
+
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
     };
@@ -47,14 +53,14 @@ function HomePage() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [dispatch, accountId]);
 
-  const setEvents = useCallback(
-    (eventsList: EventsI[]) => {
-      dispatch(actionAddTask(eventsList));
-    },
-    [dispatch]
-  );
+  // const setEvents = useCallback(
+  //   (eventsList: EventsI[]) => {
+  //     dispatch(actionAddTask(eventsList));
+  //   },
+  //   [dispatch]
+  // );
 
   const addTask = (
     startUnserielized: Date,
@@ -66,7 +72,7 @@ function HomePage() {
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
     dispatch(
       actionAddTask({
-        id: uuidv4(),
+        id: accountId,
         start,
         end,
         nameTask: title,
@@ -86,7 +92,7 @@ function HomePage() {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
     dispatch(
-      actionEditTask({
+      actionModifyTask({
         id,
         start,
         end,
@@ -126,23 +132,45 @@ function HomePage() {
   );
 
   const handleEventDrop = useCallback(
-    ({ event, start, end }: DragNDropI) => {
+    ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
+      const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
+      dispatch(
+        actionModifyTask({
+          id: event.id,
+          start,
+          end,
+          nameTask: event.nameTask,
+          descriptionTask: event.descriptionTask,
+        })
+      );
       // setEvents((prev) => {
       //   const filtered = prev.filter((ev) => ev.id !== event.id);
       //   return [...filtered, { ...event, start, end }];
       // });
     },
-    [setEvents]
+    [dispatch]
   );
 
   const handleEventResize = useCallback(
-    ({ event, start, end }: DragNDropI) => {
+    ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
+      const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
+      dispatch(
+        actionModifyTask({
+          id: event.id,
+          start,
+          end,
+          nameTask: event.nameTask,
+          descriptionTask: event.descriptionTask,
+        })
+      );
       // setEvents((prev) => {
       //   const filtered = prev.filter((ev) => ev.id !== event.id);
       //   return [...filtered, { ...event, start, end }];
       // });
     },
-    [setEvents]
+    [dispatch]
   );
 
   const formats = {
@@ -167,7 +195,7 @@ function HomePage() {
 
   return (
     <div className="HomePage">
-      {taskModalIsOpen && (
+      {taskModalIsOpen && eventSelected && (
         <Task
           taskModalMode={taskModalMode}
           eventSelect={eventSelected}
@@ -193,8 +221,8 @@ function HomePage() {
             const endConverted = new Date(end);
             handleEventDrop({
               event,
-              start: startConverted,
-              end: endConverted,
+              startUnserielized: startConverted,
+              endUnserielized: endConverted,
             });
           }}
           onEventResize={({ event, start, end }) => {
@@ -202,8 +230,8 @@ function HomePage() {
             const endConverted = new Date(end);
             handleEventResize({
               event,
-              start: startConverted,
-              end: endConverted,
+              startUnserielized: startConverted,
+              endUnserielized: endConverted,
             });
           }}
           resizable

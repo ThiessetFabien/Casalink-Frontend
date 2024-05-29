@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { BsArrowLeftShort } from 'react-icons/bs';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';

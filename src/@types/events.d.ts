@@ -1,7 +1,7 @@
 export interface EventsI {
-  id: number;
+  id: number | null;
   nameTask: string;
   descriptionTask: string | null;
-  start: Date;
-  end: Date;
+  start: string | Date;
+  end: string | Date;
 }
