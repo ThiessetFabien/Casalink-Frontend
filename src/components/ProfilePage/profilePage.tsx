@@ -1,24 +1,26 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { MemberStateI } from '../../../@types/memberStateI';
-import actionGetMembers from '../../../store/thunks/checkProfile';
-import actionFetchTasks from '../../../store/thunks/fetchTasksByProfile';
-import DeleteProfileModal from '../../Modals/Profile/deleteProfile'; // Assurez-vous d'importer votre modal de suppression
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { MemberStateI } from '../../@types/memberStateI';
+import actionGetMembers from '../../store/thunks/checkProfile';
+import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
+import DeleteProfileModal from '../Modals/Profile/deleteProfile';
+import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
-  console.log(membersList);
-
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
   const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
     null
   );
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   useEffect(() => {
     if (accountId) {
@@ -45,16 +47,19 @@ function ProfilePage() {
     return result;
   }, [membersList, tasksList]);
 
-  const handleAddClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
-  };
-
   const handleDeleteClick = (member: MemberStateI) => {
     setSelectedProfile(member);
+    setDeleteModalIsOpen(true);
+  };
+
+  const handleEditClick = (member: MemberStateI) => {
+    setSelectedProfile(member);
+    setEditModalIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setSelectedProfile(null);
+    setDeleteModalIsOpen(false);
   };
 
   if (!Array.isArray(membersList)) {
@@ -81,7 +86,10 @@ function ProfilePage() {
                       className="profilePage_container_member_card_iconDelete"
                       onClick={() => handleDeleteClick(member)}
                     />
-                    <FaEdit className="profilePage_container_member_card_iconEdit" />
+                    <FaEdit
+                      className="profilePage_container_member_card_iconEdit"
+                      onClick={() => handleEditClick(member)}
+                    />
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
@@ -139,7 +147,7 @@ function ProfilePage() {
               alt="avatar de l'utilisateur"
             />
             <h4 className="profilePage_container_member_card_name">
-              Nouveau Profil
+              Ajouter un Profil
             </h4>
             <FaPlusCircle
               className="profilePage_container_member_card_iconAddProfile"
@@ -148,12 +156,19 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-      {selectedProfile && (
+      {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
           profile={selectedProfile}
-          onClose={handleCloseModal}
+          closeModal={handleCloseModal}
         />
       )}
+      {selectedProfile && editModalIsOpen && (
+        <EditProfileModal
+          profile={selectedProfile}
+          closeModal={handleCloseModal}
+        />
+      )}
+      {addModalIsOpen && <AddProfileModal closeModal={handleCloseModal} />}
     </div>
   );
 }
