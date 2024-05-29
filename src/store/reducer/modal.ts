@@ -4,6 +4,7 @@ interface ModalStateI {
   loginModalIsOpen: boolean;
   loginModalIsMode: 'signin' | 'signup';
   taskModalIsOpen: boolean;
+  profileModalIsOpen: boolean;
   sideMenuModalIsOpen: boolean;
   darkModeIsActive: boolean;
 }
@@ -12,12 +13,16 @@ export const initialState: ModalStateI = {
   loginModalIsOpen: false,
   loginModalIsMode: 'signin',
   taskModalIsOpen: false,
+  profileModalIsOpen: false,
   sideMenuModalIsOpen: false,
   darkModeIsActive: false,
 };
 
 export const actionSwitchLoginModal = createAction('modal/SWITCH_LOGIN_MODAL');
 export const actionSwitchTaskModal = createAction('modal/SWITCH_TASK_MODAL');
+export const actionSwitchProfileModal = createAction(
+  'modal/SWITCH_PROFILE_MODAL'
+);
 export const actionSwitchSideMenuModal = createAction(
   'modal/SWITCH_SIDEMENU_MODAL'
 );
@@ -33,6 +38,9 @@ const modalReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionSwitchTaskModal, (state) => {
       state.taskModalIsOpen = !state.taskModalIsOpen;
+    })
+    .addCase(actionSwitchProfileModal, (state) => {
+      state.profileModalIsOpen = !state.profileModalIsOpen;
     })
     .addCase(actionSwitchSideMenuModal, (state) => {
       state.sideMenuModalIsOpen = !state.sideMenuModalIsOpen;

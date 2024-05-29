@@ -85,13 +85,14 @@ const userReducer = createReducer(initialState, (builder) => {
       // state.token = action.payload.token;
       state.error = null;
     })
+    // ! à ajuster
     .addCase(actionCheckLogin.rejected, (state) => {
       state.error = 'Identifiant ou mot de passe inccorect';
     })
     .addCase(actionCheckSignup.fulfilled, (state, action) => {
       state.logged = true;
-      // state.pseudo = action.payload.pseudo;
-      // state.token = action.payload.token;
+      state.pseudo = action.payload.pseudo;
+      state.token = action.payload.token;
       state.error = null;
     })
     .addCase(actionCheckSignup.rejected, (state, action) => {

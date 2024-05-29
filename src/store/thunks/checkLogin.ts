@@ -11,10 +11,13 @@ const actionCheckLogin = createAsyncThunk(
       email: state.user.credentials.login.emailSignin,
       password: state.user.credentials.login.passwordSignin,
     });
-    // const { pseudo, token } = response.data;
-    // addTokenJwtToAxiosInstance(token);
-    // addTokenAndPseudoToLocalStorage(token, pseudo);
-    //  return { pseudo, token };
+
+    const { token } = response.data;
+
+    addTokenJwtToAxiosInstance(token);
+    // addTokenAndPseudoToLocalStorage(token);
+
+    return { token };
     return response.data.data.account;
   }
 );

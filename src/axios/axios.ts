@@ -5,7 +5,7 @@ const axoiosInstance = axios.create({
 });
 
 export function addTokenJwtToAxiosInstance(token: string) {
-  axoiosInstance.defaults.headers.common.Authorization = `Bearer  + ${token}`;
+  axoiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
 export function removeTokenJwtToAxiosInstance() {
