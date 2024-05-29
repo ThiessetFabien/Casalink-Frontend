@@ -53,6 +53,10 @@ function HomePage() {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(actionGetTask({ id: accountId }));
+  }, []);
+
   // const setEvents = useCallback(
   //   (eventsList: EventsI[]) => {
   //     dispatch(actionAddTask(eventsList));
