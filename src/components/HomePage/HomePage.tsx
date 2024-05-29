@@ -55,7 +55,9 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(actionGetTask({ id: accountId }));
-  }, []);
+    console.log(accountId);
+    
+  }, [accountId, dispatch]);
 
   // const setEvents = useCallback(
   //   (eventsList: EventsI[]) => {

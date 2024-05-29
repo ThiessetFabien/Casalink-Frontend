@@ -77,6 +77,7 @@ const taskSlice = createSlice({
       actionGetTask.fulfilled,
       (state, action: PayloadAction<ApiTask[]>) => {
         // const { id, start, end, nameTask, descriptionTask } = action.payload;
+        state.list = [];
         action.payload.forEach((task: ApiTask) => {
           state.list.push({
             id: task.task_id,
