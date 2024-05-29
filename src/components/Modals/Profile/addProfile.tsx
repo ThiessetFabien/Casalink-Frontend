@@ -17,13 +17,16 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   const accountId = useAppSelector((state) => state.user.id);
 
   // Add state for new profile data
-  const [newProfile, setNewProfile] = useState<Omit<MemberStateI, 'id' | 'created_at' | 'updated_at' | 'score'>>({
+  const [newProfile, setNewProfile] = useState<
+    Omit<MemberStateI, 'id' | 'created_at' | 'updated_at' | 'score' | 'task'>
+  >({
     name: '',
-    birthdate: '',
+    birthdate: null,
     image: '',
     role: 'child', // Default role is child
     email: '',
-    pin: '',
+    pin: null,
+    tasks: [],
   });
 
   // State to check if the role is adult
@@ -88,17 +91,6 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
               value={newProfile.birthdate}
               onChange={handleChange}
               required
-            />
-          </div>
-          <div className="profile_field">
-            <label htmlFor="image">Ajouter une photo de profil</label>
-            <input
-              className="profile_field_image"
-              type="file"
-              accept=".jpeg, .jpg, .png, .webp"
-              name="image"
-              id="image"
-              onChange={handleChange}
             />
           </div>
           <div className="profile_field">

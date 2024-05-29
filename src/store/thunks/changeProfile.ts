@@ -1,9 +1,41 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { FaFileExport } from 'react-icons/fa';
 import axiosInstance from '../../axios/axios';
 import { MemberStateI } from '../../@types/memberStateI';
 import type { RootState } from '..';
+
+interface UploadProfileImagePayload {
+  base64Image: string;
+  profileId: number;
+}
+
+export const actionUploadProfileImage = createAsyncThunk<
+  string,
+  UploadProfileImagePayload,
+  { rejectValue: string }
+>(
+  'profile/UPLOAD_PROFILE_IMAGE',
+  async ({ base64Image, profileId }, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState() as RootState;
+      console.log('File base64:', base64Image);
+      console.log('STATE PROFILE ID !!', profileId);
+      const response = await axiosInstance.post('/profile/upload', {
+        id: profileId,
+        image: base64Image,
+      });
+
+      return response.data.filePath;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const errorMessage =
+        typeof axiosError.response?.data === 'string'
+          ? axiosError.response?.data
+          : "Erreur lors de l'upload de l'image";
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+);
 
 export const actionDeleteProfile = createAsyncThunk<
   void,
@@ -15,9 +47,11 @@ export const actionDeleteProfile = createAsyncThunk<
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      axiosError.response?.data || 'Erreur de suppression'
-    );
+    const errorMessage =
+      typeof axiosError.response?.data === 'string'
+        ? axiosError.response?.data
+        : 'Erreur de suppression';
+    return thunkAPI.rejectWithValue(errorMessage);
   }
 });
 
@@ -43,9 +77,11 @@ export const actionUpdateProfile = createAsyncThunk<
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      axiosError.response?.data || 'Erreur de modification'
-    );
+    const errorMessage =
+      typeof axiosError.response?.data === 'string'
+        ? axiosError.response?.data
+        : 'Erreur de modification';
+    return thunkAPI.rejectWithValue(errorMessage);
   }
 });
 
@@ -71,9 +107,11 @@ export const actionAddProfile = createAsyncThunk<
     return response.data.data;
   } catch (error) {
     const axiosError = error as AxiosError;
-    return thunkAPI.rejectWithValue(
-      axiosError.response?.data || 'Erreur lors de l\'ajout d\'un profil'
-    );
+    const errorMessage =
+      typeof axiosError.response?.data === 'string'
+        ? axiosError.response?.data
+        : "Erreur lors de l'ajout d'un profil";
+    return thunkAPI.rejectWithValue(errorMessage);
   }
 });
 
