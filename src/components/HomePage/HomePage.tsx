@@ -44,8 +44,6 @@ function HomePage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(actionGetTask({ id: accountId }));
-
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
     };
@@ -53,7 +51,7 @@ function HomePage() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [dispatch, accountId]);
+  }, []);
 
   // const setEvents = useCallback(
   //   (eventsList: EventsI[]) => {

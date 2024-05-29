@@ -80,9 +80,8 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionCheckLogin.fulfilled, (state, action) => {
       state.logged = true;
-      state.id = action.payload.id;
-      // state.pseudo = action.payload.pseudo;
-      // state.token = action.payload.token;
+      state.id = action.payload.account.id;
+      state.token = action.payload.token;
       state.error = null;
     })
     // ! à ajuster

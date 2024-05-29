@@ -24,14 +24,6 @@ interface TaskI {
 }
 
 function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
-  // const [startDate, setStartDate] = useState(Date);
-  // const [startTime, setStartTime] = useState(Date);
-  // const [endDate, setEndDate] = useState(Date);
-  // const [endTime, setEndTime] = useState(Date);
-  // const [id, setId] = useState(0);
-  // const [taskTitle, setTaskTitle] = useState('');
-  // const [taskDescription, setTaskDescription] = useState('');
-
   const dispatch = useAppDispatch();
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
 
@@ -87,13 +79,6 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
           value: format(eventSelect.end, 'HH:mm'),
         })
       );
-      // setStartDate(format(eventSelect.start, 'yyyy-MM-dd'));
-      // setStartTime(format(eventSelect.start, 'HH:mm'));
-      // setEndDate(format(eventSelect.end, 'yyyy-MM-dd'));
-      // setEndTime(format(eventSelect.end, 'HH:mm'));
-      // setTaskTitle(eventSelect.title);
-      // setTaskDescription(eventSelect.content || '');
-      // if (eventSelect.id) setId(eventSelect.id);
     }
   }, [dispatch, eventSelect]);
 

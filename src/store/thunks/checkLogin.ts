@@ -17,8 +17,7 @@ const actionCheckLogin = createAsyncThunk(
     addTokenJwtToAxiosInstance(token);
     // addTokenAndPseudoToLocalStorage(token);
 
-    return { token };
-    return response.data.data.account;
+    return { token, account: response.data.data.account };
   }
 );
 
