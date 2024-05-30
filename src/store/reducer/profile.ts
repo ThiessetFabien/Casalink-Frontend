@@ -1,21 +1,32 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
 import actionFetchTasks from '../thunks/fetchTasksByProfile';
-import { actionDeleteProfile, actionUpdateProfile } from '../thunks/changeProfile';
+import {
+  actionDeleteProfile,
+  actionUpdateProfile,
+  actionUpdateRole,
+} from '../thunks/changeProfile';
 import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
+import actionSwitchRestriction from '../thunks/checkChildren';
 
 interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
+  member: MemberStateI;
 }
 
 export const initialState: MembersState = {
   members: [],
   tasks: [],
+  member: <MemberStateI>{},
 };
+
+export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
+    console.log('je suis actionGetMembers');
+
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
@@ -43,6 +54,20 @@ const profileReducer = createReducer(initialState, (builder) => {
       state.members[index] = action.payload;
     }
     console.log('Updated members after modification:', state.members);
+  });
+  builder.addCase(actionUpdateRole.fulfilled, (state, action) => {
+    const { memberId, role } = action.payload;
+    const member = state.members.find((m) => m.id === memberId);
+    if (member) {
+      member.role = role;
+    }
+  });
+  builder.addCase(actionChangeRole, (state, action) => {
+    const { memberId, role } = action.payload;
+    const member = state.members.find((m) => m.id === memberId);
+    if (member) {
+      member.role = role;
+    }
   });
   // .addCase(actionAddMember, (state, action) => {
   //   state.members.push(action.payload);

@@ -30,7 +30,7 @@ function App() {
           ) : (
             <Route path="/" element={<LandingPage />} />
           )}
-          <Route path="/setting" element={<SettingPage />} />
+          {isLogged && <Route path="/setting" element={<SettingPage />} />}
           <Route path="/foyer" element={<ProfilePage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />

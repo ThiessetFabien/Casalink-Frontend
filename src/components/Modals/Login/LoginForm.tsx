@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import actionCheckLogin from '../../../store/thunks/checkLogin';
+import actionGetMembers from '../../../store/thunks/checkProfile';
 
 interface LoginFormProps {
   email: string;
@@ -20,8 +21,10 @@ function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const resultAction = await dispatch(actionCheckLogin());
-    if (actionCheckLogin.fulfilled.match(resultAction))
+    if (actionCheckLogin.fulfilled.match(resultAction)) {
       dispatch(actionSwitchLoginModal());
+      // dispatch(actionGetMembers(resultAction.payload));
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

@@ -21,4 +21,11 @@ export interface MemberStateI {
   role: string;
   pin: number;
   email: string;
+  isChecked: boolean;
+}
+
+export interface RoleI {
+  memberId: number;
+  role: 'child' | 'adult';
+  isChecked: boolean;
 }
