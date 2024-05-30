@@ -54,9 +54,7 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    dispatch(actionGetTask({ id: accountId }));
-    console.log(accountId);
-    
+    if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
   }, [accountId, dispatch]);
 
   // const setEvents = useCallback(

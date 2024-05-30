@@ -4,7 +4,7 @@ import { UserStateI } from '../../@types/userStateI';
 import actionCheckSignup from '../thunks/checkSignup';
 
 export const initialState: UserStateI = {
-  id: 1,
+  id: null,
   logged: false,
   foyer: 'ma maison',
   credentials: {

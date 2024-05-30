@@ -45,7 +45,7 @@ const actionModifyTask = createAsyncThunk(
 
 const actionGetTask = createAsyncThunk(
   'task/GET_TASK',
-  async (payload: { id: number | null }, thunkAPI) => {
+  async (payload: { id: number }, thunkAPI) => {
     try {
       const response = await axiosInstance.get(`/task/account/${payload.id}`);
       return response.data.data.tasks;
