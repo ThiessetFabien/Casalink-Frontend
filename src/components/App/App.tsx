@@ -14,6 +14,7 @@ import NotFount from '../404/404';
 import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
+import SelectProfile from '../SelectProfile/SelectProfile';
 
 function App() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -41,9 +42,14 @@ function App() {
             <Route path="/foyer" element={<LandingPage />} />
           )}
 
+          {isLogged && (
+            <Route path="/selectprofile" element={<SelectProfile />} />
+          )}
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
+          <Route path="/selectprofile" element={<SelectProfile />} />
           <Route path="*" element={<NotFount />} />
         </Routes>
       </div>
