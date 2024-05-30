@@ -40,9 +40,6 @@ function HomePage() {
       end: new Date(task.end),
     }))
   );
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
-  );
 
   const dispatch = useAppDispatch();
 
@@ -55,11 +52,6 @@ function HomePage() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  useEffect(() => {
-    console.log('ici les gars', memberSelected);
-    if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
-  }, [accountId, dispatch]);
 
   // const setEvents = useCallback(
   //   (eventsList: EventsI[]) => {
