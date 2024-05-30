@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { BsArrowLeftShort } from 'react-icons/bs';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -14,6 +13,7 @@ import SiteMap from '../SiteMap/SiteMap';
 import NotFount from '../404/404';
 import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
+import SettingPage from '../SettingPage/SettingPage';
 
 function App() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -29,7 +29,18 @@ function App() {
           ) : (
             <Route path="/" element={<LandingPage />} />
           )}
-          <Route path="/foyer" element={<ProfilePage />} />
+          {isLogged ? (
+            <Route path="/setting" element={<SettingPage />} />
+          ) : (
+            <Route path="/setting" element={<LandingPage />} />
+          )}
+
+          {isLogged ? (
+            <Route path="/foyer" element={<ProfilePage />} />
+          ) : (
+            <Route path="/foyer" element={<LandingPage />} />
+          )}
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />

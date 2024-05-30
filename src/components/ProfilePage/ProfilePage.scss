@@ -16,7 +16,6 @@ $breakpoints: (
 .profilePage_container {
   width: 100%;
 
-
   .profilePage_container_presentation {
     margin: auto;
     width: 100%;
@@ -93,9 +92,8 @@ $breakpoints: (
           margin-bottom: 1rem;
           border-radius: 5px;
           box-shadow: 1px 5px 5px 0px lightgrey;
-  
         }
-  
+
         .profilePage_container_member_card_task_headerDate {
           width: 100%;
           background-color: v.$textColor-colorOrange;
@@ -103,13 +101,14 @@ $breakpoints: (
           font-weight: 500;
           border-radius: 5px 5px 0 0;
         }
-  
+
         .profilePage_container_member_card_task_containerName {
           width: 100%;
           background-color: white;
         }
-  
-        .profilePage_container_member_card_task_name, .profilePage_container_member_card_task_date {
+
+        .profilePage_container_member_card_task_name,
+        .profilePage_container_member_card_task_date {
           font-size: 1rem;
           font-weight: 500;
           text-align: center;
@@ -146,7 +145,6 @@ $breakpoints: (
               color: red;
             }
           }
-        
         }
 
         .profilePage_container_member_card_iconAddProfile {
@@ -158,12 +156,10 @@ $breakpoints: (
           height: 35%;
           margin: 0 auto;
 
-
           &:hover {
             color: v.$textColor-colorBlue;
           }
         }
-
       }
     }
   }
@@ -180,7 +176,8 @@ $breakpoints: (
     background-color: RGBA(0, 0, 0, 0.5);
     z-index: 1;
 
-    .delete_modal, .update_modal {
+    .delete_modal,
+    .update_modal {
       position: relative;
       background-color: white;
       border-radius: 10px;
@@ -211,12 +208,14 @@ $breakpoints: (
           width: 100%;
           margin-top: 1.5rem;
 
-          .input_checkbox_adult, .input_checkbox_child {
+          .input_checkbox_adult,
+          .input_checkbox_child {
             width: 20%;
             margin-top: 0.5rem;
           }
 
-          .input_checkbox_child_title, .input_checkbox_adult_title {
+          .input_checkbox_child_title,
+          .input_checkbox_adult_title {
             font-size: 1rem;
             font-weight: 500;
             margin-top: 0.5rem;
@@ -225,17 +224,17 @@ $breakpoints: (
 
         .profile_field {
           position: relative;
-  
+
           input {
             border: none;
             border-bottom: 1px solid black;
             width: 100%;
             background-color: transparent;
           }
-  
+
           input:focus {
             outline: none !important;
-            border:1px solid v.$textColor-colorBlue;
+            border: 1px solid v.$textColor-colorBlue;
             border-radius: 5px;
           }
 
@@ -245,7 +244,7 @@ $breakpoints: (
             transition: 0.3s;
           }
 
-            input:focus ~ label,
+          input:focus ~ label,
           .input_required:valid ~ label {
             top: -0.9rem;
             font-size: 1rem;
@@ -255,7 +254,8 @@ $breakpoints: (
           }
         }
 
-        .delete_modal_title, .update_modal_title {
+        .delete_modal_title,
+        .update_modal_title {
           font-size: 2rem;
           font-weight: 500;
           margin: 1rem 0;
@@ -269,7 +269,8 @@ $breakpoints: (
           text-align: center;
         }
 
-        .delete_modal_profile_containerButton, .update_modal_profile_containerButton {
+        .delete_modal_profile_containerButton,
+        .update_modal_profile_containerButton {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
@@ -294,5 +295,4 @@ $breakpoints: (
       }
     }
   }
-
 }

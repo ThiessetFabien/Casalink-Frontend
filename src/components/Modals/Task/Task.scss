@@ -42,12 +42,19 @@ $breakpoints: (
       max-width: 400px;
     }
 
-    &_exit_button {
+    &_btns {
       position: absolute;
-      top: 1px;
+      top: 1%;
       right: 1px;
       border: none;
+
+      &_exit, &_delete {
+        cursor: pointer;
+        border: none;
+      }
     }
+
+    
 
     &_form {
       display: flex;

@@ -11,6 +11,7 @@ function LandingPage() {
   const [imgTestVisiteur, setImgTestVisiteur] = useState(
     'src/assets/AgendaVisiteurCasalink.png'
   );
+
   return (
     <div className="landingPage">
       <div className="landingPage_BoxFunctionality">
