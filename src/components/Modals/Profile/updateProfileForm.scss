@@ -51,9 +51,6 @@ $breakpoints: (
       @include media(tablet_mini) {
         gap: 2rem;
       }
-      @include media(desktop) {
-        flex-direction: column;
-      }
 
       .update_modal_title {
         @include media(desktop) {

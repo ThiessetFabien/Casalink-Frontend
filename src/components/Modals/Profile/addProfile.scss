@@ -31,10 +31,15 @@ $breakpoints: (
     border-radius: 10px;
     padding: 2rem;
     z-index: 1;
-    width: 100%;
+    width: 90%;
     background-color: #ececec;
     @include media(tablet_mini) {
-      max-width: 400px;
+      max-width: 80%;
+    }
+    @include media(desktop) {
+      margin-top: 1rem;
+      height: 30rem;
+      width: 50rem;
     }
 
     .exit_button {
@@ -56,10 +61,48 @@ $breakpoints: (
         font-size: 1.5rem;
         font-weight: 500;
         text-align: center;
+        @include media(desktop) {
+          width: 100%;
+          margin-top: 0;
+        }
+        @include media(tablet_mini) {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+
+      .add_modal_container_inputs {
+        @include media(desktop) {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+        }
+      }
+
+      .image {
+        @include media(desktop) {
+          width: 82%;
+        }
+        @include media(tablet_mini) {
+          width: 82%;
+        }
+      }
+
+      .radio {
+        @include media(desktop) {
+          width: 82%;
+        }
+        @include media(tablet_mini) {
+          width: 82%;
+        }
       }
 
       .profile_field {
         position: relative;
+        width: 40%;
+
 
         input {
           border: none;
@@ -67,6 +110,12 @@ $breakpoints: (
           width: 100%;
           background-color: transparent;
           margin-top: 1.5rem;
+          @include media(desktop) {
+            margin-top: 1rem;
+          }
+          @include media(tablet_mini) {
+            margin-top: 1rem;
+          }
         }
 
         input:focus {
@@ -100,6 +149,23 @@ $breakpoints: (
         flex-direction: row;
         width: 100%;
         margin-top: 1.5rem;
+        @include media(desktop) {
+          width: 82%;
+          margin-top: 2rem;
+        }
+        @include media(tablet_mini) {
+          width: 82%;
+          margin-top: 2rem;
+        }
+
+        .profile_field_role_child, .profile_field_role_adult {
+          @include media(desktop) {
+            width: 100%;
+          }
+          @include media(tablet_mini) {
+            width: 100%;
+          }
+        }
 
         .input_checkbox_adult, .input_checkbox_child {
           width: 20%;
@@ -113,6 +179,23 @@ $breakpoints: (
         }
       }
 
+      .add_modal_profile_containerButton {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        @include media(tablet_mini) {
+          flex-wrap: nowrap;
+          width: 100%;
+          justify-content: space-evenly;
+        }
+        @include media(desktop) {
+          flex-wrap: nowrap;
+          width: 100%;
+          justify-content: space-evenly;
+        }
+      }
+
       button {
         border-radius: 5px;
         padding: 0.3rem;
@@ -121,6 +204,12 @@ $breakpoints: (
         background-color: v.$textColor-colorBlue;
         color: white;
         font-weight: 500;
+        @include media(desktop) {
+          width: 40%;
+        }
+        @include media(tablet_mini) {
+          width: 40%;
+        }
       }
 
       .errorMessage {
