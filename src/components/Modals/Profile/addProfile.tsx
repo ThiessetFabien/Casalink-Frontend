@@ -21,11 +21,11 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     Omit<MemberStateI, 'id' | 'created_at' | 'updated_at' | 'score' | 'task'>
   >({
     name: '',
-    birthdate: null,
+    birthdate: '',
     image: '',
     role: 'child', // Default role is child
     email: '',
-    pin: null,
+    pin: '',
     tasks: [],
   });
 

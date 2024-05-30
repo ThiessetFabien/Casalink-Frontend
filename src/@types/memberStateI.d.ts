@@ -14,11 +14,11 @@ export interface TaskStateI {
 export interface MemberStateI {
   id: number | null;
   name: string;
-  birthdate: Date | null;
+  birthdate: Date | string;
   score: number;
   tasks: string[];
   image: string;
   role: string;
-  pin: number | null;
+  pin: number | string;
   email: string | null;
 }
