@@ -1,40 +1,80 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
-import { actionUpdateProfile } from '../../../store/thunks/changeProfile';
+import {
+  actionUpdateProfile,
+  actionUploadProfileImage,
+} from '../../../store/thunks/changeProfile';
+import actionGetMembers from '../../../store/thunks/checkProfile';
 
 interface EditProfileModalProps {
   profile: MemberStateI;
   closeModal: () => void;
 }
 
+interface UploadProfileImagePayload {
+  base64Image: string;
+  profileId: number;
+}
+
 function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const dispatch = useAppDispatch();
   const [updatedProfile, setUpdatedProfile] = useState(profile);
+  const [profileImageBase64, setProfileImageBase64] = useState<string | null>(
+    null
+  );
+  // const [profileImage, setProfileImage] = useState<File | null>(null);
   const errorMessages = useAppSelector((state) => state.user.error);
   const [isAdultChecked, setIsAdultChecked] = useState(
     profile.role === 'adult'
   );
 
+  const accountId = useAppSelector((state) => state.user.id);
+
+  const getFileName = (filePath: string) => {
+    return filePath.replace(/^.*[\\/]/, '');
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resultAction = await dispatch(
-      actionUpdateProfile({ ...profile, ...updatedProfile })
-    );
+    console.log('Updated Profile:', updatedProfile);
+    console.log('!!!! submit', profileImageBase64);
+    if (profileImageBase64 && updatedProfile.id !== null) {
+      const resultAction = await dispatch(
+        actionUploadProfileImage({
+          base64Image: profileImageBase64,
+          profileId: updatedProfile.id,
+        })
+      );
+      if (actionUploadProfileImage.fulfilled.match(resultAction)) {
+        setUpdatedProfile((prevProfile) => ({
+          ...prevProfile,
+          image: resultAction.payload,
+        }));
+      }
+    }
+
+    const resultAction = await dispatch(actionUpdateProfile(updatedProfile));
     if (actionUpdateProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
-      // closeModal();
+      dispatch(actionGetMembers({ id: accountId }));
+      closeModal();
     }
   };
+
+  useEffect(() => {
+    if (accountId) {
+      dispatch(actionGetMembers({ id: accountId }));
+    }
+  }, [dispatch, accountId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'role') {
       setIsAdultChecked(value === 'adult');
       if (value === 'child') {
-        // Reset additional fields when switching to child
         setUpdatedProfile((prevProfile) => ({
           ...prevProfile,
           email: '',
@@ -61,6 +101,32 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
       ...prevProfile,
       [name]: value,
     }));
+  };
+
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     const file = e.target.files[0];
+  //     setProfileImage(file);
+
+  // Optionally, update the profile state with the new image name
+  //     setUpdatedProfile((prevProfile) => ({
+  //       ...prevProfile,
+  //       image: getFileName(e.target.value),
+  //     }));
+  //   }
+  // };
+
+  const handleImageChangeBase64 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        if (event.target && typeof event.target.result === 'string') {
+          setProfileImageBase64(event.target.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -97,7 +163,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
           <div className="profile_field">
             <label htmlFor="image">Modifier sa Photo de profil</label>
             <input
-              onChange={handleDateChange}
+              onChange={handleImageChangeBase64}
               className="profile_field_image"
               type="file"
               accept=".jpeg, .jpg, .png, .webp"
