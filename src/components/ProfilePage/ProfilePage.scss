@@ -47,7 +47,9 @@ $breakpoints: (
     .profilePage_container_member_list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: center;    
+      margin-bottom: 3rem;
+      width: 90%;
 
       .profilePage_container_member_card {
         background-color: white;
@@ -55,7 +57,17 @@ $breakpoints: (
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
         margin: 1rem;
         padding: 1rem;
-        max-width: 30rem;
+        width: 90%;
+        max-height: 30rem;
+        overflow-y: auto;
+        @include media(desktop) {
+          width: 15rem;
+          max-height: 25rem;
+        }
+        @include media(tablet_mini) {
+          max-width: 25%;
+        }
+        
 
         .profilePage_container_memberCard_image {
           border-radius: 50%;
