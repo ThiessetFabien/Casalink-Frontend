@@ -122,8 +122,8 @@ function Header() {
       </div>
 
       {/* </div> */}
+      {/* <BtnConnect /> */}
       {!isConnected && <BtnConnect />}
-      {/* {!isConnected && <BtnConnect />} */}
       {loginModalIsOpen && <Login />}
     </div>
   );

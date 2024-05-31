@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import actionCheckLogin from '../../../store/thunks/checkLogin';
+import actionGetMembers from '../../../store/thunks/checkProfile';
 
 interface LoginFormProps {
   email: string;

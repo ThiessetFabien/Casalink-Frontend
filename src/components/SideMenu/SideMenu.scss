@@ -12,6 +12,16 @@ $breakpoints: (
   }
 }
 
+.btn-dark {
+  border: none;
+}
+
+.btn-dark.side_item-open {
+  border: none;
+  position: relative;
+  bottom: 2.5rem;
+}
+
 .side {
   display: none;
   @include media(desktop) {
