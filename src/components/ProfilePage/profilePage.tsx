@@ -18,9 +18,7 @@ function ProfilePage() {
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
-  // const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
-  //  null
-  // );
+  const [cardSelected, setCardSelected] = useState<MemberStateI | null>(null);
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
   );
@@ -54,12 +52,12 @@ function ProfilePage() {
   }, [membersList, tasksList]);
 
   const handleDeleteClick = (member: MemberStateI) => {
-    // setSelectedProfile(member);
+    setCardSelected(member);
     setDeleteModalIsOpen(true);
   };
 
   const handleEditClick = (member: MemberStateI) => {
-    // setSelectedProfile(member);
+    setCardSelected(member);
     setEditModalIsOpen(true);
   };
 
@@ -67,8 +65,14 @@ function ProfilePage() {
     setAddModalIsOpen(true);
   };
 
+  const handleClickOnOtherMemberCard = (member: MemberStateI) => {
+    setCardSelected(member);
+    setEditModalIsOpen(true);
+    console.log('Carte selectionnée', cardSelected);
+    console.log('Membre au click sur une autre carte', member);
+  };
+
   const handleCloseModal = () => {
-    // setSelectedProfile(null);
     setDeleteModalIsOpen(false);
     setEditModalIsOpen(false);
     setAddModalIsOpen(false);
@@ -94,22 +98,31 @@ function ProfilePage() {
                   className="profilePage_container_member_card"
                 >
                   <div className="profilePage_container_member_card_icones">
-                    {selectedProfile?.role === 'adult' &&
-                      member.role === 'child' && (
-                        <FaTrashAlt
-                          className="profilePage_container_member_card_iconDelete"
-                          onClick={() => handleDeleteClick(member)}
-                        />
-                      )}
-                    {(selectedProfile?.role === 'adult' &&
-                      member.role === 'child') ||
-                      (selectedProfile?.role === 'adult' &&
-                        selectedProfile.id === member.id && (
+                    {selectedProfile?.role === 'adult' && (
+                      <>
+                        {(member.role === 'child' ||
+                          selectedProfile.id === member.id) && (
+                          <FaTrashAlt
+                            className="profilePage_container_member_card_iconDelete"
+                            onClick={() => handleDeleteClick(member)}
+                          />
+                        )}
+                        {(member.role === 'child' ||
+                          selectedProfile.id === member.id) && (
                           <FaEdit
                             className="profilePage_container_member_card_iconEdit"
                             onClick={() => handleEditClick(member)}
                           />
-                        ))}
+                        )}
+                      </>
+                    )}
+                    {selectedProfile?.role === 'child' &&
+                      selectedProfile.id === member.id && (
+                        <FaEdit
+                          className="profilePage_container_member_card_iconEdit"
+                          onClick={() => handleEditClick(member)}
+                        />
+                      )}
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
@@ -178,13 +191,13 @@ function ProfilePage() {
       </div>
       {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}
       {selectedProfile && editModalIsOpen && (
         <EditProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}

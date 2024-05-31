@@ -34,6 +34,10 @@ export const actionSelectProfile = createAction<MemberStateI>(
   'profile/SELECTPROFILE'
 );
 
+export const setCardSelected = createAction<MemberStateI>(
+  'profile/SET_CARD_SELECTED'
+);
+
 export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 
 const profileReducer = createReducer(initialState, (builder) => {
