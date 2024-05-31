@@ -29,7 +29,10 @@ export const actionSelectProfile = createAction<MemberStateI>(
   'profile/SELECTPROFILE'
 );
 
-export const actionChangeRole = createAction('profile/SWITCH_ROLE');
+export const actionChangeRole = createAction<{
+  id: number | null;
+  role: string;
+}>('profile/SWITCH_ROLE');
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
@@ -70,39 +73,23 @@ const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionSelectProfile, (state, action) => {
     state.memberSelected = action.payload;
   });
-  builder.addCase(actionUpdateRole.fulfilled, (state, action) => {
-    const { memberId, role } = action.payload;
-    const member = state.members.find((m) => m.id === memberId);
+  builder.addCase(
+    actionUpdateRole.fulfilled,
+    (state, action: PayloadAction<{ id: number; role: string }>) => {
+      const { id, role } = action.payload;
+      const member = state.members.find((m) => m.id === id);
+      if (member) {
+        member.role = role;
+      }
+    }
+  );
+  builder.addCase(actionChangeRole, (state, action) => {
+    const { id, role } = action.payload;
+    const member = state.members.find((m) => m.id === id);
     if (member) {
       member.role = role;
     }
   });
-  builder.addCase(actionChangeRole, (state, action: PayloadAction) => {
-    const { memberId, role } = action.payload;
-    const member = state.members.find((m) => m.id === memberId);
-    if (member) {
-      member.role = role;
-    }
-  });
-  // .addCase(actionAddMember, (state, action) => {
-  //   state.members.push(action.payload);
-  // });
-  // .addCase(actionRemoveMember, (state, action) => {
-  //   state.members = state.members.filter(
-  //     (member) => member.id !== action.payload
-  //   );
-  // })
-  // .addCase(actionUpdateMember, (state, action) => {
-  //   const index = state.members.findIndex(
-  //     (member) => member.id === action.payload.id
-  //   );
-  //   if (index !== -1) {
-  //     state.members[index] = action.payload;
-  //   }
-  // })
-  // .addCase(actionResetErrorMessage, (state) => {
-  //   state.error = null;
-  // });
 });
 
 export default profileReducer;

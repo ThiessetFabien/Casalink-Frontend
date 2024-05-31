@@ -5,13 +5,15 @@ import actionSwitchRestriction from '../../../store/thunks/checkChildren';
 import { useAppSelector } from '../../../hooks/redux';
 import { actionUpdateRole } from '../../../store/thunks/changeProfile';
 import { actionChangeRole } from '../../../store/reducer/profile';
+import { AsyncThunkAction } from '@reduxjs/toolkit';
+import { AppDispatch } from '../../../store';
 
 interface RestrictionPropsI {
   member: MemberStateI;
 }
 
 function RestrictionEnfant({ member }: RestrictionPropsI) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const role = useAppSelector((state) => {
     const foundMember = state.profile.members.find((m) => m.id === member.id);
@@ -26,8 +28,8 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
     const newRole = role === 'child' ? 'adult' : 'child';
     console.log(newRole);
 
-    dispatch(actionUpdateRole({ memberId: member.id, role: newRole }));
-    dispatch(actionChangeRole({ memberId: member.id, role: newRole }));
+    dispatch(actionUpdateRole({ id: member.id, role: newRole }));
+    dispatch(actionChangeRole({ id: member.id, role: newRole }));
   };
 
   // console.log('je suis membre enfant', member);

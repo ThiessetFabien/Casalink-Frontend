@@ -25,7 +25,7 @@ export interface MemberStateI {
 }
 
 export interface RoleI {
-  memberId: number;
+  id: number;
   role: 'child' | 'adult';
   isChecked: boolean;
 }
