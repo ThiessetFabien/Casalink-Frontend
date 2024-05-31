@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MemberStateI } from '../../../@types/memberStateI';
 import actionSwitchRestriction from '../../../store/thunks/checkChildren';
 import { useAppSelector } from '../../../hooks/redux';
@@ -18,17 +18,16 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
     return foundMember ? foundMember.role : 'child';
   });
 
-  const isChecked = useAppSelector((state) => {
-    const foundMember = state.profile.members.find((m) => m.id === member.id);
-    return foundMember ? foundMember.isChecked : false;
+  const isLoading = useAppSelector((state) => {
+    return state.profile.isLoading;
   });
 
   const handleCheckboxChange = () => {
     const newRole = role === 'child' ? 'adult' : 'child';
     console.log(newRole);
 
-    dispatch(actionChangeRole({ memberId: member.id, role: newRole }));
     dispatch(actionUpdateRole({ memberId: member.id, role: newRole }));
+    dispatch(actionChangeRole({ memberId: member.id, role: newRole }));
   };
 
   // console.log('je suis membre enfant', member);

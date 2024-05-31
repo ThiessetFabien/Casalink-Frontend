@@ -1,4 +1,4 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { PayloadAction, createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
 import actionFetchTasks from '../thunks/fetchTasksByProfile';
 import {
@@ -6,25 +6,28 @@ import {
   actionUpdateProfile,
   actionUpdateRole,
 } from '../thunks/changeProfile';
-import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
+import { MemberStateI, RoleI, TaskStateI } from '../../@types/memberStateI';
 import actionSwitchRestriction from '../thunks/checkChildren';
 
 interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
   member: MemberStateI;
+  isLoading: boolean;
 }
 
 export const initialState: MembersState = {
   members: [],
   tasks: [],
   member: <MemberStateI>{},
+  isLoading: false,
 };
 
 export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
+    state.isLoading = false;
     console.log('je suis actionGetMembers');
 
     state.members = Array.isArray(action.payload.members)
@@ -32,6 +35,9 @@ const profileReducer = createReducer(initialState, (builder) => {
       : [];
     console.log('Updated members in state:', state.members);
     console.log('liste des membres', action.payload.members);
+  });
+  builder.addCase(actionGetMembers.pending, (state, action) => {
+    state.isLoading = true;
   });
   builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
     state.tasks = Array.isArray(action.payload.tasks)
@@ -62,7 +68,7 @@ const profileReducer = createReducer(initialState, (builder) => {
       member.role = role;
     }
   });
-  builder.addCase(actionChangeRole, (state, action) => {
+  builder.addCase(actionChangeRole, (state, action: PayloadAction) => {
     const { memberId, role } = action.payload;
     const member = state.members.find((m) => m.id === memberId);
     if (member) {
