@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -24,6 +24,16 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
     }
   };
 
+  useEffect(() => {
+    if (backgroundRef.current) {
+      backgroundRef.current.focus();
+    }
+  }, []);
+
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
     <div
       className="profile_background"
@@ -37,9 +47,10 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
       onKeyDown={(e) => {
         if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
         closeModal();
+        console.log('echap touche');
       }}
     >
-      <div className="delete_modal">
+      <div className="delete_modal" onClick={handleModalClick}>
         <form onSubmit={handleDelete}>
           <h1 className="delete_modal_title">
             Supprimer le profil de {profile.name}

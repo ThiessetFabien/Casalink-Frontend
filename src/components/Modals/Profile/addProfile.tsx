@@ -1,4 +1,4 @@
-import { FormEvent, useState, useRef } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -33,6 +33,12 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   // State to check if the role is adult
   const [isAdultChecked, setIsAdultChecked] = useState(false);
 
+  useEffect(() => {
+    if (backgroundRef.current) {
+      backgroundRef.current.focus();
+    }
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // Si le champ de date est modifié, on le formate correctement
@@ -64,6 +70,10 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     }
   };
 
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
     <div
       className="add_background"
@@ -79,7 +89,7 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
         onClose();
       }}
     >
-      <div className="add_modal">
+      <div className="add_modal" onClick={handleModalClick}>
         <form onSubmit={handleSubmit}>
           <h1 className="add_modal_title">Ajouter un nouveau profil</h1>
           <div className="add_modal_container_inputs">

@@ -39,9 +39,16 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     return filePath.replace(/^.*[\\/]/, '');
   };
 
+  useEffect(() => {
+    if (backgroundRef.current) {
+      backgroundRef.current.focus();
+    }
+  }, []);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Updated Profile:', updatedProfile);
+    console.log('Image base64:', profileImageBase64);
     if (profileImageBase64 && updatedProfile.id !== null) {
       const resultAction = await dispatch(
         actionUploadProfileImage({
@@ -130,6 +137,10 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     }
   };
 
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
     <div
       className="profile_background"
@@ -145,7 +156,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
         closeModal();
       }}
     >
-      <div className="update_modal">
+      <div className="update_modal" onClick={handleModalClick}>
         <form onSubmit={handleSubmit}>
           <h1 className="update_modal_title">
             Modifier le profil de {updatedProfile.name}
