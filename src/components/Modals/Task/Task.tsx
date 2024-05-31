@@ -9,6 +9,7 @@ import { actionChangeTask } from '../../../store/reducer/task';
 import { TaskInputI } from '../../../@types/taskStateI';
 import { EventsI } from '../../../@types/events';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
+import { MemberStateI } from '../../../@types/memberStateI';
 
 interface TaskI {
   taskModalMode: 'add' | 'edit';
@@ -21,9 +22,16 @@ interface TaskI {
     title: string,
     description: string
   ) => void;
+  membersList: MemberStateI[];
 }
 
-function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
+function Task({
+  taskModalMode,
+  eventSelect,
+  addTask,
+  editTask,
+  membersList,
+}: TaskI) {
   const dispatch = useAppDispatch();
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +44,9 @@ function Task({ taskModalMode, eventSelect, addTask, editTask }: TaskI) {
     nameTask,
     descriptionTask,
   } = useAppSelector((state) => state.task.input);
+
+  console.log(membersList);
+
 
   useEffect(() => {
     if (backgroundTaskRef.current) {

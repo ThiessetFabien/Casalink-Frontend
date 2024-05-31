@@ -24,7 +24,6 @@ interface DragNDropI {
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
-  // const [events, setEvents] = useState<EventsI[]>([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [eventSelected, setEventSelected] = useState<null | EventsI>(null);
   const [taskModalMode, setTaskModalMode] = useState<'add' | 'edit'>('add');
@@ -32,6 +31,7 @@ function HomePage() {
     (state) => state.modal.taskModalIsOpen
   );
   const accountId = useAppSelector((state) => state.user.id);
+  const membersList = useAppSelector((state) => state.profile.members) || [];
   const events = useAppSelector((state) =>
     state.task.list.map((task) => ({
       ...task,
@@ -39,9 +39,6 @@ function HomePage() {
       start: new Date(task.start),
       end: new Date(task.end),
     }))
-  );
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
   );
 
   const dispatch = useAppDispatch();
@@ -57,16 +54,8 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    console.log('ici les gars', memberSelected);
     if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
   }, [accountId, dispatch]);
-
-  // const setEvents = useCallback(
-  //   (eventsList: EventsI[]) => {
-  //     dispatch(actionAddTask(eventsList));
-  //   },
-  //   [dispatch]
-  // );
 
   const addTask = (
     startUnserielized: Date,
@@ -150,10 +139,6 @@ function HomePage() {
           descriptionTask: event.descriptionTask,
         })
       );
-      // setEvents((prev) => {
-      //   const filtered = prev.filter((ev) => ev.id !== event.id);
-      //   return [...filtered, { ...event, start, end }];
-      // });
     },
     [dispatch]
   );
@@ -171,10 +156,6 @@ function HomePage() {
           descriptionTask: event.descriptionTask,
         })
       );
-      // setEvents((prev) => {
-      //   const filtered = prev.filter((ev) => ev.id !== event.id);
-      //   return [...filtered, { ...event, start, end }];
-      // });
     },
     [dispatch]
   );
@@ -207,6 +188,7 @@ function HomePage() {
           eventSelect={eventSelected}
           addTask={addTask}
           editTask={editTask}
+          membersList={membersList}
         />
       )}
       <main>

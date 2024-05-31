@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
-import { MemberStateI } from '../../@types/memberStateI';
+import { MemberStateI, RoleI } from '../../@types/memberStateI';
 import type { RootState } from '..';
 
 interface UploadProfileImagePayload {
@@ -18,8 +18,6 @@ export const actionUploadProfileImage = createAsyncThunk<
   async ({ base64Image, profileId }, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
-      console.log('File base64:', base64Image);
-      console.log('STATE PROFILE ID !!', profileId);
       const response = await axiosInstance.post('/profile/upload', {
         id: profileId,
         image: base64Image,
@@ -115,4 +113,24 @@ export const actionAddProfile = createAsyncThunk<
   }
 });
 
-export default { actionDeleteProfile, actionUpdateProfile, actionAddProfile };
+export const actionUpdateRole = createAsyncThunk<MemberStateI, RoleI>(
+  'profile/UPDATE_PROFILE_ROLE',
+  async ({ memberId, role }, thunkAPI) => {
+    try {
+      // console.log('image name :', updatedProfile.image);
+      // const state = thunkAPI.getState() as RootState;
+      const response = await axiosInstance.patch(`/profile/${memberId}`, {
+        role,
+      });
+      console.log('je suis la réponse', response);
+      return response.data.data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(
+        axiosError.response?.data || 'Erreur de modification'
+      );
+    }
+  }
+);
+
+export default { actionDeleteProfile, actionUpdateProfile, actionUpdateRole };

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -15,41 +15,55 @@ import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
 import SelectProfile from '../SelectProfile/SelectProfile';
+import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 
 function App() {
   const isLogged = useAppSelector((state) => state.user.logged);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
+  let homePageElement;
+  if (isLogged && memberSelected) {
+    homePageElement = <HomePage />;
+  } else if (isLogged && !memberSelected) {
+    homePageElement = <Navigate to="/selectprofile" />;
+  } else {
+    homePageElement = <Navigate to="/landingpage" />;
+  }
   return (
     <div className="app">
       <Header />
       <div className="mainContainer">
-        {isLogged && <SideMenu />}
+        {isLogged && memberSelected && <SideMenu />}
 
         <Routes>
-          {isLogged ? (
-            <Route path="/" element={<HomePage />} />
-          ) : (
-            <Route path="/" element={<LandingPage />} />
-          )}
-          {isLogged ? (
-            <Route path="/setting" element={<SettingPage />} />
-          ) : (
-            <Route path="/setting" element={<LandingPage />} />
-          )}
+          <Route path="/" element={homePageElement} />
 
-          {isLogged ? (
-            <Route path="/foyer" element={<ProfilePage />} />
-          ) : (
-            <Route path="/foyer" element={<LandingPage />} />
-          )}
+          <Route
+            path="/setting"
+            element={
+              isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
+            }
+          />
 
-          {isLogged && (
-            <Route path="/selectprofile" element={<SelectProfile />} />
-          )}
+          <Route
+            path="/foyer"
+            element={
+              isLogged ? <ProfilePage /> : <Navigate to="/landingpage" />
+            }
+          />
 
+          <Route
+            path="/selectprofile"
+            element={
+              isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
+            }
+          />
+
+          <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
-          <Route path="/selectprofile" element={<SelectProfile />} />
           <Route path="*" element={<NotFount />} />
         </Routes>
       </div>

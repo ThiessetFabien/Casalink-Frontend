@@ -13,6 +13,7 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
+import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 
 // coucou c'est moi
 function Header() {
@@ -23,24 +24,32 @@ function Header() {
   );
   const isMenuOpen = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
   const isConnected = useAppSelector((state) => state.user.logged);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
 
   const HandleSwitchDarkMode = () => {
     dispatch(actionSwitchDarkMode());
   };
+
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
-      <img
-        src="public/testavatar.png"
-        alt="userAvatar"
-        className={`${isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'}`}
-      />
+      {isConnected && memberSelected && (
+        <img
+          src="public/testavatar.png"
+          alt="userAvatar"
+          className={`${
+            isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
+          }`}
+        />
+      )}
       {/* <div className="header_menuItems"> */}
       {/* {isConnected && <UserHeader />} */}
       <Link to="/" className="header_title">
         <div className="header_logoDiv">
           <img
             className="header_logo"
-            src="/logo-casalink-lettre.svg"
+            src="/logo-casalink-lettre-v2.webp"
             alt="logo casaLink"
           />
         </div>
@@ -118,8 +127,8 @@ function Header() {
       </div>
 
       {/* </div> */}
-      <BtnConnect />
-      {/* {!isConnected && <BtnConnect />} */}
+      {/* <BtnConnect /> */}
+      {!isConnected && <BtnConnect />}
       {loginModalIsOpen && <Login />}
     </div>
   );
