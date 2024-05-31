@@ -34,20 +34,22 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
     event.stopPropagation();
   };
 
+  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === backgroundRef.current) {
+      dispatch(actionSwitchProfileModal());
+      closeModal();
+    }
+  };
+
   return (
     <div
       className="profile_background"
       role="button"
       tabIndex={0}
       ref={backgroundRef}
-      onClick={() => {
-        dispatch(actionSwitchProfileModal());
-        closeModal();
-      }}
+      onClick={handleBackgroundClick}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
-        closeModal();
-        console.log('echap touche');
+        if (e.key === 'Escape') handleBackgroundClick(e);
       }}
     >
       <div className="delete_modal" onClick={handleModalClick}>

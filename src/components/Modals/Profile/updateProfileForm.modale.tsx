@@ -141,19 +141,24 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     event.stopPropagation();
   };
 
+  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === backgroundRef.current) {
+      dispatch(actionSwitchProfileModal());
+      closeModal();
+    }
+  };
+
   return (
     <div
       className="profile_background"
       role="button"
       tabIndex={0}
       ref={backgroundRef}
-      onClick={() => {
-        dispatch(actionSwitchProfileModal());
-        closeModal();
-      }}
+      onClick={handleBackgroundClick}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
-        closeModal();
+        if (e.key === 'Escape') {
+          handleBackgroundClick(e);
+        }
       }}
     >
       <div className="update_modal" onClick={handleModalClick}>

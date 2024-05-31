@@ -74,19 +74,25 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     event.stopPropagation();
   };
 
+  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === backgroundRef.current) {
+      dispatch(actionSwitchProfileModal());
+      onClose();
+    }
+  };
+
   return (
     <div
       className="add_background"
       role="button"
       tabIndex={0}
       ref={backgroundRef}
-      onClick={() => {
-        dispatch(actionSwitchProfileModal());
-        onClose();
-      }}
+      onClick={handleBackgroundClick}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
-        onClose();
+        if (e.key === 'Escape') {
+          dispatch(actionSwitchProfileModal());
+          onClose();
+        }
       }}
     >
       <div className="add_modal" onClick={handleModalClick}>
