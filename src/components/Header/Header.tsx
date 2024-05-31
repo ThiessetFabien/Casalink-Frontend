@@ -40,7 +40,7 @@ function Header() {
         <div className="header_logoDiv">
           <img
             className="header_logo"
-            src="/logo-casalink-lettre.svg"
+            src="/logo-casalink-lettre-v2.webp"
             alt="logo casaLink"
           />
         </div>
