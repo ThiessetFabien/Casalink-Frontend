@@ -1,7 +1,9 @@
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import actionCheckLogin from '../../../store/thunks/checkLogin';
+import actionGetMembers from '../../../store/thunks/checkProfile';
 
 interface LoginFormProps {
   email: string;
@@ -14,6 +16,7 @@ interface LoginFormProps {
 
 function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const errorMessages = useAppSelector((state) => state.user.error);
 
@@ -22,6 +25,7 @@ function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
     const resultAction = await dispatch(actionCheckLogin());
     if (actionCheckLogin.fulfilled.match(resultAction)) {
       dispatch(actionSwitchLoginModal());
+      navigate('/');
     }
   };
   return (

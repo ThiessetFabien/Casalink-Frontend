@@ -1,22 +1,18 @@
-import { useEffect } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux';
 import RestrictionEnfant from './RestrictionEnfant/RestrictionEnfant';
 import './SettingPage.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
+import actionSwitchRestriction from '../../store/thunks/checkChildren';
+import { actionChangeIsChecked } from '../../store/reducer/profile';
 
 function SettingPage() {
   const dispatch = useDispatch();
-  const accountId = useAppSelector((state) => state.user.id);
+  const id = useAppSelector((state) => state.user.id);
+  // console.log('je suis accountId', accountId);
   const members = useAppSelector((state) => state.profile.members);
   // const childMembers = useAppSelector((state) => state.profile.members)
-
-  useEffect(() => {
-    if (accountId) {
-      dispatch(actionGetMembers({ id: accountId }));
-    }
-    console.log(members);
-  }, [dispatch, accountId]);
 
   return (
     <div className="settingPage">
@@ -31,7 +27,12 @@ function SettingPage() {
           className="settingPageDiv_checkbox"
         />
       </div>
-      {/* <RestrictionEnfant key={member.id} member={member} /> */}
+      <div className="settingPage_restrictionDiv">
+        <h2>Restrictions</h2>
+        {members.map((member) => (
+          <RestrictionEnfant key={member.id} member={member} />
+        ))}
+      </div>
     </div>
   );
 }

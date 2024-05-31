@@ -19,6 +19,13 @@ export interface MemberStateI {
   tasks: string[];
   image: string;
   role: string;
-  pin: number | string;
-  email: string | null;
+  pin: number;
+  email: string;
+  isChecked: boolean;
+}
+
+export interface RoleI {
+  memberId: number;
+  role: 'child' | 'adult';
+  isChecked: boolean;
 }

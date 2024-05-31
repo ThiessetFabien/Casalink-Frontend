@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -25,31 +25,36 @@ function App() {
         {isLogged && <SideMenu />}
 
         <Routes>
-          {isLogged ? (
-            <Route path="/" element={<HomePage />} />
-          ) : (
-            <Route path="/" element={<LandingPage />} />
-          )}
-          {isLogged ? (
-            <Route path="/setting" element={<SettingPage />} />
-          ) : (
-            <Route path="/setting" element={<LandingPage />} />
-          )}
+          <Route
+            path="/"
+            element={isLogged ? <HomePage /> : <Navigate to="/landingpage" />}
+          />
 
-          {isLogged ? (
-            <Route path="/foyer" element={<ProfilePage />} />
-          ) : (
-            <Route path="/foyer" element={<LandingPage />} />
-          )}
+          <Route
+            path="/setting"
+            element={
+              isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
+            }
+          />
 
-          {isLogged && (
-            <Route path="/selectprofile" element={<SelectProfile />} />
-          )}
+          <Route
+            path="/foyer"
+            element={
+              isLogged ? <ProfilePage /> : <Navigate to="/landingpage" />
+            }
+          />
 
+          <Route
+            path="/selectprofile"
+            element={
+              isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
+            }
+          />
+
+          <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
-          <Route path="/selectprofile" element={<SelectProfile />} />
           <Route path="*" element={<NotFount />} />
         </Routes>
       </div>
