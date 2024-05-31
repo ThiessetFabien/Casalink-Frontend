@@ -20,6 +20,8 @@ const actionGetMembers = createAsyncThunk<
     // addTokenJwtToAxiosInstance(token);
     // addTokenAndPseudoToLocalStorage(token, pseudo);
     //  return { pseudo, token };
+    console.log(response.data.data.profile);
+
     return { members: response.data.data.profile };
   } catch (error) {
     const axiosError = error as AxiosError;

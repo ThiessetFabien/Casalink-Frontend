@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
-import { Link } from 'react-router-dom';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
@@ -14,11 +14,16 @@ function SelectProfile() {
     (state) => state.profile.memberSelected
   );
   useEffect(() => {
-    if (accountId) {
-      dispatch(actionGetMembers({ id: accountId }));
+    async function fetchMembers() {
+      if (accountId) {
+        await dispatch(actionGetMembers({ id: accountId }));
+        console.log(membersList);
+      }
     }
+    fetchMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, accountId]);
-  console.log(membersList);
+
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
 
