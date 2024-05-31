@@ -1,18 +1,27 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
 import actionFetchTasks from '../thunks/fetchTasksByProfile';
-import { actionDeleteProfile, actionUpdateProfile } from '../thunks/changeProfile';
+import {
+  actionDeleteProfile,
+  actionUpdateProfile,
+} from '../thunks/changeProfile';
 import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
 interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
+  memberSelected: MemberStateI | null;
 }
 
 export const initialState: MembersState = {
   members: [],
   tasks: [],
+  memberSelected: null,
 };
+
+export const actionSelectProfile = createAction<MemberStateI>(
+  'profile/SELECTPROFILE'
+);
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
@@ -43,6 +52,9 @@ const profileReducer = createReducer(initialState, (builder) => {
       state.members[index] = action.payload;
     }
     console.log('Updated members after modification:', state.members);
+  });
+  builder.addCase(actionSelectProfile, (state, action) => {
+    state.memberSelected = action.payload;
   });
   // .addCase(actionAddMember, (state, action) => {
   //   state.members.push(action.payload);
