@@ -137,11 +137,12 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     }
   };
 
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleBackgroundClick = (
+    event:
+      | React.MouseEvent<HTMLDivElement>
+      | React.KeyboardEvent<HTMLDivElement>
+  ) => {
     event.stopPropagation();
-  };
-
-  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === backgroundRef.current) {
       dispatch(actionSwitchProfileModal());
       closeModal();
@@ -161,7 +162,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
         }
       }}
     >
-      <div className="update_modal" onClick={handleModalClick}>
+      <div className="update_modal">
         <form onSubmit={handleSubmit}>
           <h1 className="update_modal_title">
             Modifier le profil de {updatedProfile.name}

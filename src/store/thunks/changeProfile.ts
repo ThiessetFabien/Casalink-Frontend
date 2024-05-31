@@ -37,7 +37,7 @@ export const actionUploadProfileImage = createAsyncThunk<
 
 export const actionDeleteProfile = createAsyncThunk<
   void,
-  number,
+  number | null,
   { rejectValue: string }
 >('profile/DELETE_PROFILE', async (profile_id, thunkAPI) => {
   try {

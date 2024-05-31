@@ -17,6 +17,7 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
 
   const handleDelete = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('modal delete profile', profile.id);
     const resultAction = await dispatch(actionDeleteProfile(profile.id));
     if (actionDeleteProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());
@@ -30,11 +31,12 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
     }
   }, []);
 
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleBackgroundClick = (
+    event:
+      | React.MouseEvent<HTMLDivElement>
+      | React.KeyboardEvent<HTMLDivElement>
+  ) => {
     event.stopPropagation();
-  };
-
-  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === backgroundRef.current) {
       dispatch(actionSwitchProfileModal());
       closeModal();
@@ -52,7 +54,7 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
         if (e.key === 'Escape') handleBackgroundClick(e);
       }}
     >
-      <div className="delete_modal" onClick={handleModalClick}>
+      <div className="delete_modal">
         <form onSubmit={handleDelete}>
           <h1 className="delete_modal_title">
             Supprimer le profil de {profile.name}

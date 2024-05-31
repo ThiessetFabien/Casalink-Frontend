@@ -18,16 +18,17 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   const accountId = useAppSelector((state) => state.user.id);
 
   // Add state for new profile data
-  const [newProfile, setNewProfile] = useState<
-    Omit<MemberStateI, 'id' | 'created_at' | 'updated_at' | 'score' | 'task'>
-  >({
+  const [newProfile, setNewProfile] = useState({
+    id: null,
     name: '',
     birthdate: '',
-    image: '',
-    role: 'child', // Default role is child
-    email: '',
-    pin: '',
+    score: 0,
     tasks: [],
+    image: '',
+    role: 'child',
+    email: '',
+    pin: '0000',
+    isChecked: false,
   });
 
   // State to check if the role is adult
@@ -70,11 +71,9 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     }
   };
 
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-  };
-
   const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+
     if (event.target === backgroundRef.current) {
       dispatch(actionSwitchProfileModal());
       onClose();
@@ -95,7 +94,7 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
         }
       }}
     >
-      <div className="add_modal" onClick={handleModalClick}>
+      <div className="add_modal">
         <form onSubmit={handleSubmit}>
           <h1 className="add_modal_title">Ajouter un nouveau profil</h1>
           <div className="add_modal_container_inputs">
