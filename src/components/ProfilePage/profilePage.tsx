@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -10,14 +10,16 @@ import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
 import DeleteProfileModal from '../Modals/Profile/deleteProfile';
 import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
 import AddProfileModal from '../Modals/Profile/addProfile';
+import baseURL from '../../utils/baseURL';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
-  const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
-    null
+  const [cardSelected, setCardSelected] = useState<MemberStateI>(null);
+  const selectedProfile = useAppSelector(
+    (state) => state.profile.memberSelected
   );
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -49,12 +51,12 @@ function ProfilePage() {
   }, [membersList, tasksList]);
 
   const handleDeleteClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
+    setCardSelected(member);
     setDeleteModalIsOpen(true);
   };
 
   const handleEditClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
+    setCardSelected(member);
     setEditModalIsOpen(true);
   };
 
@@ -62,8 +64,14 @@ function ProfilePage() {
     setAddModalIsOpen(true);
   };
 
+  const handleClickOnOtherMemberCard = (member: MemberStateI) => {
+    setCardSelected(member);
+    setEditModalIsOpen(true);
+    console.log('Carte selectionnée', cardSelected);
+    console.log('Membre au click sur une autre carte', member);
+  };
+
   const handleCloseModal = () => {
-    setSelectedProfile(null);
     setDeleteModalIsOpen(false);
     setEditModalIsOpen(false);
     setAddModalIsOpen(false);
@@ -89,19 +97,46 @@ function ProfilePage() {
                   className="profilePage_container_member_card"
                 >
                   <div className="profilePage_container_member_card_icones">
-                    <FaTrashAlt
-                      className="profilePage_container_member_card_iconDelete"
-                      onClick={() => handleDeleteClick(member)}
-                    />
-                    <FaEdit
-                      className="profilePage_container_member_card_iconEdit"
-                      onClick={() => handleEditClick(member)}
-                    />
+                    {selectedProfile?.role === 'adult' && (
+                      <>
+                        {(member.role === 'child' ||
+                          selectedProfile.id === member.id) && (
+                          <FaTrashAlt
+                            className="profilePage_container_member_card_iconDelete"
+                            onClick={() => handleDeleteClick(member)}
+                            style={{
+                              display:
+                                selectedProfile.id !== member.id
+                                  ? 'block'
+                                  : 'none',
+                            }}
+                          />
+                        )}
+                        {(member.role === 'child' ||
+                          selectedProfile.id === member.id) && (
+                          <FaEdit
+                            className="profilePage_container_member_card_iconEdit"
+                            onClick={() => handleEditClick(member)}
+                          />
+                        )}
+                      </>
+                    )}
+                    {selectedProfile?.role === 'child' &&
+                      selectedProfile.id === member.id && (
+                        <FaEdit
+                          className="profilePage_container_member_card_iconEdit"
+                          onClick={() => handleEditClick(member)}
+                        />
+                      )}
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
-                    src="./../../../src/assets/avatars/default-avatar.webp"
-                    alt="avatar de l'utilisateur"
+                    src={
+                      member.image
+                        ? `${baseURL}/${member.image}`
+                        : `${baseURL}/uploads/avatars/default-avatar.webp`
+                    }
+                    alt={`avatar de l'utilisateur ${member.name}`}
                   />
                   <h4 className="profilePage_container_member_card_name">
                     {member.name}
@@ -165,13 +200,13 @@ function ProfilePage() {
       </div>
       {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}
       {selectedProfile && editModalIsOpen && (
         <EditProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}

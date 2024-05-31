@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
-import { MemberStateI, RoleI, RoleI } from '../../@types/memberStateI';
+import { MemberStateI } from '../../@types/memberStateI';
 import type { RootState } from '..';
 
 interface UploadProfileImagePayload {
@@ -27,9 +27,6 @@ export const actionUploadProfileImage = createAsyncThunk<
   'profile/UPLOAD_PROFILE_IMAGE',
   async ({ base64Image, profileId }, thunkAPI) => {
     try {
-      const state = thunkAPI.getState() as RootState;
-      console.log('File base64:', base64Image);
-      console.log('STATE PROFILE ID !!', profileId);
       const response = await axiosInstance.post('/profile/upload', {
         id: profileId,
         image: base64Image,
@@ -49,7 +46,7 @@ export const actionUploadProfileImage = createAsyncThunk<
 
 export const actionDeleteProfile = createAsyncThunk<
   void,
-  number,
+  number | null,
   { rejectValue: string }
 >('profile/DELETE_PROFILE', async (profile_id, thunkAPI) => {
   try {

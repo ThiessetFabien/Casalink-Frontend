@@ -12,20 +12,20 @@ export interface TaskStateI {
 }
 
 export interface MemberStateI {
-  id: number | null;
+  id: number;
   name: string;
   birthdate: Date | string;
   score: number;
   tasks: string[];
   image: string;
   role: string;
-  pin: number;
+  pin: string;
   email: string;
   isChecked: boolean;
 }
 
 export interface RoleI {
-  id: number;
+  id: number | null;
   role: 'child' | 'adult';
   isChecked: boolean;
 }
