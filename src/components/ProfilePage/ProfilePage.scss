@@ -47,7 +47,9 @@ $breakpoints: (
     .profilePage_container_member_list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: center;    
+      margin-bottom: 3rem;
+      width: 90%;
 
       .profilePage_container_member_card {
         background-color: white;
@@ -55,7 +57,17 @@ $breakpoints: (
         box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
         margin: 1rem;
         padding: 1rem;
-        max-width: 30rem;
+        width: 90%;
+        max-height: 30rem;
+        overflow-y: auto;
+        @include media(desktop) {
+          width: 15rem;
+          max-height: 25rem;
+        }
+        @include media(tablet_mini) {
+          max-width: 25%;
+        }
+        
 
         .profilePage_container_memberCard_image {
           border-radius: 50%;
@@ -159,138 +171,6 @@ $breakpoints: (
           &:hover {
             color: v.$textColor-colorBlue;
           }
-        }
-      }
-    }
-  }
-
-  .profile_background {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: RGBA(0, 0, 0, 0.5);
-    z-index: 1;
-
-    .delete_modal,
-    .update_modal {
-      position: relative;
-      background-color: white;
-      border-radius: 10px;
-      padding: 2rem;
-      z-index: 1;
-      width: 90%;
-      background-color: #ececec;
-      margin-top: 8rem;
-      @include media(tablet_mini) {
-        max-width: 400px;
-      }
-      @include media(desktop) {
-        margin-top: 3rem;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        height: 100%;
-        @include media(tablet_mini) {
-          gap: 2rem;
-        }
-
-        .profile_field_role {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-          margin-top: 1.5rem;
-
-          .input_checkbox_adult,
-          .input_checkbox_child {
-            width: 20%;
-            margin-top: 0.5rem;
-          }
-
-          .input_checkbox_child_title,
-          .input_checkbox_adult_title {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-top: 0.5rem;
-          }
-        }
-
-        .profile_field {
-          position: relative;
-
-          input {
-            border: none;
-            border-bottom: 1px solid black;
-            width: 100%;
-            background-color: transparent;
-          }
-
-          input:focus {
-            outline: none !important;
-            border: 1px solid v.$textColor-colorBlue;
-            border-radius: 5px;
-          }
-
-          label {
-            pointer-events: none;
-            color: black;
-            transition: 0.3s;
-          }
-
-          input:focus ~ label,
-          .input_required:valid ~ label {
-            top: -0.9rem;
-            font-size: 1rem;
-            font-weight: 400;
-            color: v.$textColor-colorBlue;
-            margin-bottom: 1rem;
-          }
-        }
-
-        .delete_modal_title,
-        .update_modal_title {
-          font-size: 2rem;
-          font-weight: 500;
-          margin: 1rem 0;
-          text-align: center;
-        }
-
-        .delete_modal_subtitle {
-          font-size: 1.5rem;
-          font-weight: 500;
-          margin: 1rem 0;
-          text-align: center;
-        }
-
-        .delete_modal_profile_containerButton,
-        .update_modal_profile_containerButton {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 1rem;
-        }
-
-        button {
-          border-radius: 5px;
-          padding: 0.5rem;
-          width: 80%;
-          border: none;
-          cursor: pointer;
-          background-color: v.$textColor-colorBlue;
-          color: white;
-          font-weight: 500;
-        }
-
-        .errorMessage {
-          color: red;
-          font-size: 0.9rem;
         }
       }
     }

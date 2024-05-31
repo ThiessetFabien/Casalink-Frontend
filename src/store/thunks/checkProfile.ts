@@ -10,11 +10,12 @@ interface ProfilePayload {
 
 const actionGetMembers = createAsyncThunk<
   { members: MemberStateI[] },
-  ProfilePayload,
-  { state: RootState }
+  ProfilePayload
 >('profile/GET_MEMBERS', async (payload: ProfilePayload, thunkAPI) => {
   // const state = thunkAPI.getState() as RootState;
   try {
+    console.log('je suis payload.id ', payload.id);
+
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
 
     return { members: response.data.data.profile };
@@ -25,3 +26,4 @@ const actionGetMembers = createAsyncThunk<
 });
 
 export default actionGetMembers;
+//

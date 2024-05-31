@@ -1,4 +1,4 @@
-// @use '../../styles/variables' as v;
+@use '../../../styles/variables' as v;
 
 $breakpoints: (
   mobile: '(max-width: 424px)',
@@ -66,7 +66,7 @@ $breakpoints: (
 
       input {
         border: none;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid v.$textColor-colorBlue;
         width: 100%;
         background-color: transparent;
       }
@@ -79,10 +79,25 @@ $breakpoints: (
         padding: 0;
       }
 
-      button {
-        border-radius: 10px;
+      input:focus {
+        outline: none !important;
+        border: 1px solid v.$textColor-colorBlue;
+        border-radius: 5px;
+      }
+
+      textarea {
         border: none;
-        background-color: #007a04;
+        border-bottom: 1px solid v.$textColor-colorBlue;
+        width: 100%;
+        background-color: transparent;
+        resize: none;
+      }
+
+      button {
+        border-radius: 5px;
+        border: none;
+        padding: 0.5rem;
+        background-color: v.$textColor-colorBlue;
         color: white;
         font-weight: 500;
       }

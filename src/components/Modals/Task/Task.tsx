@@ -46,7 +46,7 @@ function Task({
   } = useAppSelector((state) => state.task.input);
 
   console.log(membersList);
-  
+
 
   useEffect(() => {
     if (backgroundTaskRef.current) {

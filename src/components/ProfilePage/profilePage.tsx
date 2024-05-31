@@ -10,6 +10,7 @@ import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
 import DeleteProfileModal from '../Modals/Profile/deleteProfile';
 import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
 import AddProfileModal from '../Modals/Profile/addProfile';
+import baseURL from '../../utils/baseURL';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -100,7 +101,7 @@ function ProfilePage() {
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
-                    src="./../../../src/assets/avatars/default-avatar.webp"
+                    src={`${baseURL}/${member.image}`}
                     alt="avatar de l'utilisateur"
                   />
                   <h4 className="profilePage_container_member_card_name">

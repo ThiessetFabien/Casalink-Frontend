@@ -73,6 +73,9 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
         <NavLink
           to="/foyer"
           className={({ isActive }) => (isActive ? 'active' : '')}
+          onClick={() => {
+            dispatch(actionSwitchSideMenuModal());
+          }}
         >
           <Users className="sideNavIcon" />
           <span

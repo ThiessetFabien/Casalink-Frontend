@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { BiHomeAlt2 } from 'react-icons/bi';
 import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
 import { TbMoonFilled } from 'react-icons/tb';
@@ -6,7 +7,7 @@ import { HiMail } from 'react-icons/hi';
 import { IoLogOut } from 'react-icons/io5';
 import './SideMenu.scss';
 import { BsArrowLeftShort } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
   actionSwitchDarkMode,
@@ -14,6 +15,8 @@ import {
 } from '../../store/reducer/modal';
 
 function SideMenu() {
+  const location = useLocation();
+
   const dispatch = useAppDispatch();
 
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
@@ -42,6 +45,12 @@ function SideMenu() {
     dispatch(actionSwitchDarkMode());
   };
 
+  useEffect(() => {
+    if (openMenu) {
+      openOrCloseMenu();
+    }
+  }, [location.pathname]);
+
   return (
     <div
       className={`${isDarkMode ? 'dark' : ''} ${
@@ -58,7 +67,6 @@ function SideMenu() {
       <div className={`${openMenu ? 'side_boxItem' : 'side_boxItem-hidden'}`}>
         <BiHomeAlt2
           className={`${openMenu ? 'side_icon-open' : 'side_icon'}`}
-          onClick={handleHomeClick}
         />
         <Link
           to="/"
@@ -131,13 +139,13 @@ function SideMenu() {
             onClick={HandleSwitchDarkMode}
           />
         )}
-        <Link
-          to="/"
-          className={`${!openMenu ? 'side_item' : 'side_item-open'}`}
+        <button
+          type="button"
+          className={`btn-dark ${!openMenu ? 'side_item' : 'side_item-open'}`}
           onClick={HandleSwitchDarkMode}
         >
           {openMenu ? `${isDarkMode ? 'Switch light' : 'Switch dark'}` : ''}
-        </Link>
+        </button>
       </div>
     </div>
   );
