@@ -115,7 +115,19 @@ $breakpoints: (
 
       .profile_field {
         position: relative;
-        width: 40%;
+        margin-bottom: 1rem;
+        @include media(desktop) {
+          width: 40%;
+          display: flex;
+          justify-content: space-evenly;
+          flex-direction: column;
+        }
+        @include media(tablet_mini) {
+          width: 40%;
+          display: flex;
+          justify-content: space-evenly;
+          flex-direction: column;
+        }
 
       .image {
         @include media(desktop) {

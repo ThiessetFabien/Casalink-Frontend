@@ -50,11 +50,26 @@ $breakpoints: (
     }
 
     form {
-      display: flex;
-      flex-direction: column;
       gap: 1rem;
+      height: 100%;
       @include media(tablet_mini) {
         gap: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+      @include media(desktop) {
+        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .radio {
+        @include media(desktop) {
+          width: 82%;
+        }
+        @include media(tablet_mini) {
+          width: 82%;
+        }
       }
 
       .add_modal_title {
@@ -78,6 +93,15 @@ $breakpoints: (
           flex-wrap: wrap;
           justify-content: center;
           gap: 1rem;
+          height: 100%;
+        }
+        @include media(tablet_mini) {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          height: 100%;
         }
       }
 
@@ -90,19 +114,29 @@ $breakpoints: (
         }
       }
 
-      .radio {
+      .profile_field, .radio {
+        position: relative;
         @include media(desktop) {
-          width: 82%;
+          width: 40%;
+          display: flex;
+          justify-content: space-evenly;
+          flex-direction: column;
         }
         @include media(tablet_mini) {
-          width: 82%;
+          width: 40%;
+          display: flex;
+          justify-content: space-evenly;
+          flex-direction: column;
         }
-      }
 
-      .profile_field {
-        position: relative;
-        width: 40%;
-
+        .radio {
+          @include media(desktop) {
+            width: 82%;
+          }
+          @include media(tablet_mini) {
+            width: 82%;
+          }
+        }
 
         input {
           border: none;
@@ -131,6 +165,7 @@ $breakpoints: (
           pointer-events: none;
           color: black;
           transition: 0.3s;
+          margin: 0.5rem 0;
         }
 
         /* We select label when input is focus */
@@ -159,11 +194,14 @@ $breakpoints: (
         }
 
         .profile_field_role_child, .profile_field_role_adult {
+          margin-top: 2rem;
           @include media(desktop) {
             width: 100%;
+            margin-top: 0;
           }
           @include media(tablet_mini) {
             width: 100%;
+            margin-top: 0;
           }
         }
 
@@ -198,12 +236,13 @@ $breakpoints: (
 
       button {
         border-radius: 5px;
-        padding: 0.3rem;
+        padding: 0.5rem;
         border: none;
         cursor: pointer;
         background-color: v.$textColor-colorBlue;
         color: white;
         font-weight: 500;
+        max-height: 2.5rem;
         @include media(desktop) {
           width: 40%;
         }

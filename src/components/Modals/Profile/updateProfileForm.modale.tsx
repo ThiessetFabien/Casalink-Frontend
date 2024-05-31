@@ -1,4 +1,4 @@
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
@@ -22,6 +22,7 @@ interface UploadProfileImagePayload {
 
 function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const dispatch = useAppDispatch();
+  const backgroundRef = useRef<HTMLDivElement>(null);
   const [updatedProfile, setUpdatedProfile] = useState(profile);
   const [profileImageBase64, setProfileImageBase64] = useState<string | null>(
     null
@@ -41,7 +42,6 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Updated Profile:', updatedProfile);
-    console.log('!!!! submit', profileImageBase64);
     if (profileImageBase64 && updatedProfile.id !== null) {
       const resultAction = await dispatch(
         actionUploadProfileImage({
@@ -131,7 +131,20 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   };
 
   return (
-    <div className="profile_background">
+    <div
+      className="profile_background"
+      role="button"
+      tabIndex={0}
+      ref={backgroundRef}
+      onClick={() => {
+        dispatch(actionSwitchProfileModal());
+        closeModal();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
+        closeModal();
+      }}
+    >
       <div className="update_modal">
         <form onSubmit={handleSubmit}>
           <h1 className="update_modal_title">

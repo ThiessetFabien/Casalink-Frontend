@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -12,6 +12,7 @@ interface AddProfileModalProps {
 
 function AddProfileModal({ onClose }: AddProfileModalProps) {
   const dispatch = useAppDispatch();
+  const backgroundRef = useRef<HTMLDivElement>(null);
   const errorMessages = useAppSelector((state) => state.user.error);
 
   const accountId = useAppSelector((state) => state.user.id);
@@ -64,7 +65,20 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   };
 
   return (
-    <div className="add_background">
+    <div
+      className="add_background"
+      role="button"
+      tabIndex={0}
+      ref={backgroundRef}
+      onClick={() => {
+        dispatch(actionSwitchProfileModal());
+        onClose();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') dispatch(actionSwitchProfileModal());
+        onClose();
+      }}
+    >
       <div className="add_modal">
         <form onSubmit={handleSubmit}>
           <h1 className="add_modal_title">Ajouter un nouveau profil</h1>
