@@ -15,7 +15,6 @@ function SettingPage() {
     if (accountId) {
       dispatch(actionGetMembers({ id: accountId }));
     }
-    console.log(members);
   }, [dispatch, accountId]);
 
   return (

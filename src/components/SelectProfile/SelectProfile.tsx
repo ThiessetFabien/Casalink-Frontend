@@ -10,9 +10,6 @@ function SelectProfile() {
   const dispatch = useAppDispatch();
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const accountId = useAppSelector((state) => state.user.id);
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
-  );
   useEffect(() => {
     async function fetchMembers() {
       if (accountId) {
@@ -25,8 +22,6 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
-
-    console.log('click', memberSelected);
   };
   return (
     <div className="profilePage_container">
