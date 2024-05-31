@@ -303,6 +303,12 @@ $breakpoints: (
   border: none;
   position: fixed;
   right: 1rem;
+  @include media(mobile) {
+    width: 80px;
+    height: 35px;
+    line-height: 35px;
+    right: 0.5rem;
+  }
 }
 
 .btn-login span {
@@ -310,6 +316,9 @@ $breakpoints: (
   display: block;
   width: 100%;
   height: 100%;
+  @include media(mobile) {
+    font-size: 0.7rem;
+  }
 }
 .btn-login:before,
 .btn-login:after {

@@ -13,18 +13,182 @@ $breakpoints: (
   }
 }
 
-.profilePage_container {
+.selectProfile_container {
   width: 100%;
+  background-color: v.$bgColor-White;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 2rem;
 
-  .profilePage_container_presentation {
-    margin: auto;
+  &_presentation {
     width: 100%;
+    text-align: center;
 
-    .profilePage_container_title {
+    &_title {
       font-size: 2rem;
-      font-weight: 500;
+      font-weight: bold;
       margin: 1rem 0;
-      text-align: center;
+      color: v.$textColor-colorDark;
     }
   }
+
+  &_member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &_title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: v.$textColor-colorDark;
+    }
+
+    &_list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    &_card {
+      position: relative;
+      width: 100%;
+      max-width: 200px;
+      margin: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      &_link {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: transparent;
+        transform: translateX(-50%);
+      }
+
+      // &_link:hover {
+      //   border: 2px solid v.$textColor-colorBlue;
+      //   background-color: red;
+      // }
+
+      &_image {
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid transparent;
+        transition: border 0.1s ease-in-out;
+        box-shadow: 1px 1px 5px 2px lightgray;
+        border-radius: 50%;
+        &:hover {
+          border: 2px solid v.$textColor-colorBlue;
+        }
+      }
+
+      &_name {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: v.$textColor-colorBlue;
+      }
+    }
+
+    &_card_gestion {
+      width: 12rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      border: 2px solid;
+      transition: background-color 0.3s ease-in-out;
+      margin-bottom: 5rem;
+
+      // &:hover {
+      //   background-color: v.$btnBg-landing;
+      // }
+
+      &_link {
+        color: v.$textColor-colorBlue;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+        width: 12rem;
+        height: 3rem;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background-color: v.$btnBg-landing;
+          color: v.$bgColor-White;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+  }
+
+  @include media(mobile) {
+    &_presentation {
+      &_title {
+        font-size: 2rem;
+      }
+    }
+
+    &_member {
+      &_title {
+        font-size: 1.5rem;
+      }
+
+      &_card {
+        width: 50%;
+        margin: 0.5rem;
+
+        &_name {
+          font-size: 1rem;
+        }
+      }
+      &_card_gestion {
+        width: 10rem;
+        height: 2.5rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @include media(tablet) {
+    &_member {
+      &_card {
+        width: 45%;
+      }
+    }
+  }
+
+  @include media(desktop) {
+    &_member {
+      &_card {
+        width: 30%;
+      }
+    }
+  }
+}
+
+.selectProfile_container_member_card:hover
+  .selectProfile_container_member_card_image {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 3px 2px v.$textColor-colorBlue;
+  border-radius: 50%;
+  width: 100%;
 }
