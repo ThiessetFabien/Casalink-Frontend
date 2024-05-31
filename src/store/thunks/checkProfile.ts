@@ -17,10 +17,7 @@ const actionGetMembers = createAsyncThunk<
     console.log('je suis payload.id ', payload.id);
 
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
-    // const { pseudo, token } = response.data;
-    // addTokenJwtToAxiosInstance(token);
-    // addTokenAndPseudoToLocalStorage(token, pseudo);
-    //  return { pseudo, token };
+
     return { members: response.data.data.profile };
   } catch (error) {
     const axiosError = error as AxiosError;

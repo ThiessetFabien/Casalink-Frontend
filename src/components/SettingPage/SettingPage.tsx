@@ -5,14 +5,20 @@ import RestrictionEnfant from './RestrictionEnfant/RestrictionEnfant';
 import './SettingPage.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import actionSwitchRestriction from '../../store/thunks/checkChildren';
-import { actionChangeIsChecked } from '../../store/reducer/profile';
+import actionChangeIsChecked from '../../store/reducer/profile';
 
 function SettingPage() {
   const dispatch = useDispatch();
-  const id = useAppSelector((state) => state.user.id);
+  const accountId = useAppSelector((state) => state.user.id);
   // console.log('je suis accountId', accountId);
   const members = useAppSelector((state) => state.profile.members);
   // const childMembers = useAppSelector((state) => state.profile.members)
+
+  useEffect(() => {
+    if (accountId) {
+      dispatch(actionGetMembers({ id: accountId }));
+    }
+  }, [dispatch, accountId]);
 
   return (
     <div className="settingPage">

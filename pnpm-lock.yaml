@@ -5551,6 +5551,7 @@ snapshots:
       rollup: 3.29.4
       sass: 1.77.1
     optionalDependencies:
+      '@types/node': 20.12.13
       fsevents: 2.3.3
     dev: true
   warning@4.0.3:
