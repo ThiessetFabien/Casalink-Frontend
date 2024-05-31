@@ -105,6 +105,12 @@ function ProfilePage() {
                           <FaTrashAlt
                             className="profilePage_container_member_card_iconDelete"
                             onClick={() => handleDeleteClick(member)}
+                            style={{
+                              display:
+                                selectedProfile.id !== member.id
+                                  ? 'block'
+                                  : 'none',
+                            }}
                           />
                         )}
                         {(member.role === 'child' ||
@@ -126,8 +132,12 @@ function ProfilePage() {
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
-                    src={`${baseURL}/${member.image}`}
-                    alt="avatar de l'utilisateur"
+                    src={
+                      member.image
+                        ? `${baseURL}/${member.image}`
+                        : `${baseURL}/uploads/avatars/default-avatar.webp`
+                    }
+                    alt={`avatar de l'utilisateur ${member.name}`}
                   />
                   <h4 className="profilePage_container_member_card_name">
                     {member.name}
