@@ -13,6 +13,7 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
+import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 
 // coucou c'est moi
 function Header() {
@@ -23,13 +24,17 @@ function Header() {
   );
   const isMenuOpen = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
   const isConnected = useAppSelector((state) => state.user.logged);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
 
   const HandleSwitchDarkMode = () => {
     dispatch(actionSwitchDarkMode());
   };
+
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
-      {isConnected && (
+      {isConnected && memberSelected && (
         <img
           src="public/testavatar.png"
           alt="userAvatar"

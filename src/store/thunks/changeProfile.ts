@@ -18,8 +18,6 @@ export const actionUploadProfileImage = createAsyncThunk<
   async ({ base64Image, profileId }, thunkAPI) => {
     try {
       const state = thunkAPI.getState() as RootState;
-      console.log('File base64:', base64Image);
-      console.log('STATE PROFILE ID !!', profileId);
       const response = await axiosInstance.post('/profile/upload', {
         id: profileId,
         image: base64Image,

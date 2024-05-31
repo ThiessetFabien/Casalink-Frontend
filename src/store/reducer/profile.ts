@@ -28,21 +28,16 @@ const profileReducer = createReducer(initialState, (builder) => {
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
-    console.log('Updated members in state:', state.members);
-    console.log('liste des membres', action.payload.members);
   });
   builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
     state.tasks = Array.isArray(action.payload.tasks)
       ? action.payload.tasks
       : [];
-    console.log('Updated tasks in state:', state.tasks);
-    console.log('liste des tâches', action.payload.tasks);
   });
   builder.addCase(actionDeleteProfile.fulfilled, (state, action) => {
     state.members = state.members.filter(
       (member) => member.id !== action.meta.arg
     );
-    console.log('Updated members after deletion:', state.members);
   });
   builder.addCase(actionUpdateProfile.fulfilled, (state, action) => {
     const index = state.members.findIndex(
@@ -51,7 +46,6 @@ const profileReducer = createReducer(initialState, (builder) => {
     if (index !== -1) {
       state.members[index] = action.payload;
     }
-    console.log('Updated members after modification:', state.members);
   });
   builder.addCase(actionSelectProfile, (state, action) => {
     state.memberSelected = action.payload;

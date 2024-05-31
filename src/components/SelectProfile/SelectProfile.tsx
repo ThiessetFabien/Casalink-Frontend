@@ -17,7 +17,6 @@ function SelectProfile() {
     async function fetchMembers() {
       if (accountId) {
         await dispatch(actionGetMembers({ id: accountId }));
-        console.log(membersList);
       }
     }
     fetchMembers();

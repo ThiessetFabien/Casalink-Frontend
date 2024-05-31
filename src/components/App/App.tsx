@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -15,20 +15,29 @@ import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
 import SelectProfile from '../SelectProfile/SelectProfile';
+import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 
 function App() {
   const isLogged = useAppSelector((state) => state.user.logged);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
+  let homePageElement;
+  if (isLogged && memberSelected) {
+    homePageElement = <HomePage />;
+  } else if (isLogged && !memberSelected) {
+    homePageElement = <Navigate to="/selectprofile" />;
+  } else {
+    homePageElement = <Navigate to="/landingpage" />;
+  }
   return (
     <div className="app">
       <Header />
       <div className="mainContainer">
-        {isLogged && <SideMenu />}
+        {isLogged && memberSelected && <SideMenu />}
 
         <Routes>
-          <Route
-            path="/"
-            element={isLogged ? <HomePage /> : <Navigate to="/landingpage" />}
-          />
+          <Route path="/" element={homePageElement} />
 
           <Route
             path="/setting"
