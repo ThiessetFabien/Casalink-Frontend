@@ -9,6 +9,7 @@ import actionGetMembers from '../../store/thunks/checkProfile';
 import actionFetchTasks from '../../store/thunks/fetchTasksByProfile';
 import DeleteProfileModal from '../Modals/Profile/deleteProfile';
 import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
+import AddProfileModal from '../Modals/Profile/addProfile';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
@@ -57,9 +58,15 @@ function ProfilePage() {
     setEditModalIsOpen(true);
   };
 
+  const handleAddClick = () => {
+    setAddModalIsOpen(true);
+  };
+
   const handleCloseModal = () => {
     setSelectedProfile(null);
     setDeleteModalIsOpen(false);
+    setEditModalIsOpen(false);
+    setAddModalIsOpen(false);
   };
 
   if (!Array.isArray(membersList)) {
@@ -151,7 +158,7 @@ function ProfilePage() {
             </h4>
             <FaPlusCircle
               className="profilePage_container_member_card_iconAddProfile"
-              onClick={() => handleAddClick(member)}
+              onClick={() => handleAddClick()}
             />
           </div>
         </div>
@@ -168,7 +175,7 @@ function ProfilePage() {
           closeModal={handleCloseModal}
         />
       )}
-      {addModalIsOpen && <AddProfileModal closeModal={handleCloseModal} />}
+      {addModalIsOpen && <AddProfileModal onClose={handleCloseModal} />}
     </div>
   );
 }

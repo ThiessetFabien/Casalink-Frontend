@@ -29,11 +29,15 @@ function Header() {
   };
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
-      <img
-        src="public/testavatar.png"
-        alt="userAvatar"
-        className={`${isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'}`}
-      />
+      {isConnected && (
+        <img
+          src="public/testavatar.png"
+          alt="userAvatar"
+          className={`${
+            isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
+          }`}
+        />
+      )}
       {/* <div className="header_menuItems"> */}
       {/* {isConnected && <UserHeader />} */}
       <Link to="/" className="header_title">

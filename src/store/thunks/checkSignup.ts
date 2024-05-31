@@ -17,10 +17,11 @@ const actionCheckSignup = createAsyncThunk(
         firstname: state.user.credentials.signup.firstname,
         lastname: state.user.credentials.signup.lastname,
       });
-      // const { pseudo, token } = response.data;
-      // addTokenJwtToAxiosInstance(token);
-      // addTokenAndPseudoToLocalStorage(token, pseudo);
-      //  return { pseudo, token };
+      const { token } = response.data;
+
+      addTokenJwtToAxiosInstance(token);
+      // addTokenAndPseudoToLocalStorage(token);
+
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;

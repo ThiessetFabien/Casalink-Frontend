@@ -1,0 +1,72 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
+import axiosInstance from '../../axios/axios';
+import { EventsI } from '../../@types/events';
+
+const actionAddTask = createAsyncThunk(
+  'task/ADD_TASK',
+  async (payload: EventsI, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(`/task/account/${payload.id}`, {
+        name: payload.nameTask,
+        description: payload.descriptionTask,
+        start_date: payload.start,
+        end_date: payload.end,
+        category_id: '1',
+      });
+      const newTask = { ...payload, id: response.data.data.task.id };
+      return newTask;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
+const actionModifyTask = createAsyncThunk(
+  'task/CHANGE_TASK',
+  async (payload: EventsI, thunkAPI) => {
+    try {
+      const response = await axiosInstance.patch(`/task/${payload.id}`, {
+        name: payload.nameTask,
+        description: payload.descriptionTask,
+        start_date: payload.start,
+        end_date: payload.end,
+        category_id: '1',
+      });
+      const newTask = { ...payload, id: response.data.data.task.id };
+      return newTask;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
+const actionGetTask = createAsyncThunk(
+  'task/GET_TASK',
+  async (payload: { id: number }, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`/task/account/${payload.id}`);
+      return response.data.data.tasks;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
+const actionDeleteTask = createAsyncThunk(
+  'task/DELETE_TASK',
+  async (payload: { id: number | null }, thunkAPI) => {
+    try {
+      await axiosInstance.delete(`/task/${payload.id}`);
+      return payload.id;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data);
+    }
+  }
+);
+
+export { actionAddTask, actionModifyTask, actionGetTask, actionDeleteTask };

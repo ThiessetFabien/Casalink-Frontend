@@ -34,6 +34,7 @@ $breakpoints: (
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
+    margin-bottom: 3rem;
 
     .profilePage_container_member_title {
       font-size: 1.5rem;
@@ -205,6 +206,7 @@ $breakpoints: (
           display: flex;
           flex-direction: row;
           width: 100%;
+          margin-top: 1.5rem;
 
           .input_checkbox_adult,
           .input_checkbox_child {

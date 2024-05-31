@@ -1,5 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
-import { BsArrowLeftShort } from 'react-icons/bs';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -15,6 +14,7 @@ import NotFount from '../404/404';
 import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
+import SelectProfile from '../SelectProfile/SelectProfile';
 
 function App() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -25,13 +25,33 @@ function App() {
         {isLogged && <SideMenu />}
 
         <Routes>
-          {isLogged ? (
-            <Route path="/" element={<HomePage />} />
-          ) : (
-            <Route path="/" element={<LandingPage />} />
-          )}
-          {isLogged && <Route path="/setting" element={<SettingPage />} />}
-          <Route path="/foyer" element={<ProfilePage />} />
+          <Route
+            path="/"
+            element={isLogged ? <HomePage /> : <Navigate to="/landingpage" />}
+          />
+
+          <Route
+            path="/setting"
+            element={
+              isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
+            }
+          />
+
+          <Route
+            path="/foyer"
+            element={
+              isLogged ? <ProfilePage /> : <Navigate to="/landingpage" />
+            }
+          />
+
+          <Route
+            path="/selectprofile"
+            element={
+              isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
+            }
+          />
+
+          <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
