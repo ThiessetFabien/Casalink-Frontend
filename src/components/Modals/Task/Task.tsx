@@ -20,6 +20,7 @@ function Task({
   memberSelected,
 }: TaskPropsI) {
   const dispatch = useAppDispatch();
+  const membersChild = membersList.filter((member) => member.role === 'child');
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
   const [selectedValue, setSelectedValue] = useState<string>('');
 
@@ -220,7 +221,7 @@ function Task({
               disabled={memberSelected?.role === 'child'}
             >
               <option value="">Général</option>
-              {membersList.map((member) => (
+              {membersChild.map((member) => (
                 <option
                   key={member.id}
                   value={member.id?.toString() ? member.id : 'error'}
