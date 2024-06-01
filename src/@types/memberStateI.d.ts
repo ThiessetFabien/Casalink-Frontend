@@ -19,7 +19,7 @@ export interface MemberStateI {
   tasks: string[];
   image: string;
   role: string;
-  pin: string;
+  pin: number | null;
   email: string;
   isChecked: boolean;
 }

@@ -27,7 +27,7 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     image: '',
     role: 'child',
     email: '',
-    pin: '0000',
+    pin: null,
     isChecked: false,
   });
 

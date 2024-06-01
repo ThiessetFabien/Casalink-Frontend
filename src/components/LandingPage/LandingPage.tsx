@@ -1,4 +1,11 @@
 import { useState } from 'react';
+import {
+  FaCloudSunRain,
+  FaCloudMoonRain,
+  FaShoppingBasket,
+  FaShoppingCart,
+  FaHandHoldingUsd,
+} from 'react-icons/fa';
 import { useAppDispatch } from '../../hooks/redux';
 import {
   actionSetModeLoginModal,
@@ -11,6 +18,30 @@ function LandingPage() {
   const [imgTestVisiteur, setImgTestVisiteur] = useState(
     'src/assets/AgendaVisiteurCasalink.png'
   );
+  const [showMeteo, setShowMeteo] = useState(false);
+  const [showCourses, setShowCourses] = useState(false);
+  const [showBudget, setShowBudget] = useState(false);
+
+  const toggleMeteo = () => {
+    setShowMeteo(!showMeteo);
+    setImgTestVisiteur('public/logo192.png');
+    setShowCourses(false);
+    setShowBudget(false);
+  };
+
+  const toggleCourses = () => {
+    setShowCourses(!showCourses);
+    setImgTestVisiteur('public/logo192.png');
+    setShowMeteo(false);
+    setShowBudget(false);
+  };
+
+  const toggleBudget = () => {
+    setShowBudget(!showBudget);
+    setImgTestVisiteur('public/logo192.png');
+    setShowMeteo(false);
+    setShowCourses(false);
+  };
 
   return (
     <div className="landingPage">
@@ -23,9 +54,12 @@ function LandingPage() {
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={() =>
-                setImgTestVisiteur('src/assets/AgendaVisiteurCasalink.png')
-              }
+              onClick={() => {
+                setImgTestVisiteur('src/assets/AgendaVisiteurCasalink.png');
+                setShowMeteo(false);
+                setShowCourses(false);
+                setShowBudget(false);
+              }}
             >
               Agenda
             </button>
@@ -34,16 +68,16 @@ function LandingPage() {
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={() => setImgTestVisiteur('public/logo192.png')}
+              onClick={toggleMeteo}
             >
-              Méteo
+              Météo
             </button>
           </li>
           <li className="landingPage_listeItem">
             <button
               className=" landingPage_btn btn-functionality"
               type="button"
-              onClick={() => setImgTestVisiteur('public/logo192.png')}
+              onClick={toggleCourses}
             >
               Courses
             </button>
@@ -52,7 +86,7 @@ function LandingPage() {
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={() => setImgTestVisiteur('public/logo192.png')}
+              onClick={toggleBudget}
             >
               Budget
             </button>
@@ -62,9 +96,28 @@ function LandingPage() {
 
       <div className="landingPage_actionBox">
         <div className="landingPage_divDescription">
-          <img className="landingPage_img" src={imgTestVisiteur} alt="test" />
+          {showMeteo && (
+            <div className="landingPage_divDescription_iconesMeteo">
+              <FaCloudSunRain className="iconeSun" />
+              <FaCloudMoonRain className="iconeMoon" />
+            </div>
+          )}
+          {showCourses && (
+            <div className="landingPage_divDescription_courses">
+              <FaShoppingBasket className="iconeBasket" />
+              <FaShoppingCart className="iconeCart" />
+            </div>
+          )}
+          {showBudget && (
+            <div className="landingPage_divDescription_budget">
+              <FaHandHoldingUsd className="iconeBudget" />
+            </div>
+          )}
+          {!showMeteo && !showCourses && !showBudget && (
+            <img className="landingPage_img" src={imgTestVisiteur} alt="test" />
+          )}
           <p className="landingPage_description">
-            Simplifier la gestion des emplois du temps, des tâches domestiques
+            Simplifiez la gestion des emplois du temps, des tâches domestiques
             et des événements au sein de votre foyer.
           </p>
           <button

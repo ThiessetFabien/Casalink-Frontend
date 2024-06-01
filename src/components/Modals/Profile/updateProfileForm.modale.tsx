@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect, useRef } from 'react';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -47,6 +47,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     console.log('Updated Profile:', updatedProfile);
     console.log('Image base64:', profileImageBase64);
     if (profileImageBase64 && updatedProfile.id !== null) {
@@ -86,7 +87,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
         setUpdatedProfile((prevProfile) => ({
           ...prevProfile,
           email: '',
-          pin: '',
+          pin: null,
           [name]: value,
         }));
       } else {

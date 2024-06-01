@@ -100,17 +100,10 @@ function ProfilePage() {
                   <div className="profilePage_container_member_card_icones">
                     {selectedProfile?.role === 'adult' && (
                       <>
-                        {(member.role === 'child' ||
-                          selectedProfile.id === member.id) && (
+                        {selectedProfile.id !== member.id && (
                           <FaTrashAlt
                             className="profilePage_container_member_card_iconDelete"
                             onClick={() => handleDeleteClick(member)}
-                            style={{
-                              display:
-                                selectedProfile.id !== member.id
-                                  ? 'block'
-                                  : 'none',
-                            }}
                           />
                         )}
                         {(member.role === 'child' ||

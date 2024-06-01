@@ -66,17 +66,14 @@ $breakpoints: (
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 0.5rem;
-    bottom: -1.2rem;
+    left: 1rem;
+    bottom: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 100%;
     font-size: 1.4rem;
     background-color: v.$textColor-colorWhite;
     border: none;
-    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
-      7px 7px 20px 0px v.$textColor-colorWhite,
-      4px 4px 5px 0px v.$textColor-colorDark-Blue;
     cursor: pointer;
     @include media(desktop) {
       display: none;
@@ -287,7 +284,6 @@ $breakpoints: (
     text-decoration: none;
     color: v.$textColor-colorDark;
     font-size: 1rem;
-    padding-right: 1rem;
     font-weight: bold;
     // z-index: 1;
   }
@@ -308,6 +304,7 @@ $breakpoints: (
     height: 35px;
     line-height: 35px;
     right: 0.5rem;
+    margin-top: 0.6rem;
   }
 }
 
