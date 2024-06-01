@@ -46,6 +46,20 @@ function HomePage() {
 
   const dispatch = useAppDispatch();
 
+  const eventPropGetter = useCallback(
+    (event, start, end, isSelected) => ({
+      ...(isSelected && {
+        style: {
+          backgroundColor: '#000',
+        },
+      }),
+      ...(event.title.includes('Appointment') && {
+
+      }),
+    }),
+    []
+  );
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
@@ -66,7 +80,7 @@ function HomePage() {
     endUnserielized: Date,
     title: string,
     content: string,
-    memberTarget?: number | null
+    memberTarget: number
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
@@ -117,6 +131,9 @@ function HomePage() {
         end: endWithOneHour,
         nameTask: '',
         descriptionTask: '',
+        // childTask: false,
+        // childTaskToValidate: false,
+        // taskValidated: false,
       });
       dispatch(actionSwitchTaskModal());
     },
@@ -136,6 +153,7 @@ function HomePage() {
 
   const handleEventDrop = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -148,11 +166,12 @@ function HomePage() {
         })
       );
     },
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const handleEventResize = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -165,7 +184,7 @@ function HomePage() {
         })
       );
     },
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const formats = {
@@ -232,6 +251,7 @@ function HomePage() {
             });
           }}
           resizable
+          eventPropGetter={eventPropGetter}
         />
       </main>
     </div>

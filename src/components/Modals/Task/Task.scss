@@ -85,6 +85,10 @@ $breakpoints: (
         border-radius: 5px;
       }
 
+      input:disabled, textarea:disabled, select {
+        color: black;
+      }
+
       &_description {
         border: none;
         border-bottom: 1px solid v.$textColor-colorBlue;

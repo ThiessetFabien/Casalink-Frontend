@@ -4,6 +4,9 @@ export interface EventsI {
   descriptionTask: string | null;
   start: string | Date;
   end: string | Date;
+  childTask?: boolean | null;
+  childTaskToValidate?: boolean | null;
+  taskValidated?: boolean | null;
 }
 
 export interface EventsWithMemberI {

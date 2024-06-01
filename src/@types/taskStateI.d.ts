@@ -29,7 +29,7 @@ interface TaskPropsI {
     end: Date,
     title: string,
     description: string,
-    memberTarget?: number | number
+    memberTarget: number
   ) => void;
   editTask: (
     id: number,
