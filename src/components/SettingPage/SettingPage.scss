@@ -14,7 +14,7 @@ $breakpoints: (
 }
 
 .settingPage {
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorWhite;
   width: 100%;
   height: 86vh;
   padding: 2rem;
@@ -22,10 +22,14 @@ $breakpoints: (
   &_notifDiv {
     width: 90%;
     margin: auto;
-    background-color: v.$textColor-colorBlue;
     text-align: center;
     padding: 0.5rem;
-    border-radius: 1rem;
+    border-radius: 5px;
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.5px );
+    -webkit-backdrop-filter: blur( 5.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
   }
 
   &_title {
@@ -44,9 +48,20 @@ $breakpoints: (
   &_restrictionDiv {
     width: 90%;
     margin: 1rem auto;
-    background-color: v.$textColor-colorBlue;
     text-align: center;
     padding: 0.5rem;
-    border-radius: 1rem;
+    border-radius: 5px;
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.5px );
+    -webkit-backdrop-filter: blur( 5.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+    &_subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: v.$textColor-colorBlue;
+    }
   }
 }

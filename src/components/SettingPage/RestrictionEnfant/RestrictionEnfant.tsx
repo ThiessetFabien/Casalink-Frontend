@@ -37,7 +37,7 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
         htmlFor={`setting-modifTache-${member.id}`}
         className="settingPage_label"
       >
-        Restriction {member.name}
+        {member.name}
       </label>
       <input
         type="checkbox"

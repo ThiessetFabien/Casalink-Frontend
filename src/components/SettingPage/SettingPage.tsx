@@ -35,6 +35,9 @@ function SettingPage() {
       </div>
       <div className="settingPage_restrictionDiv">
         <h2>Restrictions</h2>
+        <h3 className="settingPage_restrictionDiv_subtitle">
+          Cochez les profils qui seront limités en droit
+        </h3>
         {members.map((member) => (
           <RestrictionEnfant key={member.id} member={member} />
         ))}
