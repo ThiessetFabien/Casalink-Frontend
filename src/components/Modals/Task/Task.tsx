@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Task.scss';
 import { Trash2, X } from 'react-feather';
 
@@ -6,24 +6,10 @@ import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
-import { TaskInputI } from '../../../@types/taskStateI';
+import { TaskInputI, TaskPropsI } from '../../../@types/taskStateI';
 import { EventsI } from '../../../@types/events';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
 import { MemberStateI } from '../../../@types/memberStateI';
-
-interface TaskI {
-  taskModalMode: 'add' | 'edit';
-  eventSelect: EventsI;
-  addTask: (start: Date, end: Date, title: string, description: string) => void;
-  editTask: (
-    id: number,
-    start: Date,
-    end: Date,
-    title: string,
-    description: string
-  ) => void;
-  membersList: MemberStateI[];
-}
 
 function Task({
   taskModalMode,
@@ -31,9 +17,11 @@ function Task({
   addTask,
   editTask,
   membersList,
-}: TaskI) {
+  memberSelected,
+}: TaskPropsI) {
   const dispatch = useAppDispatch();
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
   const {
     startDate,
@@ -44,9 +32,6 @@ function Task({
     nameTask,
     descriptionTask,
   } = useAppSelector((state) => state.task.input);
-
-  console.log(membersList);
-
 
   useEffect(() => {
     if (backgroundTaskRef.current) {
@@ -108,9 +93,19 @@ function Task({
     const end = new Date(`${endDate}T${endTime}:00.000`);
     const title = nameTask;
     const description = descriptionTask;
-    if (taskModalMode === 'add') addTask(start, end, title, description);
+
+    const memberTarget = parseInt(selectedValue, 10);
+    console.log(typeof memberTarget, memberTarget);
+    if (taskModalMode === 'add' && memberTarget !== null)
+      addTask(start, end, title, description, memberTarget);
+    else if (taskModalMode === 'add' && Number.isNaN(memberTarget))
+      addTask(start, end, title, description);
     else if (taskModalMode === 'edit')
       editTask(id, start, end, title, description);
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(event.target.value);
   };
 
   return (
@@ -202,13 +197,37 @@ function Task({
           </fieldset>
 
           <textarea
-            className=""
+            className="task_modal_form_description"
             rows={3}
             name="task_description"
             placeholder="Description.."
             value={descriptionTask}
             onChange={(e) => handleChange('descriptionTask', e.target.value)}
           />
+
+          {memberSelected?.role === 'adult' && (
+            <fieldset className="task_modal_form_member">
+              <label htmlFor="select">Tâche à attribuer à</label>
+              <select
+                id="select"
+                className="task_modal_form_member_select"
+                name="task_member"
+                value={selectedValue}
+                onChange={handleSelectChange}
+              >
+                <option value="">Général</option>
+                {membersList.map((member) => (
+                  <option
+                    key={member.id}
+                    value={member.id?.toString() ? member.id : 'error'}
+                  >
+                    {member.name}
+                  </option>
+                ))}
+              </select>
+            </fieldset>
+          )}
+
           <button type="submit">Valider</button>
         </form>
       </div>

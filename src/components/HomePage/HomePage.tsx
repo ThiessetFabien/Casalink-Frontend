@@ -31,6 +31,9 @@ function HomePage() {
     (state) => state.modal.taskModalIsOpen
   );
   const accountId = useAppSelector((state) => state.user.id);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const events = useAppSelector((state) =>
     state.task.list.map((task) => ({
@@ -54,26 +57,30 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
-  }, [accountId, dispatch]);
+    if (accountId !== null && memberSelected !== null)
+      dispatch(actionGetTask({ id: accountId, member: memberSelected }));
+  }, [accountId, memberSelected, dispatch]);
 
   const addTask = (
     startUnserielized: Date,
     endUnserielized: Date,
     title: string,
-    content: string
+    content: string,
+    memberTarget?: number | null
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
-    dispatch(
-      actionAddTask({
-        id: accountId,
-        start,
-        end,
-        nameTask: title,
-        descriptionTask: content,
-      })
-    );
+    if (memberSelected)
+      dispatch(
+        actionAddTask({
+          id: accountId,
+          start,
+          end,
+          nameTask: title,
+          descriptionTask: content,
+          memberTarget,
+        })
+      );
     dispatch(actionSwitchTaskModal());
   };
 
@@ -101,6 +108,7 @@ function HomePage() {
   // We put a useCallback to avoid the function recreation at each render
   const handleSelectSlot = useCallback(
     ({ start }: { start: Date }) => {
+      if (memberSelected?.role === 'child') return;
       const endWithOneHour = addHours(start, 1);
       setTaskModalMode('add');
       setEventSelected({
@@ -114,7 +122,7 @@ function HomePage() {
     },
     // We put dispatch in the dependencies array to avoid the linter warning
     // He will never change
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const handleSelectEvent = useCallback(
@@ -189,6 +197,7 @@ function HomePage() {
           addTask={addTask}
           editTask={editTask}
           membersList={membersList}
+          memberSelected={memberSelected}
         />
       )}
       <main>

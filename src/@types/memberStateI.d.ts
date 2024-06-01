@@ -18,7 +18,7 @@ export interface MemberStateI {
   score: number;
   tasks: string[];
   image: string;
-  role: string;
+  role: 'child' | 'adult';
   pin: number;
   email: string;
   isChecked: boolean;

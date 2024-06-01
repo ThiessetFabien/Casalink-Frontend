@@ -65,15 +65,8 @@ const profileReducer = createReducer(initialState, (builder) => {
     state.memberSelected = action.payload;
   });
   builder.addCase(actionUpdateRole.fulfilled, (state, action) => {
-    const { memberId, role } = action.payload;
-    const member = state.members.find((m) => m.id === memberId);
-    if (member) {
-      member.role = role;
-    }
-  });
-  builder.addCase(actionChangeRole, (state, action: PayloadAction) => {
-    const { memberId, role } = action.payload;
-    const member = state.members.find((m) => m.id === memberId);
+    const { id, role } = action.payload;
+    const member = state.members.find((m) => m.id === id);
     if (member) {
       member.role = role;
     }
