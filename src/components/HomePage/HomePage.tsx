@@ -41,20 +41,29 @@ function HomePage() {
       title: task.nameTask,
       start: new Date(task.start),
       end: new Date(task.end),
+      childTask: task.childTask,
     }))
   );
 
   const dispatch = useAppDispatch();
 
   const eventPropGetter = useCallback(
-    (event, start, end, isSelected) => ({
+    (
+      event: EventsI,
+      start: string | Date,
+      end: string | Date,
+      isSelected: boolean
+    ) => ({
       ...(isSelected && {
         style: {
-          backgroundColor: '#000',
+          backgroundColor: '#005C75',
         },
       }),
-      ...(event.title.includes('Appointment') && {
-
+      ...(event.childTask && {
+        style: {
+          backgroundColor: '#5500B4',
+          borderColor: '#7800FF',
+        },
       }),
     }),
     []
@@ -131,9 +140,9 @@ function HomePage() {
         end: endWithOneHour,
         nameTask: '',
         descriptionTask: '',
-        // childTask: false,
-        // childTaskToValidate: false,
-        // taskValidated: false,
+        childTask: false,
+        childTaskToValidate: false,
+        taskValidated: false,
       });
       dispatch(actionSwitchTaskModal());
     },
