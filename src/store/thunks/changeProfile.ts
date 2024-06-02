@@ -116,8 +116,6 @@ export const actionUpdateRole = createAsyncThunk<MemberStateI, RoleI>(
   'profile/UPDATE_PROFILE_ROLE',
   async ({ memberId, role }, thunkAPI) => {
     try {
-      // console.log('image name :', updatedProfile.image);
-      // const state = thunkAPI.getState() as RootState;
       const response = await axiosInstance.patch(`/profile/${memberId}`, {
         role,
       });

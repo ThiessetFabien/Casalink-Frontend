@@ -43,11 +43,14 @@ export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
     state.isLoading = false;
-    console.log('je suis actionGetMembers');
 
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
+    console.log(
+      'fetch reducer getmember, date deja en timestamp',
+      action.payload.members
+    );
   });
   builder.addCase(actionGetMembers.pending, (state, action) => {
     state.isLoading = true;
