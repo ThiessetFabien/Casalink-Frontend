@@ -85,7 +85,7 @@ function ProfilePage() {
   return (
     <div className="profilePage_container">
       <div className="profilePage_container_presentation">
-        <h2 className="profilePage_container_title">Mon foyer</h2>
+        <h2 className="profilePage_container_presentation_title">Mon foyer</h2>
       </div>
       <div className="profilePage_container_member">
         <h3 className="profilePage_container_member_title">Membres</h3>
@@ -176,20 +176,22 @@ function ProfilePage() {
                 </div>
               )
           )}
-          <div className="profilePage_container_member_card">
-            <img
-              className="profilePage_container_memberCard_image addProfile_img"
-              src="./../../../src/assets/avatars/default-avatar.webp"
-              alt="avatar de l'utilisateur"
-            />
-            <h4 className="profilePage_container_member_card_name">
-              Ajouter un Profil
-            </h4>
-            <FaPlusCircle
-              className="profilePage_container_member_card_iconAddProfile"
-              onClick={() => handleAddClick()}
-            />
-          </div>
+          {selectedProfile?.role === 'adult' && (
+            <div className="profilePage_container_member_card">
+              <img
+                className="profilePage_container_memberCard_image addProfile_img"
+                src={`${baseURL}/uploads/avatars/default-avatar.webp`}
+                alt="avatar de l'utilisateur"
+              />
+              <h4 className="profilePage_container_member_card_name">
+                Ajouter un Profil
+              </h4>
+              <FaPlusCircle
+                className="profilePage_container_member_card_iconAddProfile"
+                onClick={() => handleAddClick()}
+              />
+            </div>
+          )}
         </div>
       </div>
       {selectedProfile && deleteModalIsOpen && (
