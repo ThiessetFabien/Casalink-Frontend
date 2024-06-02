@@ -31,7 +31,7 @@ $breakpoints: (
     height: var(--checkbox-height);
     width: var(--checkbox-height);
     background-color: transparent;
-    border: calc(var(--checkbox-height) * 0.1) solid #000;
+    border: calc(var(--checkbox-height) * 0.1) solid v.$textColor-colorDark;
     border-radius: 5px;
     position: relative;
     display: inline-block;
@@ -45,7 +45,7 @@ $breakpoints: (
       position: absolute;
       height: 0;
       width: calc(var(--checkbox-height) * 0.2);
-      background-color: #34b93d;
+      background-color: v.$textColor-colorBlue;
       display: inline-block;
       transform-origin: left top;
       border-radius: 5px;
@@ -73,7 +73,7 @@ $breakpoints: (
 
   &_input:checked + &_label,
   &_label.checked {
-    border-color: #34b93d;
+    border-color: v.$textColor-colorBlue;
   }
 
   &_input:checked + &_label::after,
