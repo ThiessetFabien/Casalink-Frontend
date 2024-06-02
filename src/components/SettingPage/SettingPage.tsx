@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/redux';
 import RestrictionEnfant from './RestrictionEnfant/RestrictionEnfant';
 import './SettingPage.scss';
+import './RestrictionEnfant/RestrictionEnfant.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import actionSwitchRestriction from '../../store/thunks/checkChildren';
 import actionChangeIsChecked from '../../store/reducer/profile';
@@ -23,15 +24,20 @@ function SettingPage() {
   return (
     <div className="settingPage">
       <div className="settingPage_notifDiv">
-        <h2 className="settingPage_title">Notification</h2>
-        <label htmlFor="setting-notif" className="settingPage_label">
-          Activer les notifications
-        </label>
-        <input
-          type="checkbox"
-          id="setting-notif"
-          className="settingPageDiv_checkbox"
-        />
+        <h2 className="settingPage_notifDiv_title">Notification</h2>
+        <div className="settingPage_notifDiv_checkbox-wrapper">
+          <label
+            htmlFor="setting-notif"
+            className="settingPage_notifDiv_checkbox-wrapper_label"
+          >
+            Activer les notifications
+          </label>
+          <input
+            type="checkbox"
+            id="setting-notif"
+            className="settingPage_notifDiv_checkbox-wrapper_input"
+          />
+        </div>
       </div>
       <div className="settingPage_restrictionDiv">
         <h2>Restrictions</h2>

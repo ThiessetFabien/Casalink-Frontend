@@ -5,6 +5,7 @@ import actionSwitchRestriction from '../../../store/thunks/checkChildren';
 import { useAppSelector } from '../../../hooks/redux';
 import { actionUpdateRole } from '../../../store/thunks/changeProfile';
 import { actionChangeRole } from '../../../store/reducer/profile';
+import './RestrictionEnfant.scss';
 
 interface RestrictionPropsI {
   member: MemberStateI;
@@ -24,25 +25,22 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
 
   const handleCheckboxChange = () => {
     const newRole = role === 'child' ? 'adult' : 'child';
-    console.log(newRole);
-
     dispatch(actionUpdateRole({ memberId: member.id, role: newRole }));
     dispatch(actionChangeRole({ memberId: member.id, role: newRole }));
   };
 
-  // console.log('je suis membre enfant', member);
   return (
-    <div className="settingPage_inputDiv">
+    <div className="settingPage_enfantDiv">
       <label
         htmlFor={`setting-modifTache-${member.id}`}
-        className="settingPage_label"
+        className="settingPage_enfantDiv_label"
       >
         {member.name}
       </label>
       <input
         type="checkbox"
         id={`setting-modifTache-${member.id}`}
-        className="settingPageDiv_checkbox"
+        className="settingPage_enfantDiv_input"
         checked={role === 'child'}
         onChange={handleCheckboxChange}
       />
