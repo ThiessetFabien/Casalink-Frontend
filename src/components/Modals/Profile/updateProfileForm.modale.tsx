@@ -87,7 +87,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
         setUpdatedProfile((prevProfile) => ({
           ...prevProfile,
           email: '',
-          pin: null,
+          pin: '',
           [name]: value,
         }));
       } else {
