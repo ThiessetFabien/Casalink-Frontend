@@ -67,6 +67,7 @@ function SideMenu() {
       <div className={`${openMenu ? 'side_boxItem' : 'side_boxItem-hidden'}`}>
         <BiHomeAlt2
           className={`${openMenu ? 'side_icon-open' : 'side_icon'}`}
+          onClick={handleHomeClick}
         />
         <Link
           to="/"
