@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -28,9 +28,13 @@ import { actionSelectProfile } from '../../store/reducer/profile';
 function App() {
   const dispatch = useAppDispatch();
 
+  const isLogged = useAppSelector((state) => state.user.logged);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    console.log("useEffect");
-    
     const jwtObject = getTokenAndPseudoFromLocalStorage() as { jwt: string };
     if (jwtObject !== null && jwtObject.jwt !== null) {
       const jwtDecoded = jwtDecode(jwtObject.jwt) as { userId: number };
@@ -42,25 +46,18 @@ function App() {
         dispatch(actionSelectProfile(profile));
       }
     }
+    setIsLoading(false);
   }, [dispatch]);
 
-  const isLogged = useAppSelector((state) => state.user.logged);
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
-  );
+  if (isLoading) return null;
+
   let homePageElement;
   if (isLogged && memberSelected) {
-    console.log("1");
-    <Navigate to="/" />;
     homePageElement = <HomePage />;
-    
   } else if (isLogged && !memberSelected) {
-    console.log("2");
     homePageElement = <Navigate to="/selectprofile" />;
-    console.log("3");
   } else {
     homePageElement = <Navigate to="/landingpage" />;
-    console.log("4");
   }
   return (
     <div className="app">
