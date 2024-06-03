@@ -45,7 +45,7 @@ function HomePage() {
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
-  const membersList = useAppSelector((state) => state.profile.members) || [];
+  const membersList = useAppSelector((state) => state.profile.members);
 
   const getTasks = (state: StateReducerI) => state.task.list;
 
@@ -58,8 +58,6 @@ function HomePage() {
       childTask: task.childTask,
     }))
   );
-
-  console.log(accountId);
 
   const events = useAppSelector(getMappedTasks);
 
