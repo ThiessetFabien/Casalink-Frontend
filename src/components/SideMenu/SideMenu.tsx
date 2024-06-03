@@ -28,6 +28,9 @@ function SideMenu() {
   };
   const navigate = useNavigate();
   const handleHomeClick = () => {
+    navigate('/');
+  };
+  const handleLogOutLick = () => {
     disconnectLocalStorage();
     dispatch(actionLogout());
     navigate('/');
@@ -118,7 +121,7 @@ function SideMenu() {
       <div className={`${openMenu ? 'side_boxItem' : 'side_boxItem-hidden'}`}>
         <IoLogOut
           className={`${openMenu ? 'side_icon-open' : 'side_icon'}`}
-          onClick={handleHomeClick}
+          onClick={handleLogOutLick}
         />
         <Link
           to="/"
