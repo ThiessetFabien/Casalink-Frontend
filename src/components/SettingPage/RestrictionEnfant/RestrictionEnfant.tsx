@@ -1,3 +1,5 @@
+import './RestrictionEnfant.scss';
+
 import { MemberStateI } from '../../../@types/memberStateI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionUpdateRole } from '../../../store/thunks/changeProfile';
@@ -27,7 +29,7 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
     <div className="settingPage_inputDiv">
       <label
         htmlFor={`setting-modifTache-${member.id}`}
-        className="settingPage_label"
+        className="label_restriction"
       >
         {member.name}
       </label>

@@ -1,4 +1,4 @@
-@use '../../styles/variables' as v;
+@use '../../../styles/variables' as v;
 
 $breakpoints: (
   mobile: '(max-width: 424px)',
@@ -11,4 +11,70 @@ $breakpoints: (
   @media only screen and #{map-get($breakpoints, $device)} {
     @content;
   }
+}
+
+.label_restriction {
+  text-align: start;
+  width: 4.5rem;
+}
+
+.settingPage_inputDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settingPageDiv_checkbox {
+  margin: 0.8rem 0;
+  position: relative;
+  top: 0.1rem;
+  appearance: none;
+  width: 50px;
+  height: 20px;
+  background: #c6c6c6;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease-in-out;
+}
+
+.settingPageDiv_checkbox::before {
+  content: '';
+  position: absolute;
+  font-size: 0.8rem;
+  color: v.$btnBg-landing;
+  font-weight: bold;
+
+  text-align: center;
+  line-height: 1.6;
+  bottom: -0.08rem;
+  left: -0.1rem;
+  width: 23px;
+  height: 23px;
+  border: black;
+  border-radius: 50%;
+  background: white;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
+}
+
+.settingPageDiv_checkbox:checked::before {
+  content: '';
+  position: absolute;
+  font-size: 0.8rem;
+  color: v.$btnBg-landing;
+  text-align: center;
+  line-height: 1.6;
+  bottom: -0.08rem;
+  left: 1.9rem;
+  width: 23px;
+  height: 23px;
+  border: black;
+  border-radius: 50%;
+  transition: all 0.4s ease-in-out;
+}
+
+.settingPageDiv_checkbox:checked {
+  background: v.$btnBg-landing;
 }

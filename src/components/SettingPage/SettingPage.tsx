@@ -21,7 +21,7 @@ function SettingPage() {
     <div className="settingPage">
       <div className="settingPage_notifDiv">
         <h2 className="settingPage_title">Notification</h2>
-        <label htmlFor="setting-notif" className="settingPage_label">
+        <label htmlFor="setting-notif" className="settingPage_notifDiv_label">
           Activer les notifications
         </label>
         <input
