@@ -9,7 +9,6 @@ export interface UserStateI {
     login: SiginCredentialsI;
     signup: SignupCredentialsI;
   };
-  pseudo: null | string;
   token: null | string;
   error: null | string;
 }
