@@ -37,6 +37,10 @@ export const actionChangeCredentialsSignup = createAction<{
 
 export const actionLogout = createAction('user/LOG_OUT');
 
+export const actionChangePinErrorMessage = createAction(
+  'user/CHANGE_ERROR_MESSAGE'
+);
+
 export const actionResetErrorMessage = createAction('user/RESET_ERROR_MESSAGE');
 
 export const actionResetCredential = createAction('user/RESET_CREDENTIAL');
@@ -55,6 +59,9 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(actionChangeCredentialsSignup, (state, action) => {
       (state.credentials.signup[action.payload.name] as string) =
         action.payload.value;
+    })
+    .addCase(actionChangePinErrorMessage, (state) => {
+      state.error = 'Pin incorrecte';
     })
     .addCase(actionResetErrorMessage, (state) => {
       state.error = null;
@@ -84,7 +91,6 @@ const userReducer = createReducer(initialState, (builder) => {
       state.token = action.payload.token;
       state.error = null;
     })
-    // ! à ajuster
     .addCase(actionCheckLogin.rejected, (state) => {
       state.error = 'Identifiant ou mot de passe inccorect';
     })

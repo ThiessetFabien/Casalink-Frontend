@@ -6,6 +6,7 @@ import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
+import { actionSwitchPinModal } from '../../store/reducer/modal.js';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
+    dispatch(actionSwitchPinModal());
   };
   if (!accountId) {
     return null; // ici afficher la page 404
@@ -39,14 +41,13 @@ function SelectProfile() {
                   key={member.id}
                   className="selectProfile_container_member_card"
                 >
-                  <Link
+                  <button
+                    type="button"
                     className="selectProfile_container_member_card_link"
-                    to="/"
                     onClick={() => handleSelect(member)}
                   >
                     selectione
-                  </Link>
-
+                  </button>
                   <img
                     className="selectProfile_container_member_card_image"
                     src={
