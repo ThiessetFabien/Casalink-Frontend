@@ -36,7 +36,7 @@ function AskPin() {
   };
 
   return (
-    <div className='formDiv'>
+    <div className="formDiv">
       <form onSubmit={handleSubmit} className="form">
         <label htmlFor="checkPin" className="form_label">
           Rentrez votre code PIN

@@ -26,11 +26,26 @@ $breakpoints: (
   border: 2px solid black;
 
   &_label {
+    // position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    color: #595959;
+    transition: 0.3s;
   }
 
   &_error {
+    color: red;
+    font-size: 0.9rem;
   }
 
   &_button {
+    border-radius: 5px;
+    padding: 0.3rem;
+    border: none;
+    cursor: pointer;
+    background-color: v.$textColor-colorBlue;
+    color: white;
+    font-weight: 500;
   }
 }
