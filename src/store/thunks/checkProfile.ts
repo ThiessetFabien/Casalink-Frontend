@@ -13,7 +13,6 @@ const actionGetMembers = createAsyncThunk<
 >('profile/GET_MEMBERS', async (payload: ProfilePayload, thunkAPI) => {
   try {
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
-
     return { members: response.data.data.profile };
     console.log('fetch thunks checkprofile', response.data.data.profile);
   } catch (error) {
