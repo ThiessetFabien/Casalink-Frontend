@@ -16,7 +16,7 @@ import './LandingPage.scss';
 function LandingPage() {
   const dispatch = useAppDispatch();
   const [imgTestVisiteur, setImgTestVisiteur] = useState(
-    'src/assets/AgendaVisiteurCasalink.png'
+    'src/assets/agenda.webp'
   );
   const [showMeteo, setShowMeteo] = useState(false);
   const [showCourses, setShowCourses] = useState(false);
@@ -55,7 +55,7 @@ function LandingPage() {
               className="landingPage_btn btn-functionality"
               type="button"
               onClick={() => {
-                setImgTestVisiteur('src/assets/AgendaVisiteurCasalink.png');
+                setImgTestVisiteur('src/assets/agenda.webp');
                 setShowMeteo(false);
                 setShowCourses(false);
                 setShowBudget(false);
