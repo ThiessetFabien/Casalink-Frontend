@@ -62,7 +62,7 @@ function App() {
 
           <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/mentionslegales" element={<MentionsLegales />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
           <Route path="*" element={<NotFount />} />
         </Routes>
