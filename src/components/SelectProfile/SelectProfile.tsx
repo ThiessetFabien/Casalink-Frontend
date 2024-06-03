@@ -5,11 +5,13 @@ import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
+import { addProfileToLocalStorage } from '../../localStorage/localStorage';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const accountId = useAppSelector((state) => state.user.id);
+
   useEffect(() => {
     async function fetchMembers() {
       if (accountId) {
@@ -22,6 +24,7 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
+    addProfileToLocalStorage(member);
   };
   if (!accountId) {
     return null; // ici afficher la page 404
