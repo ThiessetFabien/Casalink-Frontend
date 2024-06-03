@@ -20,24 +20,3 @@ export interface TaskI {
   category_id: number;
   profile_id: number;
 }
-
-interface TaskPropsI {
-  taskModalMode: 'add' | 'edit';
-  eventSelect: EventsI;
-  addTask: (
-    start: Date,
-    end: Date,
-    title: string,
-    description: string,
-    memberTarget: number
-  ) => void;
-  editTask: (
-    id: number,
-    start: Date,
-    end: Date,
-    title: string,
-    description: string
-  ) => void;
-  membersList: MemberStateI[];
-  memberSelected: MemberStateI | null;
-}

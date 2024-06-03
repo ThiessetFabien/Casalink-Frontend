@@ -18,8 +18,8 @@ export interface MemberStateI {
   score: number;
   tasks: string[];
   image: string;
-  role: 'child' | 'adult';
-  pin: number;
+  role: string;
+  pin: string | null;
   email: string;
   isChecked: boolean;
 }

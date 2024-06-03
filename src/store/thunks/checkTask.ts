@@ -1,34 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
-import { EventsI, EventsWithMemberI } from '../../@types/events';
-import { MemberStateI } from '../../@types/memberStateI';
+import { EventsI } from '../../@types/events';
 
 const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
-  async (payload: EventsWithMemberI, thunkAPI) => {
+  async (payload: EventsI, thunkAPI) => {
     try {
-      let response;
-      if (Number.isNaN(payload.memberTarget)) {
-        response = await axiosInstance.post(`/task/account/${payload.id}`, {
-          name: payload.nameTask,
-          description: payload.descriptionTask,
-          start_date: payload.start,
-          end_date: payload.end,
-          category_id: '1',
-        });
-      } else {
-        response = await axiosInstance.post(
-          `/task/profile/${payload.memberTarget}`,
-          {
-            name: payload.nameTask,
-            description: payload.descriptionTask,
-            start_date: payload.start,
-            end_date: payload.end,
-            category_id: '1',
-          }
-        );
-      }
+      const response = await axiosInstance.post(`/task/account/${payload.id}`, {
+        name: payload.nameTask,
+        description: payload.descriptionTask,
+        start_date: payload.start,
+        end_date: payload.end,
+        category_id: '1',
+      });
       const newTask = { ...payload, id: response.data.data.task.id };
       return newTask;
     } catch (error) {
@@ -60,17 +45,10 @@ const actionModifyTask = createAsyncThunk(
 
 const actionGetTask = createAsyncThunk(
   'task/GET_TASK',
-  async (payload: { id: number; member: MemberStateI }, thunkAPI) => {
+  async (payload: { id: number }, thunkAPI) => {
     try {
-      let response;
-      if (payload.member.role === 'adult')
-        response = await axiosInstance.get(`/task/account/${payload.id}`);
-      if (payload.member.role === 'child')
-        response = await axiosInstance.get(
-          `/task/profile/${payload.member.id}`
-        );
-      if (response) return response.data.data.tasks;
-      return null;
+      const response = await axiosInstance.get(`/task/account/${payload.id}`);
+      return response.data.data.tasks;
     } catch (error) {
       const axiosError = error as AxiosError;
       return thunkAPI.rejectWithValue(axiosError.response?.data);

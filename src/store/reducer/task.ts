@@ -9,7 +9,7 @@ import {
 import { TaskI, TaskInputI } from '../../@types/taskStateI';
 import { EventsI } from '../../@types/events';
 
-export interface TaskStateInt {
+interface TaskStateI {
   input: TaskInputI;
   list: EventsI[];
 }
@@ -25,10 +25,9 @@ interface ApiTask {
   task_end_date: string | Date;
   task_name: string;
   task_description: string | null;
-  profile_id: number | null;
 }
 
-export const initialState: TaskStateInt = {
+export const initialState: TaskStateI = {
   input: {
     id: 0,
     nameTask: '',
@@ -77,18 +76,16 @@ const taskSlice = createSlice({
     builder.addCase(
       actionGetTask.fulfilled,
       (state, action: PayloadAction<ApiTask[]>) => {
+        // const { id, start, end, nameTask, descriptionTask } = action.payload;
         state.list = [];
         action.payload.forEach((task: ApiTask) => {
-          const newTask = {
+          state.list.push({
             id: task.task_id,
             start: task.task_start_date,
             end: task.task_end_date,
             nameTask: task.task_name,
             descriptionTask: task.task_description,
-            childTask: false,
-          };
-          if (task.profile_id) newTask.childTask = true;
-          state.list.push(newTask);
+          });
         });
       }
     );

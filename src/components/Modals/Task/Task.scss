@@ -85,11 +85,7 @@ $breakpoints: (
         border-radius: 5px;
       }
 
-      input:disabled, textarea:disabled, select {
-        color: black;
-      }
-
-      &_description {
+      textarea {
         border: none;
         border-bottom: 1px solid v.$textColor-colorBlue;
         width: 100%;
@@ -104,21 +100,6 @@ $breakpoints: (
         background-color: v.$textColor-colorBlue;
         color: white;
         font-weight: 500;
-      }
-
-      &_member {
-        display: flex;
-        flex-direction: column;
-        border: none;
-        margin: 0;
-
-        &_select {
-          margin-top: 0.5rem;
-          border-radius: 4px;
-          background-color: transparent;
-          padding: 0.2rem;
-          margin: 0;
-        }
       }
     }
   }

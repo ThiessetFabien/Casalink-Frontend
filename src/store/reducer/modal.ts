@@ -1,6 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
-export interface ModalStateI {
+interface ModalStateI {
   loginModalIsOpen: boolean;
   loginModalIsMode: 'signin' | 'signup';
   taskModalIsOpen: boolean;

@@ -2,9 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import { addHours, format } from 'date-fns';
-import { createSelector } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { ModalStateI, actionSwitchTaskModal } from '../../store/reducer/modal';
+import { actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
 import Task from '../Modals/Task/Task';
@@ -15,21 +14,11 @@ import {
   actionGetTask,
   actionModifyTask,
 } from '../../store/thunks/checkTask';
-import { UserStateI } from '../../@types/userStateI';
-import { MembersState } from '../../store/reducer/profile';
-import { TaskStateInt } from '../../store/reducer/task';
 
 interface DragNDropI {
   event: EventsI;
   startUnserielized: Date;
   endUnserielized: Date;
-}
-
-interface StateReducerI {
-  user: UserStateI;
-  modal: ModalStateI;
-  profile: MembersState;
-  task: TaskStateInt;
 }
 
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
@@ -42,48 +31,17 @@ function HomePage() {
     (state) => state.modal.taskModalIsOpen
   );
   const accountId = useAppSelector((state) => state.user.id);
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
-  );
-  const membersList = useAppSelector((state) => state.profile.members);
-
-  const getTasks = (state: StateReducerI) => state.task.list;
-
-  const getMappedTasks = createSelector([getTasks], (tasks) =>
-    tasks.map((task) => ({
+  const membersList = useAppSelector((state) => state.profile.members) || [];
+  const events = useAppSelector((state) =>
+    state.task.list.map((task) => ({
       ...task,
       title: task.nameTask,
       start: new Date(task.start),
       end: new Date(task.end),
-      childTask: task.childTask,
     }))
   );
 
-  const events = useAppSelector(getMappedTasks);
-
   const dispatch = useAppDispatch();
-
-  const eventPropGetter = useCallback(
-    (
-      event: EventsI,
-      start: string | Date,
-      end: string | Date,
-      isSelected: boolean
-    ) => ({
-      ...(isSelected && {
-        style: {
-          backgroundColor: '#005C75',
-        },
-      }),
-      ...(event.childTask && {
-        style: {
-          backgroundColor: '#5500B4',
-          borderColor: '#7800FF',
-        },
-      }),
-    }),
-    []
-  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,30 +54,26 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (accountId !== null && memberSelected !== null)
-      dispatch(actionGetTask({ id: accountId, member: memberSelected }));
-  }, [accountId, memberSelected, dispatch]);
+    if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
+  }, [accountId, dispatch]);
 
   const addTask = (
     startUnserielized: Date,
     endUnserielized: Date,
     title: string,
-    content: string,
-    memberTarget: number
+    content: string
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
-    if (memberSelected)
-      dispatch(
-        actionAddTask({
-          id: accountId,
-          start,
-          end,
-          nameTask: title,
-          descriptionTask: content,
-          memberTarget,
-        })
-      );
+    dispatch(
+      actionAddTask({
+        id: accountId,
+        start,
+        end,
+        nameTask: title,
+        descriptionTask: content,
+      })
+    );
     dispatch(actionSwitchTaskModal());
   };
 
@@ -147,7 +101,6 @@ function HomePage() {
   // We put a useCallback to avoid the function recreation at each render
   const handleSelectSlot = useCallback(
     ({ start }: { start: Date }) => {
-      if (memberSelected?.role === 'child') return;
       const endWithOneHour = addHours(start, 1);
       setTaskModalMode('add');
       setEventSelected({
@@ -156,15 +109,12 @@ function HomePage() {
         end: endWithOneHour,
         nameTask: '',
         descriptionTask: '',
-        childTask: false,
-        childTaskToValidate: false,
-        taskValidated: false,
       });
       dispatch(actionSwitchTaskModal());
     },
     // We put dispatch in the dependencies array to avoid the linter warning
     // He will never change
-    [dispatch, memberSelected?.role]
+    [dispatch]
   );
 
   const handleSelectEvent = useCallback(
@@ -178,7 +128,6 @@ function HomePage() {
 
   const handleEventDrop = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
-      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -191,12 +140,11 @@ function HomePage() {
         })
       );
     },
-    [dispatch, memberSelected?.role]
+    [dispatch]
   );
 
   const handleEventResize = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
-      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -209,7 +157,7 @@ function HomePage() {
         })
       );
     },
-    [dispatch, memberSelected?.role]
+    [dispatch]
   );
 
   const formats = {
@@ -241,7 +189,6 @@ function HomePage() {
           addTask={addTask}
           editTask={editTask}
           membersList={membersList}
-          memberSelected={memberSelected}
         />
       )}
       <main>
@@ -276,7 +223,6 @@ function HomePage() {
             });
           }}
           resizable
-          eventPropGetter={eventPropGetter}
         />
       </main>
     </div>
