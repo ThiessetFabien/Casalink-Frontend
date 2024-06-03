@@ -63,14 +63,6 @@ function SelectProfile() {
               )
           )}
         </div>
-        <div className="selectProfile_container_member_card_gestion">
-          <Link
-            className="selectProfile_container_member_card_gestion_link"
-            to="/foyer"
-          >
-            Gérer les profils
-          </Link>
-        </div>
       </div>
     </div>
   );
