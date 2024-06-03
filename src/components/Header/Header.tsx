@@ -4,7 +4,7 @@ import { BiHomeAlt2 } from 'react-icons/bi';
 import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
 import { HiMail } from 'react-icons/hi';
 import { IoLogOut } from 'react-icons/io5';
-
+import baseURL from '../../utils/baseURL';
 import './Header.scss';
 import Login from '../Modals/Login/Login';
 import BtnConnect from './BtnConnect/BtnConnect';
@@ -15,7 +15,6 @@ import {
 } from '../../store/reducer/modal';
 import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 
-// coucou c'est moi
 function Header() {
   const dispatch = useAppDispatch();
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
@@ -36,7 +35,11 @@ function Header() {
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       {isConnected && memberSelected && (
         <img
-          src="public/testavatar.png"
+          src={
+            memberSelected.image
+              ? `${baseURL}/${memberSelected.image}`
+              : `${baseURL}/uploads/avatars/default-avatar.webp`
+          }
           alt="userAvatar"
           className={`${
             isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
