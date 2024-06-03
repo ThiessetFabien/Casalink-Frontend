@@ -37,7 +37,7 @@ export const actionUploadProfileImage = createAsyncThunk<
 
 export const actionDeleteProfile = createAsyncThunk<
   void,
-  number,
+  number | null,
   { rejectValue: string }
 >('profile/DELETE_PROFILE', async (profile_id, thunkAPI) => {
   try {
@@ -90,7 +90,6 @@ export const actionAddProfile = createAsyncThunk<
 >('profile/ADD_PROFILE', async (addProfile, thunkAPI) => {
   try {
     console.log('Updated Profile in Thunk:', addProfile);
-    console.log('Updated Profile id:', addProfile.id);
     const state = thunkAPI.getState() as RootState;
     console.log('State:', state.user.id);
     const response = await axiosInstance.post(`/profile/`, {
@@ -117,8 +116,6 @@ export const actionUpdateRole = createAsyncThunk<MemberStateI, RoleI>(
   'profile/UPDATE_PROFILE_ROLE',
   async ({ memberId, role }, thunkAPI) => {
     try {
-      // console.log('image name :', updatedProfile.image);
-      // const state = thunkAPI.getState() as RootState;
       const response = await axiosInstance.patch(`/profile/${memberId}`, {
         role,
       });

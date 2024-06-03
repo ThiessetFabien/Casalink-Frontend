@@ -11,14 +11,16 @@ import DeleteProfileModal from '../Modals/Profile/deleteProfile';
 import EditProfileModal from '../Modals/Profile/updateProfileForm.modale';
 import AddProfileModal from '../Modals/Profile/addProfile';
 import baseURL from '../../utils/baseURL';
+import { actionDeleteProfile } from '../../store/thunks/changeProfile';
 
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const tasksList = useAppSelector((state) => state.profile.tasks) || [];
-  const [selectedProfile, setSelectedProfile] = useState<MemberStateI | null>(
-    null
+  const [cardSelected, setCardSelected] = useState<MemberStateI | null>(null);
+  const selectedProfile = useAppSelector(
+    (state) => state.profile.memberSelected
   );
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -50,12 +52,12 @@ function ProfilePage() {
   }, [membersList, tasksList]);
 
   const handleDeleteClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
+    setCardSelected(member);
     setDeleteModalIsOpen(true);
   };
 
   const handleEditClick = (member: MemberStateI) => {
-    setSelectedProfile(member);
+    setCardSelected(member);
     setEditModalIsOpen(true);
   };
 
@@ -63,8 +65,14 @@ function ProfilePage() {
     setAddModalIsOpen(true);
   };
 
+  const handleClickOnOtherMemberCard = (member: MemberStateI) => {
+    setCardSelected(member);
+    setEditModalIsOpen(true);
+    console.log('Carte selectionnée', cardSelected);
+    console.log('Membre au click sur une autre carte', member);
+  };
+
   const handleCloseModal = () => {
-    setSelectedProfile(null);
     setDeleteModalIsOpen(false);
     setEditModalIsOpen(false);
     setAddModalIsOpen(false);
@@ -77,7 +85,7 @@ function ProfilePage() {
   return (
     <div className="profilePage_container">
       <div className="profilePage_container_presentation">
-        <h2 className="profilePage_container_title">Mon foyer</h2>
+        <h2 className="profilePage_container_presentation_title">Mon foyer</h2>
       </div>
       <div className="profilePage_container_member">
         <h3 className="profilePage_container_member_title">Membres</h3>
@@ -90,19 +98,39 @@ function ProfilePage() {
                   className="profilePage_container_member_card"
                 >
                   <div className="profilePage_container_member_card_icones">
-                    <FaTrashAlt
-                      className="profilePage_container_member_card_iconDelete"
-                      onClick={() => handleDeleteClick(member)}
-                    />
-                    <FaEdit
-                      className="profilePage_container_member_card_iconEdit"
-                      onClick={() => handleEditClick(member)}
-                    />
+                    {selectedProfile?.role === 'adult' && (
+                      <>
+                        {selectedProfile.id !== member.id && (
+                          <FaTrashAlt
+                            className="profilePage_container_member_card_iconDelete"
+                            onClick={() => handleDeleteClick(member)}
+                          />
+                        )}
+                        {(member.role === 'child' ||
+                          selectedProfile.id === member.id) && (
+                          <FaEdit
+                            className="profilePage_container_member_card_iconEdit"
+                            onClick={() => handleEditClick(member)}
+                          />
+                        )}
+                      </>
+                    )}
+                    {selectedProfile?.role === 'child' &&
+                      selectedProfile.id === member.id && (
+                        <FaEdit
+                          className="profilePage_container_member_card_iconEdit"
+                          onClick={() => handleEditClick(member)}
+                        />
+                      )}
                   </div>
                   <img
                     className="profilePage_container_memberCard_image"
-                    src={`${baseURL}/${member.image}`}
-                    alt="avatar de l'utilisateur"
+                    src={
+                      member.image
+                        ? `${baseURL}/${member.image}`
+                        : `${baseURL}/uploads/avatars/default-avatar.webp`
+                    }
+                    alt={`avatar de l'utilisateur ${member.name}`}
                   />
                   <h4 className="profilePage_container_member_card_name">
                     {member.name}
@@ -148,31 +176,33 @@ function ProfilePage() {
                 </div>
               )
           )}
-          <div className="profilePage_container_member_card">
-            <img
-              className="profilePage_container_memberCard_image addProfile_img"
-              src="./../../../src/assets/avatars/default-avatar.webp"
-              alt="avatar de l'utilisateur"
-            />
-            <h4 className="profilePage_container_member_card_name">
-              Ajouter un Profil
-            </h4>
-            <FaPlusCircle
-              className="profilePage_container_member_card_iconAddProfile"
-              onClick={() => handleAddClick()}
-            />
-          </div>
+          {selectedProfile?.role === 'adult' && (
+            <div className="profilePage_container_member_card">
+              <img
+                className="profilePage_container_memberCard_image addProfile_img"
+                src={`${baseURL}/uploads/avatars/default-avatar.webp`}
+                alt="avatar de l'utilisateur"
+              />
+              <h4 className="profilePage_container_member_card_name">
+                Ajouter un Profil
+              </h4>
+              <FaPlusCircle
+                className="profilePage_container_member_card_iconAddProfile"
+                onClick={() => handleAddClick()}
+              />
+            </div>
+          )}
         </div>
       </div>
       {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}
       {selectedProfile && editModalIsOpen && (
         <EditProfileModal
-          profile={selectedProfile}
+          profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}

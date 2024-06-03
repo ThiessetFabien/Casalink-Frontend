@@ -1,4 +1,4 @@
-@use '../../styles/variables' as v;
+ @use '../../../styles/variables' as v;
 
 $breakpoints: (
   mobile: '(max-width: 424px)',
@@ -12,3 +12,103 @@ $breakpoints: (
     @content;
   }
 }
+
+.settingPage_enfantDiv {
+  box-sizing: border-box;
+  --background-color: #fff;
+  --checkbox-height: 25px;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem;
+  border: 1px solid v.$textColor-colorBlue;
+  border-radius: 5px;
+  padding: 1rem;
+
+  &_input {
+    display: none;
+    height: var(--checkbox-height);
+    width: var(--checkbox-height);
+    background-color: transparent;
+    border: calc(var(--checkbox-height) * 0.1) solid v.$textColor-colorDark;
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    transition: border-color ease 0.2s;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      box-sizing: border-box;
+      position: absolute;
+      height: 0;
+      width: calc(var(--checkbox-height) * 0.2);
+      background-color: v.$textColor-colorBlue;
+      display: inline-block;
+      transform-origin: left top;
+      border-radius: 5px;
+      content: " ";
+      transition: opacity ease 0.5;
+    }
+
+    &::before {
+      top: calc(var(--checkbox-height) * 0.72);
+      left: calc(var(--checkbox-height) * 0.41);
+      box-shadow: 0 0 0 calc(var(--checkbox-height) * 0.05) var(--background-color);
+      transform: rotate(-135deg);
+    }
+
+    &::after {
+      top: calc(var(--checkbox-height) * 0.37);
+      left: calc(var(--checkbox-height) * 0.05);
+      transform: rotate(-45deg);
+    }
+  }
+
+  &_label {
+    // nothing
+  }
+
+  &_input:checked + &_label,
+  &_label.checked {
+    border-color: v.$textColor-colorBlue;
+  }
+
+  &_input:checked + &_label::after,
+  &_label.checked::after {
+    height: calc(var(--checkbox-height) / 2);
+    animation: dothabottomcheck-19 0.2s ease 0s forwards;
+  }
+
+  &_input:checked + &_label::before,
+  &_label.checked::before {
+    height: calc(var(--checkbox-height) * 1.2);
+    animation: dothatopcheck-19 0.4s ease 0s forwards;
+  }
+
+}
+
+
+
+  @keyframes dothabottomcheck-19 {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: calc(var(--checkbox-height) / 2);
+    }
+  }
+
+  @keyframes dothatopcheck-19 {
+    0% {
+      height: 0;
+    }
+    50% {
+      height: 0;
+    }
+    100% {
+      height: calc(var(--checkbox-height) * 1.2);
+    }
+  }

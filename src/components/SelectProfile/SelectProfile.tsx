@@ -5,6 +5,7 @@ import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
+import baseURL from '../../utils/baseURL';
 import { addProfileToLocalStorage } from '../../localStorage/localStorage';
 
 function SelectProfile() {
@@ -51,7 +52,11 @@ function SelectProfile() {
 
                   <img
                     className="selectProfile_container_member_card_image"
-                    src="./../../../src/assets/avatars/default-avatar.webp"
+                    src={
+                      member.image
+                        ? `${baseURL}/${member.image}`
+                        : `${baseURL}/uploads/avatars/default-avatar.webp`
+                    }
                     alt="avatar de l'utilisateur"
                   />
                   <h4 className="selectProfile_container_member_card_name">
@@ -60,14 +65,6 @@ function SelectProfile() {
                 </div>
               )
           )}
-        </div>
-        <div className="selectProfile_container_member_card_gestion">
-          <Link
-            className="selectProfile_container_member_card_gestion_link"
-            to="/foyer"
-          >
-            Gérer les profils
-          </Link>
         </div>
       </div>
     </div>

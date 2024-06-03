@@ -34,7 +34,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   );
 
   const accountId = useAppSelector((state) => state.user.id);
-
+  const currentDate = format(new Date(), 'dd/MM/yyyy');
   const getFileName = (filePath: string) => {
     return filePath.replace(/^.*[\\/]/, '');
   };
@@ -47,8 +47,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Updated Profile:', updatedProfile);
-    console.log('Image base64:', profileImageBase64);
+
     if (profileImageBase64 && updatedProfile.id !== null) {
       const resultAction = await dispatch(
         actionUploadProfileImage({
@@ -105,6 +104,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setUpdatedProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
@@ -137,11 +137,12 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
     }
   };
 
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleBackgroundClick = (
+    event:
+      | React.MouseEvent<HTMLDivElement>
+      | React.KeyboardEvent<HTMLDivElement>
+  ) => {
     event.stopPropagation();
-  };
-
-  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === backgroundRef.current) {
       dispatch(actionSwitchProfileModal());
       closeModal();
@@ -161,7 +162,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
         }
       }}
     >
-      <div className="update_modal" onClick={handleModalClick}>
+      <div className="update_modal">
         <form onSubmit={handleSubmit}>
           <h1 className="update_modal_title">
             Modifier le profil de {updatedProfile.name}
@@ -182,10 +183,16 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
             <div className="profile_field birdthdate">
               <label htmlFor="birthdate">Date de naissance</label>
               <input
-                value={format(new Date(updatedProfile.birthdate), 'yyyy-MM-dd')}
+                value={
+                  updatedProfile.birthdate
+                    ? format(new Date(updatedProfile.birthdate), 'yyyy-MM-dd')
+                    : ''
+                }
                 onChange={handleDateChange}
                 className="input_required"
                 type="date"
+                min="01/01/1990"
+                max={currentDate}
                 name="birthdate"
                 id="birthdate"
                 required

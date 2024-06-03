@@ -16,6 +16,7 @@ const actionGetMembers = createAsyncThunk<
   try {
     const response = await axiosInstance.get(`/account/${payload.id}/profile`);
     return { members: response.data.data.profile };
+    console.log('fetch thunks checkprofile', response.data.data.profile);
   } catch (error) {
     const axiosError = error as AxiosError;
     return thunkAPI.rejectWithValue(axiosError.response?.data);
@@ -23,4 +24,3 @@ const actionGetMembers = createAsyncThunk<
 });
 
 export default actionGetMembers;
-//

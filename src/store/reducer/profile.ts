@@ -17,6 +17,11 @@ export interface MembersState {
   isLoading: boolean;
 }
 
+interface PayloadChangeRole {
+  memberId: number;
+  role: 'child' | 'adult';
+}
+
 export const initialState: MembersState = {
   members: [],
   tasks: [],
@@ -29,6 +34,10 @@ export const actionSelectProfile = createAction<MemberStateI>(
   'profile/SELECTPROFILE'
 );
 
+export const setCardSelected = createAction<MemberStateI>(
+  'profile/SET_CARD_SELECTED'
+);
+
 export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 
 const profileReducer = createReducer(initialState, (builder) => {
@@ -38,6 +47,10 @@ const profileReducer = createReducer(initialState, (builder) => {
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
+    console.log(
+      'fetch reducer getmember, date deja en timestamp',
+      action.payload.members
+    );
   });
   builder.addCase(actionGetMembers.pending, (state, action) => {
     state.isLoading = true;
