@@ -9,7 +9,7 @@ import {
 import { TaskI, TaskInputI } from '../../@types/taskStateI';
 import { EventsI } from '../../@types/events';
 
-interface TaskStateI {
+export interface TaskStateInt {
   input: TaskInputI;
   list: EventsI[];
 }
@@ -28,7 +28,7 @@ interface ApiTask {
   profile_id: number | null;
 }
 
-export const initialState: TaskStateI = {
+export const initialState: TaskStateInt = {
   input: {
     id: 0,
     nameTask: '',

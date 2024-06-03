@@ -1,4 +1,5 @@
 import { MemberStateI } from '../@types/memberStateI';
+import { removeTokenJwtToAxiosInstance } from '../axios/axios';
 
 export function addTokenAndPseudoToLocalStorage(token: string) {
   localStorage.setItem('jwt', token);
@@ -21,4 +22,10 @@ export function getProfileFromLocalStorage() {
     return profileOject;
   }
   return null;
+}
+
+export function disconnectLocalStorage() {
+  localStorage.removeItem('jwt');
+  localStorage.removeItem('profile');
+  removeTokenJwtToAxiosInstance();
 }

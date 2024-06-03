@@ -9,7 +9,7 @@ import {
 import { MemberStateI, RoleI, TaskStateI } from '../../@types/memberStateI';
 import actionSwitchRestriction from '../thunks/checkChildren';
 
-interface MembersState {
+export interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
   memberSelected: MemberStateI | null;
@@ -34,7 +34,6 @@ export const actionChangeRole = createAction('profile/SWITCH_ROLE');
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
     state.isLoading = false;
-    console.log('je suis actionGetMembers');
 
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
@@ -71,25 +70,6 @@ const profileReducer = createReducer(initialState, (builder) => {
       member.role = role;
     }
   });
-  // .addCase(actionAddMember, (state, action) => {
-  //   state.members.push(action.payload);
-  // });
-  // .addCase(actionRemoveMember, (state, action) => {
-  //   state.members = state.members.filter(
-  //     (member) => member.id !== action.payload
-  //   );
-  // })
-  // .addCase(actionUpdateMember, (state, action) => {
-  //   const index = state.members.findIndex(
-  //     (member) => member.id === action.payload.id
-  //   );
-  //   if (index !== -1) {
-  //     state.members[index] = action.payload;
-  //   }
-  // })
-  // .addCase(actionResetErrorMessage, (state) => {
-  //   state.error = null;
-  // });
 });
 
 export default profileReducer;

@@ -8,7 +8,6 @@ const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
-      console.log(payload);
       let response;
       if (Number.isNaN(payload.memberTarget)) {
         response = await axiosInstance.post(`/task/account/${payload.id}`, {
@@ -63,7 +62,6 @@ const actionGetTask = createAsyncThunk(
   'task/GET_TASK',
   async (payload: { id: number; member: MemberStateI }, thunkAPI) => {
     try {
-      console.log(payload.id, payload.member.id, payload.member.role);
       let response;
       if (payload.member.role === 'adult')
         response = await axiosInstance.get(`/task/account/${payload.id}`);
@@ -71,7 +69,6 @@ const actionGetTask = createAsyncThunk(
         response = await axiosInstance.get(
           `/task/profile/${payload.member.id}`
         );
-      console.log(response?.data.data.tasks);
       if (response) return response.data.data.tasks;
       return null;
     } catch (error) {
