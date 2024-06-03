@@ -19,7 +19,7 @@ interface Task {
 
 interface TaskPayload {
   id: number | null;
-  profile_id: number;
+  profile_id: number | null;
 }
 
 const actionFetchTasks = createAsyncThunk<

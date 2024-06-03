@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -33,8 +33,13 @@ function ProfilePage() {
   }, [dispatch, accountId]);
 
   useEffect(() => {
-    if (membersList.length > 0 && membersList[0]?.id !== undefined) {
-      dispatch(actionFetchTasks({ id: membersList[0].id }));
+    if (membersList.length > 0 && membersList[0]?.id !== null) {
+      dispatch(
+        actionFetchTasks({
+          id: membersList[0].id,
+          profile_id: null,
+        })
+      );
     }
   }, [dispatch, membersList]);
 
@@ -194,13 +199,13 @@ function ProfilePage() {
           )}
         </div>
       </div>
-      {selectedProfile && deleteModalIsOpen && (
+      {selectedProfile && deleteModalIsOpen && cardSelected && (
         <DeleteProfileModal
           profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}
-      {selectedProfile && editModalIsOpen && (
+      {selectedProfile && editModalIsOpen && cardSelected && (
         <EditProfileModal
           profile={cardSelected}
           closeModal={handleCloseModal}
