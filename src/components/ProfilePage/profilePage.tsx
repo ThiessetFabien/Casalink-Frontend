@@ -16,8 +16,8 @@ import { actionDeleteProfile } from '../../store/thunks/changeProfile';
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
-  const membersList = useAppSelector((state) => state.profile.members) || [];
-  const tasksList = useAppSelector((state) => state.profile.tasks) || [];
+  const membersList = useAppSelector((state) => state.profile.members);
+  const tasksList = useAppSelector((state) => state.profile.tasks);
   const [cardSelected, setCardSelected] = useState<MemberStateI | null>(null);
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
@@ -37,6 +37,8 @@ function ProfilePage() {
       dispatch(actionFetchTasks({ id: membersList[0].id }));
     }
   }, [dispatch, membersList]);
+  console.log(membersList[0].id, selectedProfile);
+  
 
   const tasksByMember = useMemo(() => {
     const result = membersList.reduce((acc, member) => {

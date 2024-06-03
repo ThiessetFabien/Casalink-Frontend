@@ -22,25 +22,17 @@ interface TaskPayload {
   profile_id: number;
 }
 
-const actionFetchTasks = createAsyncThunk<
-  { tasks: TaskStateI[] },
-  TaskPayload,
-  { state: RootState }
->('profile/FETCH_TASKS', async (payload: TaskPayload, thunkAPI) => {
-  // try {
-  //   const response = await axiosInstance.get(`/task/profile/${payload.id}`);
-  //   return { tasks: response.data.data.tasks, profile_id: payload.profile_id };
-  // } catch (error) {
-  //   const axiosError = error as AxiosError;
-  //   return thunkAPI.rejectWithValue(axiosError.response?.data);
-  // }
-  try {
-    const response = await axiosInstance.get(`/task/`);
-    return { tasks: response.data.data.tasks };
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    return thunkAPI.rejectWithValue(axiosError.response?.data);
+const actionFetchTasks = createAsyncThunk<{ tasks: TaskStateI[] }, TaskPayload>(
+  'profile/FETCH_TASKS',
+  async (payload: TaskPayload, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`/task/`);
+      return { tasks: response.data.data.tasks };
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data);
+    }
   }
-});
+);
 
 export default actionFetchTasks;
