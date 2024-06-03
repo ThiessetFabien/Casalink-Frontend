@@ -36,7 +36,7 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
       <input
         type="checkbox"
         id={`setting-modifTache-${member.id}`}
-        className="settingPageDiv_checkbox"
+        className="settingPageDiv_checkboxRestrict"
         checked={role === 'child'}
         onChange={handleCheckboxChange}
       />

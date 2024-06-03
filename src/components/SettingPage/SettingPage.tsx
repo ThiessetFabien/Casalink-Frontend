@@ -27,11 +27,11 @@ function SettingPage() {
         <input
           type="checkbox"
           id="setting-notif"
-          className="settingPageDiv_checkbox"
+          className="settingPage_checkboxNotif"
         />
       </div>
       <div className="settingPage_restrictionDiv">
-        <h2>Restrictions</h2>
+        <h2 className="settingPage_restrictionDiv_title">Restrictions</h2>
         <h3 className="settingPage_restrictionDiv_subtitle">
           Cochez les profils qui seront limités en droit
         </h3>

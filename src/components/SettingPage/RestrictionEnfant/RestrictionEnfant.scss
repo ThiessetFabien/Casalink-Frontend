@@ -14,20 +14,27 @@ $breakpoints: (
 }
 
 .label_restriction {
-  text-align: start;
-  width: 4.5rem;
+  display: inline-block;
+  padding-right: 2rem;
+  text-align: end;
+  width: 55%;
+  height: 3rem;
+
+  @include media(desktop) {
+    width: 51%;
+  }
 }
 
 .settingPage_inputDiv {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: auto;
+  padding: auto;
 }
 
-.settingPageDiv_checkbox {
+.settingPageDiv_checkboxRestrict {
   margin: 0.8rem 0;
   position: relative;
-  top: 0.1rem;
+  top: 1rem;
+  display: inline-block;
   appearance: none;
   width: 50px;
   height: 20px;
@@ -38,7 +45,7 @@ $breakpoints: (
   transition: all 0.4s ease-in-out;
 }
 
-.settingPageDiv_checkbox::before {
+.settingPageDiv_checkboxRestrict::before {
   content: '';
   position: absolute;
   font-size: 0.8rem;
@@ -59,7 +66,7 @@ $breakpoints: (
   transform: scale(1.2);
 }
 
-.settingPageDiv_checkbox:checked::before {
+.settingPageDiv_checkboxRestrict:checked::before {
   content: '';
   position: absolute;
   font-size: 0.8rem;
@@ -75,6 +82,6 @@ $breakpoints: (
   transition: all 0.4s ease-in-out;
 }
 
-.settingPageDiv_checkbox:checked {
+.settingPageDiv_checkboxRestrict:checked {
   background: v.$btnBg-landing;
 }

@@ -25,7 +25,6 @@ $breakpoints: (
   box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
     0px 0px 10px 0px v.$textColor-colorWhite,
     4px 4px 5px 0px v.$textColor-colorDark-Blue;
-  background-color: v.$bgColor-White;
 }
 
 .dark .header_menuMobile_icon {
@@ -62,11 +61,14 @@ $breakpoints: (
     bottom: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 100%;
+    border-radius: 50%;
     font-size: 1.4rem;
     background-color: v.$textColor-colorWhite;
     border: none;
     cursor: pointer;
+    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
+      0px 0px 10px 0px v.$textColor-colorWhite,
+      0px 2px 3px 0px v.$textColor-colorLightBlue;
     @include media(desktop) {
       display: none;
     }
