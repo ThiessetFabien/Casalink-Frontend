@@ -43,8 +43,10 @@ $breakpoints: (
 
   &_img {
     margin: 0rem auto;
+    border-radius: 5px;
+    border: 1px solid v.$textColor-colorBlue;
     @include media(desktop) {
-      width: 80%;
+      width: 50%;
       height: 50vh;
       margin: 0;
     }

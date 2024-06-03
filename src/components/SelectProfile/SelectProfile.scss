@@ -90,7 +90,6 @@ $breakpoints: (
         height: 100%;
         z-index: 1;
         background-color: transparent;
-        transform: translateX(-50%);
       }
 
       // &_link:hover {
@@ -123,44 +122,6 @@ $breakpoints: (
         }
         @include media(tablet) {
           font-size: 0.8rem;
-        }
-      }
-    }
-
-    &_card_gestion {
-      width: 12rem;
-      height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 5px;
-      border: 2px solid;
-      transition: background-color 0.3s ease-in-out;
-      margin-bottom: 5rem;
-      box-shadow: 1px 1px 5px 2px lightgray;
-      margin-top: 3rem;
-
-      // &:hover {
-      //   background-color: v.$btnBg-landing;
-      // }
-
-      &_link {
-        color: v.$textColor-colorBlue;
-        font-size: 1.2rem;
-        font-weight: 600;
-        text-decoration: none;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-        width: 12rem;
-        height: 3rem;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &:hover {
-          background-color: v.$btnBg-landing;
-          color: v.$bgColor-White;
-          transition: all 0.3s ease-in-out;
         }
       }
     }
