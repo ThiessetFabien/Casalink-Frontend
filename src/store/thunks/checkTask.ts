@@ -26,6 +26,7 @@ const actionAddTask = createAsyncThunk(
             start_date: payload.start,
             end_date: payload.end,
             category_id: '1',
+            account_id: payload.id,
           }
         );
       }

@@ -98,7 +98,7 @@ function Task({
     const memberTarget = parseInt(selectedValue, 10);
 
     if (taskModalMode === 'add')
-      addTask(start, end, title, description, memberTarget);
+      addTask(id, start, end, title, description, memberTarget);
     else if (taskModalMode === 'edit')
       editTask(id, start, end, title, description);
   };

@@ -18,8 +18,21 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   const currentDate = format(new Date(), 'yyyy-MM-dd');
   const accountId = useAppSelector((state) => state.user.id);
 
+  interface ProfileI {
+    id: null | number;
+    name: string;
+    birthdate: string;
+    score: number;
+    tasks: string[];
+    image: string;
+    role: 'child' | 'adult';
+    email: string;
+    pin: number;
+    isChecked: boolean;
+  }
+
   // Add state for new profile data
-  const [newProfile, setNewProfile] = useState({
+  const [newProfile, setNewProfile] = useState<ProfileI>({
     id: null,
     name: '',
     birthdate: '2000-01-01',
@@ -28,7 +41,7 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
     image: '',
     role: 'child',
     email: '',
-    pin: '',
+    pin: 0,
     isChecked: false,
   });
 

@@ -101,6 +101,7 @@ function HomePage() {
   }, [accountId, memberSelected, dispatch]);
 
   const addTask = (
+    id: number,
     startUnserielized: Date,
     endUnserielized: Date,
     title: string,
@@ -109,7 +110,7 @@ function HomePage() {
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
-    if (memberSelected)
+    if (memberSelected && accountId)
       dispatch(
         actionAddTask({
           id: accountId,

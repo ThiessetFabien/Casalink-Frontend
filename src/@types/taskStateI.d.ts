@@ -25,6 +25,7 @@ interface TaskPropsI {
   taskModalMode: 'add' | 'edit';
   eventSelect: EventsI;
   addTask: (
+    id: number,
     start: Date,
     end: Date,
     title: string,
