@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
-import { EventsI } from '../../@types/events';
+import { EventsI, EventsWithMemberI } from '../../@types/events';
 
 const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
-  async (payload: EventsI, thunkAPI) => {
+  async (payload: EventsWithMemberI, thunkAPI) => {
     try {
       let response;
       if (Number.isNaN(payload.memberTarget)) {

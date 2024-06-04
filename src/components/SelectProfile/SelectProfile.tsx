@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
@@ -10,6 +10,7 @@ import { actionSwitchPinModal } from '../../store/reducer/modal.js';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const accountId = useAppSelector((state) => state.user.id);
   useEffect(() => {
@@ -24,7 +25,8 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
-    dispatch(actionSwitchPinModal());
+    if (member.role === 'adult') dispatch(actionSwitchPinModal());
+    else navigate('/');
   };
   if (!accountId) {
     return null; // ici afficher la page 404

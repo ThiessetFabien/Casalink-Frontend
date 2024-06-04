@@ -10,7 +10,7 @@ import Contact from '../Contact/Contact';
 
 import './App.scss';
 
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import HomePage from '../HomePage/HomePage';
 import MentionsLegales from '../MentionsLegales/MentionsLegales';
 import SiteMap from '../SiteMap/SiteMap';
@@ -19,10 +19,17 @@ import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
 import SelectProfile from '../SelectProfile/SelectProfile';
-import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
 import AskPin from '../Modals/Pin/AskPin';
+import {
+  getProfileFromLocalStorage,
+  getTokenAndPseudoFromLocalStorage,
+} from '../../localStorage/localStorage';
+import { addTokenJwtToAxiosInstance } from '../../axios/axios';
+import { actionLogin } from '../../store/reducer/user';
+import { actionSelectProfile } from '../../store/reducer/profile';
 
 function App() {
+  const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.logged);
   const modalIsOpen = useAppSelector((state) => state.modal.pinModalIsActive);
   const memberSelected = useAppSelector(
@@ -66,7 +73,7 @@ function App() {
           <Route path="/" element={homePageElement} />
 
           <Route
-            path="/setting"
+            path="/preferences"
             element={
               isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
             }

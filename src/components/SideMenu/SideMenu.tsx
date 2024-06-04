@@ -13,6 +13,8 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
+import { disconnectLocalStorage } from '../../localStorage/localStorage';
+import { actionLogout } from '../../store/reducer/user';
 
 function SideMenu() {
   const location = useLocation();

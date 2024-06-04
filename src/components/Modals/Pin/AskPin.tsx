@@ -7,6 +7,7 @@ import {
   actionResetErrorMessage,
 } from '../../../store/reducer/user.js';
 import './AskPin.scss';
+import { log } from 'winston';
 
 function AskPin() {
   const dispatch = useAppDispatch();
@@ -22,7 +23,10 @@ function AskPin() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputValue === selectedProfile.pin) {
+    console.log(selectedProfile.pin);
+    console.log(inputValue);
+
+    if (selectedProfile && inputValue === selectedProfile.pin) {
       navigate('/');
       dispatch(actionResetErrorMessage());
       return dispatch(actionSwitchPinModal());
@@ -46,6 +50,7 @@ function AskPin() {
           type="password"
           className="form_input_required"
           value={inputValue}
+          placeholder="0000"
           required
         />
         {errorMessage && <div className="form_error">{errorMessage}</div>}

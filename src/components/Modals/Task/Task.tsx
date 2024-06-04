@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Task.scss';
 import { Trash2, X } from 'react-feather';
 
@@ -6,24 +6,8 @@ import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
-import { TaskInputI } from '../../../@types/taskStateI';
-import { EventsI } from '../../../@types/events';
+import { TaskInputI, TaskPropsI } from '../../../@types/taskStateI';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
-import { MemberStateI } from '../../../@types/memberStateI';
-
-interface TaskI {
-  taskModalMode: 'add' | 'edit';
-  eventSelect: EventsI;
-  addTask: (start: Date, end: Date, title: string, description: string) => void;
-  editTask: (
-    id: number,
-    start: Date,
-    end: Date,
-    title: string,
-    description: string
-  ) => void;
-  membersList: MemberStateI[];
-}
 
 function Task({
   taskModalMode,
@@ -31,9 +15,12 @@ function Task({
   addTask,
   editTask,
   membersList,
-}: TaskI) {
+  memberSelected,
+}: TaskPropsI) {
   const dispatch = useAppDispatch();
+  const membersChild = membersList.filter((member) => member.role === 'child');
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
   const {
     startDate,
@@ -44,9 +31,6 @@ function Task({
     nameTask,
     descriptionTask,
   } = useAppSelector((state) => state.task.input);
-
-  console.log(membersList);
-
 
   useEffect(() => {
     if (backgroundTaskRef.current) {
@@ -117,6 +101,10 @@ function Task({
       editTask(id, start, end, title, description);
   };
 
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
     <div
       className="task_background"
@@ -166,6 +154,7 @@ function Task({
             required
             value={nameTask}
             onChange={(e) => handleChange('nameTask', e.target.value)}
+            disabled={memberSelected?.role === 'child'}
           />
           <fieldset className="task_modal_form_dateTime">
             <input
@@ -175,6 +164,7 @@ function Task({
               required
               value={startDate}
               onChange={(e) => handleChange('startDate', e.target.value)}
+              disabled={memberSelected?.role === 'child'}
             />
             <input
               className=""
@@ -183,6 +173,7 @@ function Task({
               required
               value={startTime}
               onChange={(e) => handleChange('startTime', e.target.value)}
+              disabled={memberSelected?.role === 'child'}
             />
           </fieldset>
 
@@ -194,6 +185,7 @@ function Task({
               required
               value={endDate}
               onChange={(e) => handleChange('endDate', e.target.value)}
+              disabled={memberSelected?.role === 'child'}
             />
             <input
               className=""
@@ -202,18 +194,56 @@ function Task({
               required
               value={endTime}
               onChange={(e) => handleChange('endTime', e.target.value)}
+              disabled={memberSelected?.role === 'child'}
             />
           </fieldset>
 
           <textarea
-            className=""
+            className="task_modal_form_description"
             rows={3}
             name="task_description"
             placeholder="Description.."
             value={descriptionTask}
             onChange={(e) => handleChange('descriptionTask', e.target.value)}
+            disabled={memberSelected?.role === 'child'}
           />
-          <button type="submit">Valider</button>
+
+          <fieldset className="task_modal_form_member">
+            <label htmlFor="select">Tâche à attribuer à</label>
+            <select
+              id="select"
+              className="task_modal_form_member_select"
+              name="task_member"
+              value={selectedValue}
+              onChange={handleSelectChange}
+              disabled={memberSelected?.role === 'child'}
+            >
+              <option value="">Général</option>
+              {membersChild.map((member) => (
+                <option
+                  key={member.id}
+                  value={member.id?.toString() ? member.id : 'error'}
+                >
+                  {member.name}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+
+          {(() => {
+            if (memberSelected?.role === 'child') {
+              return <button type="submit">Valider</button>;
+            }
+            if (taskModalMode === 'add') {
+              return <button type="submit">Ajouter</button>;
+            }
+            return (
+              <>
+                <button type="submit">Modifier</button>
+                <button type="button">Valider</button>
+              </>
+            );
+          })()}
         </form>
       </div>
     </div>

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
 import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import { addHours, format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { actionSwitchTaskModal } from '../../store/reducer/modal';
+import { ModalStateI, actionSwitchTaskModal } from '../../store/reducer/modal';
 
 import './HomePage.scss';
 import Task from '../Modals/Task/Task';
@@ -14,11 +15,21 @@ import {
   actionGetTask,
   actionModifyTask,
 } from '../../store/thunks/checkTask';
+import { UserStateI } from '../../@types/userStateI';
+import { MembersState } from '../../store/reducer/profile';
+import { TaskStateInt } from '../../store/reducer/task';
 
 interface DragNDropI {
   event: EventsI;
   startUnserielized: Date;
   endUnserielized: Date;
+}
+
+interface StateReducerI {
+  user: UserStateI;
+  modal: ModalStateI;
+  profile: MembersState;
+  task: TaskStateInt;
 }
 
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
@@ -31,15 +42,23 @@ function HomePage() {
     (state) => state.modal.taskModalIsOpen
   );
   const accountId = useAppSelector((state) => state.user.id);
+  const memberSelected = useAppSelector(
+    (state) => state.profile.memberSelected
+  );
   const membersList = useAppSelector((state) => state.profile.members) || [];
-  const events = useAppSelector((state) =>
-    state.task.list.map((task) => ({
+  const getTasks = (state: StateReducerI) => state.task.list;
+
+  const getMappedTasks = createSelector([getTasks], (tasks) =>
+    tasks.map((task) => ({
       ...task,
       title: task.nameTask,
       start: new Date(task.start),
       end: new Date(task.end),
+      childTask: task.childTask,
     }))
   );
+
+  const events = useAppSelector(getMappedTasks);
 
   const dispatch = useAppDispatch();
 
@@ -62,7 +81,8 @@ function HomePage() {
     startUnserielized: Date,
     endUnserielized: Date,
     title: string,
-    content: string
+    content: string,
+    memberTarget: number
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
@@ -192,6 +212,7 @@ function HomePage() {
           addTask={addTask}
           editTask={editTask}
           membersList={membersList}
+          memberSelected={memberSelected}
         />
       )}
       <main>

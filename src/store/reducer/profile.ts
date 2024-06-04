@@ -8,7 +8,7 @@ import {
 } from '../thunks/changeProfile';
 import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
-interface MembersState {
+export interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
   memberSelected: MemberStateI | null;
