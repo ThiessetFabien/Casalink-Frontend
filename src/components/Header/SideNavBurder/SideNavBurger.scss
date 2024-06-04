@@ -36,7 +36,7 @@ $breakpoints: (
   &-open &-bar::before {
     transform: rotate(45deg);
     height: 3px;
-    background: white;
+    // background: white;
   }
 
   &-open &-bar {
@@ -46,7 +46,7 @@ $breakpoints: (
   &-open &-bar::after {
     transform: rotate(-45deg);
     height: 3px;
-    background: white;
+    // background: white;
   }
 
   &-bar,

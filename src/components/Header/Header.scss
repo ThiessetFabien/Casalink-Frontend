@@ -25,7 +25,6 @@ $breakpoints: (
   box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
     0px 0px 10px 0px v.$textColor-colorWhite,
     4px 4px 5px 0px v.$textColor-colorDark-Blue;
-  background-color: v.$bgColor-White;
 }
 
 .dark .header_menuMobile_icon {
@@ -45,22 +44,14 @@ $breakpoints: (
   justify-content: center;
   align-items: center;
   transition: all 0.6s ease-in-out;
-  // trouver un moyen de fixed le header. réponse c'est sticky
   z-index: 10;
-  // position: sticky;
   position: relative;
   position: sticky;
   top: 0;
   height: 8vh;
   background-color: v.$bgColor-White;
   box-shadow: 1px 1px 5px 0px lightgray;
-  // background: linear-gradient(
-  //   217deg,
-  //   v.$textColor-colorBlue 20%,
-  //   white 50%,
-  //   white 50%,
-  //   v.$textColor-colorBlue 100%
-  // );
+
   &_BtnMenuMobile {
     display: flex;
     align-items: center;
@@ -70,17 +61,17 @@ $breakpoints: (
     bottom: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 100%;
+    border-radius: 50%;
     font-size: 1.4rem;
     background-color: v.$textColor-colorWhite;
     border: none;
     cursor: pointer;
+    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
+      0px 0px 10px 0px v.$textColor-colorWhite,
+      0px 2px 3px 0px v.$textColor-colorLightBlue;
     @include media(desktop) {
       display: none;
     }
-  }
-
-  &_btnDiv {
   }
 
   &-bar,
@@ -130,7 +121,6 @@ $breakpoints: (
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // background-color: red;
     position: fixed;
     bottom: 100%;
     right: 40%;
@@ -207,12 +197,12 @@ $breakpoints: (
     display: none;
     @include media(desktop) {
       display: block;
-      width: 100px;
-      height: 100px;
+      width: 70px;
+      height: 70px;
       border-radius: 100%;
       position: absolute;
-      left: 0;
-      bottom: -3rem;
+      left: -0.2rem;
+      bottom: -4.5rem;
       transition: all 0.6s ease-in-out;
     }
   }
@@ -232,30 +222,16 @@ $breakpoints: (
     }
   }
 
-  &_logoDiv {
-  }
-
   &_logo {
     width: 110px;
     margin: auto;
     padding: auto;
-    // max-width: 20%;
-    // min-width: 10%;
-    // margin: auto;
-    // padding: auto;
   }
 
   &_menuItems {
     width: 10%;
     height: 100%;
     margin: auto;
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
-
-    @include media(desktop) {
-      // justify-content: center;
-    }
   }
 
   &_btn {
@@ -285,7 +261,6 @@ $breakpoints: (
     color: v.$textColor-colorDark;
     font-size: 1rem;
     font-weight: bold;
-    // z-index: 1;
   }
 }
 

@@ -19,103 +19,107 @@ $breakpoints: (
   height: 86vh;
   padding: 2rem;
 
+  @include media(desktop) {
+    margin-left: 4.5rem;
+  }
+
+  &_checkboxNotif {
+    margin: 0.8rem 0;
+    position: relative;
+    top: 0.2rem;
+    display: inline-block;
+    appearance: none;
+    width: 50px;
+    height: 20px;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease-in-out;
+  }
+
+  &_checkboxNotif::before {
+    content: '';
+    position: absolute;
+    font-size: 0.8rem;
+    color: v.$btnBg-landing;
+    font-weight: bold;
+
+    text-align: center;
+    line-height: 1.6;
+    bottom: -0.08rem;
+    left: -0.1rem;
+    width: 23px;
+    height: 23px;
+    border: black;
+    border-radius: 50%;
+    background: white;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
+  }
+
+  &_checkboxNotif:checked::before {
+    content: '';
+    position: absolute;
+    font-size: 0.8rem;
+    color: v.$btnBg-landing;
+    text-align: center;
+    line-height: 1.6;
+    bottom: -0.08rem;
+    left: 1.9rem;
+    width: 23px;
+    height: 23px;
+    border: black;
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+  }
+
+  &_checkboxNotif:checked {
+    background: v.$btnBg-landing;
+  }
+
   &_notifDiv {
     width: 90%;
     margin: auto;
     text-align: center;
     padding: 0.5rem;
     border-radius: 5px;
-    background: rgba( 255, 255, 255, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 5.5px );
-    -webkit-backdrop-filter: blur( 5.5px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
 
-    &_title {
-      padding-bottom: 0.5rem;
-    }
+  &_title {
+    padding-bottom: 0.5rem;
+  }
 
-    &_checkbox-wrapper {
-      box-sizing: border-box;
-      --background-color: #fff;
-      --checkbox-height: 25px;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-
-      &_label {
-      }
-
-      &_input {
-        display: none;
-        height: var(--checkbox-height);
-        width: var(--checkbox-height);
-        background-color: transparent;
-        border: calc(var(--checkbox-height) * .1) solid v.$textColor-colorDark;
-        border-radius: 5px;
-        position: relative;
-        display: inline-block;
-        box-sizing: border-box;
-        transition: border-color ease 0.2s;
-        cursor: pointer;
-
-        &::before,
-        &::after {
-          box-sizing: border-box;
-          position: absolute;
-          height: 0;
-          width: calc(var(--checkbox-height) * .2);
-          background-color: v.$textColor-colorBlue;
-          display: inline-block;
-          transform-origin: left top;
-          border-radius: 5px;
-          content: " ";
-          transition: opacity ease 0.5;
-        }
-
-        &::before {
-          top: calc(var(--checkbox-height) * .72);
-          left: calc(var(--checkbox-height) * .41);
-          box-shadow: 0 0 0 calc(var(--checkbox-height) * .05) var(--background-color);
-          transform: rotate(-135deg);
-        }
-
-        &::after {
-          top: calc(var(--checkbox-height) * .37);
-          left: calc(var(--checkbox-height) * .05);
-          transform: rotate(-45deg);
-        }
-
-        &:checked + &_label {
-          border-color: v.$textColor-colorBlue;
-
-          &::after {
-            height: calc(var(--checkbox-height) / 2);
-            animation: dothabottomcheck 0.2s ease 0s forwards;
-          }
-
-          &::before {
-            height: calc(var(--checkbox-height) * 1.2);
-            animation: dothatopcheck 0.4s ease 0s forwards;
-          }
-        }
-      }
-    }
+  &_notifDiv_label {
+    position: relative;
+    right: 1rem;
+    bottom: 1rem;
   }
 
   &_restrictionDiv {
     width: 90%;
     margin: 1rem auto;
-    text-align: center;
+    // text-align: center;
     padding: 0.5rem;
     border-radius: 5px;
-    background: rgba( 255, 255, 255, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 5.5px );
-    -webkit-backdrop-filter: blur( 5.5px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    &_title {
+      text-align: center;
+    }
 
     &_subtitle {
+      text-align: center;
       font-size: 1rem;
       font-weight: 300;
       font-style: italic;
