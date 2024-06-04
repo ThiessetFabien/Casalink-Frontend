@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Contact.scss';
 import axios from 'axios';
+import { useAppSelector } from '../../hooks/redux';
 
 function Contact() {
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -42,10 +44,10 @@ function Contact() {
 
   return (
     <div>
-      <div className="contact">
+      <div className={`${isDarkMode ? 'contact-dark' : ''} contact`}>
         <h1>Contact</h1>
-        <div className="contact_presentation">
-          <h2 className="contact_presentation_title">
+        <div className="contact_presentation contact-dark_presentation">
+          <h2 className="contact_presentation_title contact-dark_presentation_title">
             Des questions sans réponses ? Nous sommes là pour y répondre.
           </h2>
           <p className="contact_presentation_text">
@@ -57,12 +59,32 @@ function Contact() {
             importantes.
           </p>
         </div>
-        <div className="contact_modal">
-          {statusMessage && <p className="status_message">{statusMessage}</p>}
-          <form onSubmit={sendEmail}>
+        <div
+          className={`${isDarkMode ? 'contact-dark_modal' : ''} contact_modal`}
+        >
+          {statusMessage && (
+            <p
+              className={`${
+                isDarkMode ? 'contact-dark_status_message' : ''
+              } contact_status_message`}
+            >
+              {statusMessage}
+            </p>
+          )}
+          <form
+            className={`${
+              isDarkMode ? 'contact-dark_modal_form' : ''
+            } contact_modal_form`}
+            onSubmit={sendEmail}
+          >
             <h1>Nous contacter</h1>
 
-            <div className="contact_modal_field">
+            <div
+              className={`${
+                isDarkMode ? 'contact-dark_modal_form_field' : ''
+              } contact_modal_form_field`}
+            >
+              <label htmlFor="email">Email</label>
               <input
                 className="input_required"
                 type="email"
@@ -72,9 +94,13 @@ function Contact() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <label htmlFor="email">Email</label>
             </div>
-            <div className="contact_modal_field">
+            <div
+              className={`${
+                isDarkMode ? 'contact-dark_modal_form_field' : ''
+              } contact_modal_form_field`}
+            >
+              <label htmlFor="subject">Objet</label>
               <input
                 className="input_required"
                 type="text"
@@ -84,9 +110,13 @@ function Contact() {
                 onChange={(e) => setSubject(e.target.value)}
                 required
               />
-              <label htmlFor="subject">Objet</label>
             </div>
-            <div className="contact_modal_field">
+            <div
+              className={`${
+                isDarkMode ? 'contact-dark_modal_form_field' : ''
+              } contact_modal_form_field`}
+            >
+              <label htmlFor="message">Message</label>
               <textarea
                 className="input_required"
                 name="message"
@@ -95,7 +125,6 @@ function Contact() {
                 onChange={(e) => setMessage(e.target.value)}
                 required
               />
-              <label htmlFor="message">Message</label>
             </div>
             <button type="submit">Envoyer</button>
           </form>

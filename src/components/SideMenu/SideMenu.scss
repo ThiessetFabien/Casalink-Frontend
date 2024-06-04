@@ -244,6 +244,7 @@ $breakpoints: (
 
 .dark.side {
   background-color: v.$textColor-colorDark-Blue;
+  box-shadow: v.$shadowColorWhite;
   transition: all 0.4s ease-in-out;
 }
 

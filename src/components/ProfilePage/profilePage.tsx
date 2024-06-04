@@ -22,6 +22,7 @@ function ProfilePage() {
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
   );
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
@@ -84,33 +85,49 @@ function ProfilePage() {
   }
 
   return (
-    <div className="profilePage_container">
-      <div className="profilePage_container_presentation">
-        <h2 className="profilePage_container_presentation_title">Mon foyer</h2>
+    <div
+      className={`${
+        isDarkMode ? 'profilePage_container-dark' : ''
+      } profilePage_container`}
+    >
+      <div className="profilePage_container_presentation profilePage_container-dark_presentation">
+        <h2 className="profilePage_container_presentation_title profilePage_container-dark_presentation_title">
+          Mon foyer
+        </h2>
       </div>
-      <div className="profilePage_container_member">
-        <h3 className="profilePage_container_member_title">Membres</h3>
-        <div className="profilePage_container_member_list">
+      <div
+        className={`${
+          isDarkMode ? 'profilePage_container-dark_member' : ''
+        } profilePage_container_member`}
+      >
+        <h3 className="profilePage_container_member_title profilePage_container-dark_member_title">
+          Membres
+        </h3>
+        <div
+          className={`${
+            isDarkMode ? 'profilePage_container-dark_member_list' : ''
+          } profilePage_container_member_list`}
+        >
           {membersList.map(
             (member) =>
               member.id !== null && (
                 <div
                   key={member.id}
-                  className="profilePage_container_member_card"
+                  className="profilePage_container_member_card profilePage_container-dark_member_card"
                 >
-                  <div className="profilePage_container_member_card_icones">
+                  <div className="profilePage_container_member_card_icones profilePage_container-dark_member_card_icones">
                     {selectedProfile?.role === 'adult' && (
                       <>
                         {selectedProfile.id !== member.id && (
                           <FaTrashAlt
-                            className="profilePage_container_member_card_iconDelete"
+                            className="profilePage_container_member_card_iconDelete profilePage_container-dark_member_card_iconDelete"
                             onClick={() => handleDeleteClick(member)}
                           />
                         )}
                         {(member.role === 'child' ||
                           selectedProfile.id === member.id) && (
                           <FaEdit
-                            className="profilePage_container_member_card_iconEdit"
+                            className="profilePage_container_member_card_iconEdit profilePage_container-dark_member_card_iconEdit"
                             onClick={() => handleEditClick(member)}
                           />
                         )}
@@ -119,7 +136,7 @@ function ProfilePage() {
                     {selectedProfile?.role === 'child' &&
                       selectedProfile.id === member.id && (
                         <FaEdit
-                          className="profilePage_container_member_card_iconEdit"
+                          className="profilePage_container_member_card_iconEdit profilePage_container-dark_member_card_iconEdit"
                           onClick={() => handleEditClick(member)}
                         />
                       )}
@@ -133,21 +150,21 @@ function ProfilePage() {
                     }
                     alt={`avatar de l'utilisateur ${member.name}`}
                   />
-                  <h4 className="profilePage_container_member_card_name">
+                  <h4 className="profilePage_container_member_card_name profilePage_container-dark_member_card_name">
                     {member.name}
                   </h4>
                   {member.birthdate && (
-                    <h5 className="profilePage_container_member_card_birthday">
+                    <h5 className="profilePage_container_member_card_birthday profilePage_container-dark_member_card_birthday">
                       Anniversaire :{' '}
                       {format(new Date(member.birthdate), 'dd MMMM yyyy', {
                         locale: fr,
                       })}
                     </h5>
                   )}
-                  <h5 className="profilePage_container_member_card_score">
+                  <h5 className="profilePage_container_member_card_score profilePage_container-dark_member_card_score">
                     Score : {member.score}
                   </h5>
-                  <h5 className="profilePage_container_member_card_task-to_do">
+                  <h5 className="profilePage_container_member_card_task-to_do profilePage_container-dark_member_card_task-to_do">
                     Tâches à faire :
                   </h5>
                   {tasksByMember[member.id] &&
@@ -155,17 +172,17 @@ function ProfilePage() {
                     tasksByMember[member.id].map((task) => (
                       <div
                         key={task.id}
-                        className="profilePage_container_member_card_task"
+                        className="profilePage_container_member_card_task profilePage_container-dark_member_card_task"
                       >
-                        <div className="profilePage_container_member_card_task_headerDate">
-                          <p className="profilePage_container_member_card_task_date">
+                        <div className="profilePage_container_member_card_task_headerDate profilePage_container-dark_member_card_task_headerDate">
+                          <p className="profilePage_container_member_card_task_date profilePage_container-dark_member_card_task_date">
                             {format(new Date(task.start_date), 'dd MMMM yyyy', {
                               locale: fr,
                             })}
                           </p>
                         </div>
-                        <div className="profilePage_container_member_card_task_containerName">
-                          <h6 className="profilePage_container_member_card_task_name">
+                        <div className="profilePage_container_member_card_task_containerName profilePage_container-dark_member_card_task_containerName">
+                          <h6 className="profilePage_container_member_card_task_name profilePage_container-dark_member_card_task_name">
                             - {task.name}
                           </h6>
                         </div>
@@ -178,17 +195,17 @@ function ProfilePage() {
               )
           )}
           {selectedProfile?.role === 'adult' && (
-            <div className="profilePage_container_member_card">
+            <div className="profilePage_container_member_card profilePage_container-dark_member_card">
               <img
                 className="profilePage_container_memberCard_image addProfile_img"
                 src={`${baseURL}/uploads/avatars/default-avatar.webp`}
                 alt="avatar de l'utilisateur"
               />
-              <h4 className="profilePage_container_member_card_name">
+              <h4 className="profilePage_container_member_card_name profilePage_container-dark_member_card_name">
                 Ajouter un Profil
               </h4>
               <FaPlusCircle
-                className="profilePage_container_member_card_iconAddProfile"
+                className="profilePage_container_member_card_iconAddProfile profilePage_container-dark_member_card_iconAddProfile"
                 onClick={() => handleAddClick()}
               />
             </div>

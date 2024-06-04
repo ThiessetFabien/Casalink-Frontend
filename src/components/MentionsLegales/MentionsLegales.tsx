@@ -1,10 +1,25 @@
+import { useAppSelector } from '../../hooks/redux';
 import './MentionsLegales.scss';
 
 function MentionsLegales() {
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
+
   return (
-    <div className="mentionslegales">
-      <h2 className="mentionslegales_title">Mentions légales</h2>
-      <p className="mentionslegales_description">
+    <div
+      className={`${isDarkMode ? 'mentionslegales-dark' : ''} mentionslegales`}
+    >
+      <h2
+        className={`${
+          isDarkMode ? 'mentionslegales-dark_title' : ''
+        } mentionslegales_title`}
+      >
+        Mentions légales
+      </h2>
+      <p
+        className={`${
+          isDarkMode ? 'mentionslegales-dark_description' : ''
+        } mentionslegales_description`}
+      >
         Nom et prénom : Jean Dupont Adresse du domicile : 12, rue de la Paix,
         75002 Paris Adresse du siège social : 12, rue de la Paix, 75002 Paris
         Coordonnées de l’hébergeur du site : contact@monsite.com Nom du
