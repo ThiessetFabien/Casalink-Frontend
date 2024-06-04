@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { actionSendContactForm } from '../../store/thunks/contactForm';
 import './Contact.scss';
+import axios from 'axios';
 
 function Contact() {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
-  const dispatch = useDispatch();
 
-  const sendEmail = async (event) => {
-    event.preventDefault();
-    try {
-      const resultAction = await dispatch(
-        actionSendContactForm({ email, subject, message })
-      );
-      if (actionSendContactForm.fulfilled.match(resultAction)) {
-        setStatusMessage(resultAction.payload);
+  const sendEmail = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const serviceId = import.meta.env.VITE_APP_SERVICE_ID;
+    const templateId = import.meta.env.VITE_APP_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
+
+    const data = {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: {
+        from_email: email,
+        subject,
+        message,
+      },
+    };
+
+    axios
+      .post('https://api.emailjs.com/api/v1.0/email/send', data)
+      .then((res) => {
+        console.log(res.data);
         setEmail('');
         setSubject('');
         setMessage('');
-      } else {
-        setStatusMessage(resultAction.payload);
-      }
-    } catch (error) {
-      console.error('Erreur:', error);
-      setStatusMessage('Une erreur est survenue, veuillez réessayer.');
-    }
+        setStatusMessage('Votre message a bien été envoyé.');
+      })
+      .catch((error) => {
+        console.error('FAILED...', error);
+        setStatusMessage('Une erreur est survenue, veuillez réessayer.');
+      });
   };
 
   return (
@@ -48,6 +58,7 @@ function Contact() {
           </p>
         </div>
         <div className="contact_modal">
+          {statusMessage && <p className="status_message">{statusMessage}</p>}
           <form onSubmit={sendEmail}>
             <h1>Nous contacter</h1>
 
@@ -88,7 +99,6 @@ function Contact() {
             </div>
             <button type="submit">Envoyer</button>
           </form>
-          {statusMessage && <p className="status_message">{statusMessage}</p>}
         </div>
       </div>
     </div>
