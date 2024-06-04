@@ -37,8 +37,7 @@ function App() {
       <Header />
       <div className="mainContainer">
         {isLogged && memberSelected && <SideMenu />}
-        {/* {modalIsOpen && <AskPin />} */}
-        <AskPin />
+        {modalIsOpen && <AskPin />}
         <Routes>
           <Route path="/" element={homePageElement} />
 

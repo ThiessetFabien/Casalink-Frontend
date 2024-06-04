@@ -43,8 +43,8 @@ function AskPin() {
         </label>
         <input
           onChange={handleChangePin}
-          type="text"
-          className="form_input"
+          type="password"
+          className="form_input_required"
           value={inputValue}
           required
         />
