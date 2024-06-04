@@ -71,58 +71,58 @@ function Header() {
           isMenuOpen ? 'header_menuMobile-open' : 'header_menuMobile'
         }`}
       >
-        <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
-          <div>
-            <BiHomeAlt2 className="header_menuMobile_icon" />
-          </div>
-          <Link to="/" className="header_menuMobile_link">
+        <Link to="/" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
+            <div>
+              <BiHomeAlt2 className="header_menuMobile_icon" />
+            </div>
             Accueil
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <MdFamilyRestroom className="header_menuMobile_icon" />
-          <Link to="/foyer" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/foyer" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <MdFamilyRestroom className="header_menuMobile_icon" />
             Mon foyer
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <MdSettingsSuggest className="header_menuMobile_icon" />
-          <Link to="/preferences" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/preferences" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <MdSettingsSuggest className="header_menuMobile_icon" />
             Préférences
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <HiMail className="header_menuMobile_icon" />
-          <Link to="/contact" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/contact" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <HiMail className="header_menuMobile_icon" />
             Contact
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <IoLogOut className="header_menuMobile_icon" />
-          <Link to="/" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <IoLogOut className="header_menuMobile_icon" />
             Déconnexion
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          {isDarkMode ? (
-            <TbMoonFilled
-              className={`header_menuMobile_icon `}
-              onClick={HandleSwitchDarkMode}
-            />
-          ) : (
-            <MdWbSunny
-              className="header_menuMobile_icon"
-              onClick={HandleSwitchDarkMode}
-            />
-          )}
-          <Link
-            to="/"
-            className="header_menuMobile_link"
-            onClick={HandleSwitchDarkMode}
-          >
+          </div>
+        </Link>
+        <Link
+          to="/"
+          className="header_menuMobile_link"
+          onClick={HandleSwitchDarkMode}
+        >
+          <div className="header_menuMobileDiv">
+            {isDarkMode ? (
+              <TbMoonFilled
+                className={`header_menuMobile_icon `}
+                onClick={HandleSwitchDarkMode}
+              />
+            ) : (
+              <MdWbSunny
+                className="header_menuMobile_icon"
+                onClick={HandleSwitchDarkMode}
+              />
+            )}
             {isDarkMode ? 'Switch light' : 'Switch dark'}
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
       <div
         className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
