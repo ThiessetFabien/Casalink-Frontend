@@ -1,8 +1,20 @@
 @use '../../styles/variables' as v;
 
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+  tablet_mini: '(min-width:425px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
 .sitemap {
-  background-color: v.$bgColor-White;
-  border: 1px black solid;
+  border-radius: 5px;
   height: 87vh;
   width: 100%;
   display: flex;
@@ -10,24 +22,36 @@
   justify-content: center;
   flex-direction: column;
 
-  &_item {
-    padding: 1rem;
-  }
+  &_boxForInfo {
+    background-color: v.$bgColor-White;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: v.$shadowColor;
+    margin-top: 1rem;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5.5px );
+    -webkit-backdrop-filter: blur( 5.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 90%;
+    @include media(desktop) {
+      width: 50%;
+    }
+    @include media(tablet) {
+      width: 60%;
+    }
+    @include media(tablet_mini) {
+      width: 80%;
+    }
 
-  &_linkItem {
-    padding-right: 1rem;
-  }
-}
-
-.boxForInfo {
-  background-color: v.$bgColor-White;
-  border: black 1px solid;
-  height: 50%;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: v.$shadowColor;
-  margin-top: 1rem;
+    &_item {
+      padding: 1rem;
+    }
+  
+    &_link {
+      padding-right: 1rem;
+    }
+  } 
 }

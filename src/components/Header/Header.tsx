@@ -14,6 +14,7 @@ import {
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
 import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
+import baseURL from '../../utils/baseURL';
 
 // coucou c'est moi
 function Header() {
@@ -35,16 +36,27 @@ function Header() {
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       {isConnected && memberSelected && (
-        <img
-          src="public/testavatar.png"
-          alt="userAvatar"
+        <div
           className={`${
             isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
           }`}
-        />
+        >
+          <Link to="/profil" className="header_avatar_link">
+            <img
+              src={
+                memberSelected.image
+                  ? `${baseURL}/${memberSelected.image}`
+                  : `${baseURL}/uploads/avatars/default-avatar.webp`
+              }
+              alt="userAvatar"
+              className={`${
+                isMenuOpen ? 'header_avatar-menuOpen_img' : 'header_avatar_img'
+              }`}
+            />
+          </Link>
+        </div>
       )}
-      {/* <div className="header_menuItems"> */}
-      {/* {isConnected && <UserHeader />} */}
+
       <Link to="/" className="header_title">
         <div className="header_logoDiv">
           <img
@@ -75,7 +87,7 @@ function Header() {
         </div>
         <div className="header_menuMobileDiv">
           <MdSettingsSuggest className="header_menuMobile_icon" />
-          <Link to="/setting" className="header_menuMobile_link">
+          <Link to="/preferences" className="header_menuMobile_link">
             Préférences
           </Link>
         </div>
@@ -125,9 +137,6 @@ function Header() {
           <span className="header-bar" />
         </button>
       </div>
-
-      {/* </div> */}
-      {/* <BtnConnect /> */}
       {!isConnected && <BtnConnect />}
       {loginModalIsOpen && <Login />}
     </div>

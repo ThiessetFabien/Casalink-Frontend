@@ -8,7 +8,7 @@ function Footer() {
         Contact
       </Link>
 
-      <Link to="/contact" className="Footer_listItems">
+      <Link to="/mentions-legales" className="Footer_listItems">
         Mentions légales
       </Link>
 

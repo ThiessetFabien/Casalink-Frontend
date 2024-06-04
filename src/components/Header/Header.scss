@@ -61,14 +61,11 @@ $breakpoints: (
     bottom: 0.5rem;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 50%;
+    border-radius: 100%;
     font-size: 1.4rem;
     background-color: v.$textColor-colorWhite;
     border: none;
     cursor: pointer;
-    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
-      0px 0px 10px 0px v.$textColor-colorWhite,
-      0px 2px 3px 0px v.$textColor-colorLightBlue;
     @include media(desktop) {
       display: none;
     }
@@ -128,7 +125,6 @@ $breakpoints: (
     width: 100vw;
     font-size: 0;
     border-bottom-right-radius: 100%;
-
     transition: all 0.6s ease-in-out;
     @include media(desktop) {
       display: none;
@@ -140,14 +136,18 @@ $breakpoints: (
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: v.$bgColor-White;
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 100vw;
-    height: 100vh;
+    background: rgba( 255, 255, 255, 0.7 );
+    width: 110vw;
+    height: 110vh;
     font-size: 1.2rem;
     transition: all 0.6s ease-in-out;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10.5px);
+    -webkit-backdrop-filter: blur(5.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     @include media(desktop) {
       display: none;
     }
@@ -158,17 +158,19 @@ $breakpoints: (
     position: relative;
     width: 100vw;
     text-align: center;
-    border-top: 2px solid v.$textColor-colorBlue;
     padding: 1rem;
     color: v.$textColor-colorBlue;
     transition: all 0.4s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
 
   &_menuMobile_link {
     color: inherit;
     font-weight: bold;
     font-size: 1.3rem;
-    width: 100%;
     text-align: center;
     margin: 0.5rem;
     text-decoration: none;
@@ -176,16 +178,8 @@ $breakpoints: (
 
   &_menuMobile_icon {
     color: v.$textColor-colorBlue;
-    background-color: v.$textColor-colorWhite;
-    position: absolute;
-    top: -30%;
-    right: 46.5%;
     font-size: 2rem;
-    padding: 0.5rem;
     border-radius: 100%;
-    box-shadow: 2px 2px 2px 0px v.$textColor-colorBlue,
-      7px 7px 20px 0px v.$textColor-colorWhite,
-      4px 4px 5px 0px v.$textColor-colorDark-Blue;
   }
 
   &_menuMobileDiv:hover {
@@ -197,13 +191,27 @@ $breakpoints: (
     display: none;
     @include media(desktop) {
       display: block;
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
       border-radius: 100%;
       position: absolute;
-      left: -0.2rem;
+      left: 0.1rem;
       bottom: -4.5rem;
       transition: all 0.6s ease-in-out;
+
+      &_link {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+
+      &_img {
+        width: 100%;
+        height: 100%;
+        transform: rotate(360deg);
+        transition: all 0.6s ease-in-out;
+        border-radius: 100%;
+      }
     }
   }
 
@@ -219,6 +227,19 @@ $breakpoints: (
       bottom: -3rem;
       transform: rotate(360deg);
       transition: all 0.6s ease-in-out;
+
+      &_link {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+      &_img {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        transform: rotate(360deg);
+        transition: all 0.6s ease-in-out;
+      }
     }
   }
 
