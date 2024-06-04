@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { BiHomeAlt2 } from 'react-icons/bi';
 import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
@@ -40,7 +40,7 @@ function SideMenu() {
   };
 
   const handleSettingClick = () => {
-    navigate('/setting');
+    navigate('/preferences');
   };
 
   const handleContactClick = () => {
@@ -55,6 +55,7 @@ function SideMenu() {
     if (openMenu) {
       openOrCloseMenu();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (
@@ -100,7 +101,7 @@ function SideMenu() {
           onClick={handleSettingClick}
         />
         <Link
-          to="/setting"
+          to="/preferences"
           className={`${!openMenu ? 'side_item' : 'side_item-open'}`}
         >
           {openMenu ? 'Préférences' : ''}
@@ -125,6 +126,7 @@ function SideMenu() {
         />
         <Link
           to="/"
+          onClick={handleLogOutLick}
           className={`${!openMenu ? 'side_item' : 'side_item-open'}`}
         >
           {openMenu ? 'Déconnexion' : ''}

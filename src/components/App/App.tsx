@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
+
+import { jwtDecode } from 'jwt-decode';
+
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -36,7 +38,8 @@ function App() {
 
   useEffect(() => {
     const jwtObject = getTokenAndPseudoFromLocalStorage() as { jwt: string };
-    if (jwtObject !== null && jwtObject.jwt !== null) {
+
+    if (jwtObject.jwt !== null && jwtObject.jwt !== null) {
       const jwtDecoded = jwtDecode(jwtObject.jwt) as { userId: number };
       addTokenJwtToAxiosInstance(jwtObject.jwt);
       dispatch(actionLogin({ jwt: jwtObject.jwt, id: jwtDecoded.userId }));

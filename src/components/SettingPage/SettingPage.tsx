@@ -1,15 +1,12 @@
-import { MouseEventHandler, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../../hooks/redux';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import RestrictionEnfant from './RestrictionEnfant/RestrictionEnfant';
 import './SettingPage.scss';
 import './RestrictionEnfant/RestrictionEnfant.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
-import actionSwitchRestriction from '../../store/thunks/checkChildren';
-import actionChangeIsChecked from '../../store/reducer/profile';
 
 function SettingPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
   // console.log('je suis accountId', accountId);
   const members = useAppSelector((state) => state.profile.members);
@@ -24,23 +21,18 @@ function SettingPage() {
   return (
     <div className="settingPage">
       <div className="settingPage_notifDiv">
-        <h2 className="settingPage_notifDiv_title">Notification</h2>
-        <div className="settingPage_notifDiv_checkbox-wrapper">
-          <label
-            htmlFor="setting-notif"
-            className="settingPage_notifDiv_checkbox-wrapper_label"
-          >
-            Activer les notifications
-          </label>
-          <input
-            type="checkbox"
-            id="setting-notif"
-            className="settingPage_notifDiv_checkbox-wrapper_input"
-          />
-        </div>
+        <h2 className="settingPage_title">Notification</h2>
+        <label htmlFor="setting-notif" className="settingPage_notifDiv_label">
+          Activer les notifications
+        </label>
+        <input
+          type="checkbox"
+          id="setting-notif"
+          className="settingPage_checkboxNotif"
+        />
       </div>
       <div className="settingPage_restrictionDiv">
-        <h2>Restrictions</h2>
+        <h2 className="settingPage_restrictionDiv_title">Restrictions</h2>
         <h3 className="settingPage_restrictionDiv_subtitle">
           Les profils étant limités en droits
         </h3>

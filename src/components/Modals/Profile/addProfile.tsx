@@ -2,7 +2,6 @@ import { FormEvent, useState, useRef, useEffect } from 'react';
 import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
-import { MemberStateI } from '../../../@types/memberStateI';
 import { actionAddProfile } from '../../../store/thunks/changeProfile';
 import actionGetMembers from '../../../store/thunks/checkProfile';
 import './addProfile.scss';
