@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
 import { EventsI, EventsWithMemberI } from '../../@types/events';
+import { MemberStateI } from '../../@types/memberStateI';
 
 const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
@@ -60,10 +61,18 @@ const actionModifyTask = createAsyncThunk(
 
 const actionGetTask = createAsyncThunk(
   'task/GET_TASK',
-  async (payload: { id: number }, thunkAPI) => {
+  async (payload: { id: number; member: MemberStateI }, thunkAPI) => {
     try {
-      const response = await axiosInstance.get(`/task/account/${payload.id}`);
-      return response.data.data.tasks;
+      let response;
+      if (payload.member.role === 'adult')
+        response = await axiosInstance.get(`/task/account/${payload.id}`);
+      if (payload.member.role === 'child')
+        response = await axiosInstance.get(
+          `/task/profile/${payload.member.id}`
+        );
+      console.log('je suis la response', response);
+      if (response) return response.data.data.tasks;
+      return null;
     } catch (error) {
       const axiosError = error as AxiosError;
       return thunkAPI.rejectWithValue(axiosError.response?.data);

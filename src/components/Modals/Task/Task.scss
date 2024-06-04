@@ -48,13 +48,12 @@ $breakpoints: (
       right: 1px;
       border: none;
 
-      &_exit, &_delete {
+      &_exit,
+      &_delete {
         cursor: pointer;
         border: none;
       }
     }
-
-    
 
     &_form {
       display: flex;
@@ -85,7 +84,13 @@ $breakpoints: (
         border-radius: 5px;
       }
 
-      textarea {
+      input:disabled,
+      textarea:disabled,
+      select {
+        color: black;
+      }
+
+      &_description {
         border: none;
         border-bottom: 1px solid v.$textColor-colorBlue;
         width: 100%;
@@ -104,3 +109,4 @@ $breakpoints: (
     }
   }
 }
+

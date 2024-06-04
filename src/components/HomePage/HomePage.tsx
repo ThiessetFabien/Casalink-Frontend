@@ -62,6 +62,28 @@ function HomePage() {
 
   const dispatch = useAppDispatch();
 
+  const eventPropGetter = useCallback(
+    (
+      event: EventsI,
+      start: string | Date,
+      end: string | Date,
+      isSelected: boolean
+    ) => ({
+      ...(isSelected && {
+        style: {
+          backgroundColor: 'red',
+        },
+      }),
+      ...(event.childTask && {
+        style: {
+          backgroundColor: '#5500B4',
+          borderColor: '#7800FF',
+        },
+      }),
+    }),
+    []
+  );
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 768);
