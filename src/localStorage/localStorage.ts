@@ -12,7 +12,10 @@ export function addProfileToLocalStorage(profile: MemberStateI) {
 
 export function getTokenAndPseudoFromLocalStorage() {
   const jwt = localStorage.getItem('jwt');
-  return { jwt };
+  if (jwt) return { jwt };
+  console.log('je suis jwt', jwt);
+
+  return null;
 }
 
 export function getProfileFromLocalStorage() {

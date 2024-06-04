@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
+
+import { jwtDecode } from 'jwt-decode';
+
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -36,7 +38,8 @@ function App() {
 
   useEffect(() => {
     const jwtObject = getTokenAndPseudoFromLocalStorage() as { jwt: string };
-    if (jwtObject !== null && jwtObject.jwt !== null) {
+
+    if (jwtObject.jwt !== null && jwtObject.jwt !== null) {
       const jwtDecoded = jwtDecode(jwtObject.jwt) as { userId: number };
       addTokenJwtToAxiosInstance(jwtObject.jwt);
       dispatch(actionLogin({ jwt: jwtObject.jwt, id: jwtDecoded.userId }));
@@ -55,7 +58,7 @@ function App() {
   if (isLogged && memberSelected) {
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
-    homePageElement = <Navigate to="/profil" />;
+    homePageElement = <Navigate to="/selectprofile" />;
   } else {
     homePageElement = <Navigate to="/landingpage" />;
   }
@@ -83,7 +86,7 @@ function App() {
           />
 
           <Route
-            path="/profil"
+            path="/selectprofile"
             element={
               isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
             }

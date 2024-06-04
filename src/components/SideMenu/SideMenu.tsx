@@ -40,7 +40,7 @@ function SideMenu() {
   };
 
   const handleSettingClick = () => {
-    navigate('/setting');
+    navigate('/preferences');
   };
 
   const handleContactClick = () => {
@@ -101,7 +101,7 @@ function SideMenu() {
           onClick={handleSettingClick}
         />
         <Link
-          to="/setting"
+          to="/preferences"
           className={`${!openMenu ? 'side_item' : 'side_item-open'}`}
         >
           {openMenu ? 'Préférences' : ''}
@@ -126,6 +126,7 @@ function SideMenu() {
         />
         <Link
           to="/"
+          onClick={handleLogOutLick}
           className={`${!openMenu ? 'side_item' : 'side_item-open'}`}
         >
           {openMenu ? 'Déconnexion' : ''}
