@@ -17,7 +17,7 @@ export interface MembersState {
 }
 
 interface PayloadChangeRole {
-  id: number;
+  id: number | null;
   role: 'child' | 'adult';
 }
 
@@ -48,10 +48,6 @@ const profileReducer = createReducer(initialState, (builder) => {
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
-    console.log(
-      'fetch reducer getmember, date deja en timestamp',
-      action.payload.members
-    );
   });
   builder.addCase(actionGetMembers.pending, (state) => {
     state.isLoading = true;

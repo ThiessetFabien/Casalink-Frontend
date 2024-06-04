@@ -50,13 +50,18 @@ function HomePage() {
   const getTasks = (state: StateReducerI) => state.task.list;
 
   const getMappedTasks = createSelector([getTasks], (tasks) =>
-    tasks.map((task) => ({
-      ...task,
-      title: task.nameTask,
-      start: new Date(task.start),
-      end: new Date(task.end),
-      childTask: task.childTask,
-    }))
+    tasks.map(
+      (task) => (
+        console.log('je suis task', task),
+        {
+          ...task,
+          title: task.nameTask,
+          start: new Date(task.start),
+          end: new Date(task.end),
+          childTask: task.childTask,
+        }
+      )
+    )
   );
 
   const events = useAppSelector(getMappedTasks);
@@ -72,7 +77,7 @@ function HomePage() {
     ) => ({
       ...(isSelected && {
         style: {
-          backgroundColor: '#005C75',
+          backgroundColor: 'red',
         },
       }),
       ...(event.childTask && {

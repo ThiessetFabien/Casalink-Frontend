@@ -48,13 +48,12 @@ $breakpoints: (
       right: 1px;
       border: none;
 
-      &_exit, &_delete {
+      &_exit,
+      &_delete {
         cursor: pointer;
         border: none;
       }
     }
-
-    
 
     &_form {
       display: flex;
@@ -85,7 +84,9 @@ $breakpoints: (
         border-radius: 5px;
       }
 
-      input:disabled, textarea:disabled, select {
+      input:disabled,
+      textarea:disabled,
+      select {
         color: black;
       }
 
@@ -122,4 +123,8 @@ $breakpoints: (
       }
     }
   }
+}
+
+.rbc-event {
+  background-color: red;
 }

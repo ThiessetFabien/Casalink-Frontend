@@ -72,7 +72,7 @@ function App() {
           <Route path="/" element={homePageElement} />
 
           <Route
-            path="/setting"
+            path="/preferences"
             element={
               isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
             }
