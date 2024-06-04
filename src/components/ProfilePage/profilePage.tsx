@@ -42,8 +42,6 @@ function ProfilePage() {
       );
     }
   }, [dispatch, membersList]);
-  console.log(membersList[0].id, selectedProfile);
-  
 
   const tasksByMember = useMemo(() => {
     const result = membersList.reduce((acc, member) => {
