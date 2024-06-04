@@ -9,6 +9,7 @@ function BurgerNav() {
   const handleOpenMenu = () => {
     setOpenMenu(!openMenu);
   };
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
   const isConnected = useAppSelector((state) => state.user.logged);
   return (
     <nav
@@ -23,15 +24,15 @@ function BurgerNav() {
           </Link>
         </li>
         {isConnected && (
-          <li className="navbar_item">
-            <Link to="/" className="navbar_link">
+          <li className={`${isDarkMode ? 'navbar_item-dark' : ''} navbar_item`}>
+            <Link to="/foyer" className="navbar_link">
               Mon foyer
             </Link>
           </li>
         )}
 
         <li className="navbar_item">
-          <Link to="/" className="navbar_link">
+          <Link to="/preferences" className="navbar_link">
             Préférences
           </Link>
         </li>

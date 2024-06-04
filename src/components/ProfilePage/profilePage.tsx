@@ -90,8 +90,16 @@ function ProfilePage() {
         isDarkMode ? 'profilePage_container-dark' : ''
       } profilePage_container`}
     >
-      <div className="profilePage_container_presentation profilePage_container-dark_presentation">
-        <h2 className="profilePage_container_presentation_title profilePage_container-dark_presentation_title">
+      <div
+        className={`${
+          isDarkMode ? 'profilePage_container-dark_presentation-dark' : ''
+        } profilePage_container_presentation`}
+      >
+        <h2
+          className={`${
+            isDarkMode ? 'profilePage_container-dark_presentation_title' : ''
+          } profilePage_container_presentation_title`}
+        >
           Mon foyer
         </h2>
       </div>
@@ -100,7 +108,11 @@ function ProfilePage() {
           isDarkMode ? 'profilePage_container-dark_member' : ''
         } profilePage_container_member`}
       >
-        <h3 className="profilePage_container_member_title profilePage_container-dark_member_title">
+        <h3
+          className={`${
+            isDarkMode ? 'profilePage_container-dark_member_title' : ''
+          } profilePage_container_member_title`}
+        >
           Membres
         </h3>
         <div

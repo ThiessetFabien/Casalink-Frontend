@@ -13,30 +13,32 @@ $breakpoints: (
 }
 
 .dark.header {
-  background: v.$textColor-colorDark-Blue 100%;
+  background: v.$textColor-colorDark 100%;
   transition: all 0.6s ease-in-out;
   position: relative;
+  color: v.$textColor-colorWhite;
 }
 .dark .header_menuMobile-open {
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
+  color: v.$textColor-colorWhite;
+}
+
+.dark .header_menuMobileDiv {
+  background-color: v.$textColor-colorDark;
+  color: v.$textColor-colorWhite;
 }
 
 .dark .header_BtnMenuMobile {
-  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
-    0px 0px 10px 0px v.$textColor-colorWhite,
-    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  color: v.$textColor-colorWhite;
 }
 
 .dark .header_menuMobile_icon {
-  background-color: v.$textColor-colorBlue;
-  color: v.$textColor-colorDark-Blue;
-  box-shadow: 2px 2px 2px 0px v.$textColor-colorDark-Blue,
-    0px 0px 10px 0px v.$textColor-colorWhite,
-    4px 4px 5px 0px v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
+  color: v.$textColor-colorWhite;
 }
 
 .dark .header_menuMobile_link {
-  color: v.$textColor-colorBlue;
+  color: v.$textColor-colorWhite;
 }
 
 .header {
@@ -77,7 +79,7 @@ $breakpoints: (
     position: relative;
     width: 1.5rem;
     height: 0.15rem;
-    background-color: v.$textColor-colorBlue;
+    background-color: v.$textColor-colorDark;
     transition: 0.6s ease-in-out all;
     border-radius: 20%;
   }
@@ -159,7 +161,7 @@ $breakpoints: (
     width: 100vw;
     text-align: center;
     padding: 1rem;
-    color: v.$textColor-colorBlue;
+    color: v.$textColor-colorDark;
     transition: all 0.4s ease-in-out;
     display: flex;
     justify-content: center;
@@ -177,13 +179,13 @@ $breakpoints: (
   }
 
   &_menuMobile_icon {
-    color: v.$textColor-colorBlue;
+    color: v.$textColor-colorDark;
     font-size: 2rem;
     border-radius: 100%;
   }
 
   &_menuMobileDiv:hover {
-    background-color: v.$textColor-colorBlue;
+    background-color: v.$textColor-colorDark;
     color: v.$bgColor-White;
   }
 
@@ -267,7 +269,7 @@ $breakpoints: (
     padding: 5px 15px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
-    background: v.$textColor-colorBlue;
+    background: v.$textColor-colorDark;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -286,7 +288,7 @@ $breakpoints: (
 }
 
 .btn-login {
-  background: v.$textColor-colorBlue;
+  background: v.$textColor-colorDark;
   width: 100px;
   height: 40px;
   line-height: 42px;
@@ -319,7 +321,7 @@ $breakpoints: (
   content: '';
   right: 0;
   top: 0;
-  background: v.$textColor-colorBlue;
+  background: v.$textColor-colorDark;
   transition: all 0.3s ease;
 }
 .btn-login:before {
@@ -343,7 +345,7 @@ $breakpoints: (
 }
 .btn-login span:hover {
   border-radius: 10px 0 10px;
-  color: v.$textColor-colorBlue;
+  color: v.$textColor-colorDark;
 }
 .btn-login span:before,
 .btn-login span:after {
@@ -351,7 +353,7 @@ $breakpoints: (
   content: '';
   left: 0;
   bottom: 0;
-  background: v.$textColor-colorBlue;
+  background: v.$textColor-colorDark;
   transition: all 0.3s ease;
 }
 .btn-login span:before {
