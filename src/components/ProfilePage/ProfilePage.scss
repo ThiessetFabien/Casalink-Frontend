@@ -16,19 +16,19 @@ $breakpoints: (
 .profilePage_container {
   width: 100%;
 
-  .profilePage_container_presentation {
+  &_presentation {
     margin: auto;
     width: 100%;
 
-    .profilePage_container_title {
+    &_title {
       font-size: 2rem;
       font-weight: 500;
-      margin: 1rem 0;
+      margin-top: 1rem;
       text-align: center;
     }
   }
 
-  .profilePage_container_member {
+  &_member {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,15 +36,15 @@ $breakpoints: (
     width: 100%;
     margin-bottom: 3rem;
 
-    .profilePage_container_member_title {
+    &_title {
       font-size: 1.5rem;
-      font-weight: 500;
-      margin: 1rem 0;
+      font-weight: 400;
+      margin: 1rem 0 0.5rem 0;
       text-align: center;
       width: 100%;
     }
 
-    .profilePage_container_member_list {
+    &_list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;

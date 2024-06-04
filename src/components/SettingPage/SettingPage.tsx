@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import RestrictionEnfant from './RestrictionEnfant/RestrictionEnfant';
 import './SettingPage.scss';
+import './RestrictionEnfant/RestrictionEnfant.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 
 function SettingPage() {
@@ -33,7 +34,7 @@ function SettingPage() {
       <div className="settingPage_restrictionDiv">
         <h2 className="settingPage_restrictionDiv_title">Restrictions</h2>
         <h3 className="settingPage_restrictionDiv_subtitle">
-          Cochez les profils qui seront limités en droit
+          Les profils étant limités en droits
         </h3>
         {members.map((member) => (
           <RestrictionEnfant key={member.id} member={member} />

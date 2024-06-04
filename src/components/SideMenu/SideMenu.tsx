@@ -13,10 +13,11 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
+import { disconnectLocalStorage } from '../../localStorage/localStorage';
+import { actionLogout } from '../../store/reducer/user';
 
 function SideMenu() {
   const location = useLocation();
-
   const dispatch = useAppDispatch();
 
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
@@ -27,6 +28,11 @@ function SideMenu() {
   };
   const navigate = useNavigate();
   const handleHomeClick = () => {
+    navigate('/');
+  };
+  const handleLogOutLick = () => {
+    disconnectLocalStorage();
+    dispatch(actionLogout());
     navigate('/');
   };
   const handleFoyerClick = () => {
@@ -116,7 +122,7 @@ function SideMenu() {
       <div className={`${openMenu ? 'side_boxItem' : 'side_boxItem-hidden'}`}>
         <IoLogOut
           className={`${openMenu ? 'side_icon-open' : 'side_icon'}`}
-          onClick={handleHomeClick}
+          onClick={handleLogOutLick}
         />
         <Link
           to="/"

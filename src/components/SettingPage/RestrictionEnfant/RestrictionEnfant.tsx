@@ -26,7 +26,7 @@ function RestrictionEnfant({ member }: RestrictionPropsI) {
   };
 
   return (
-    <div className="settingPage_inputDiv">
+    <div className="settingPage_enfantDiv">
       <label
         htmlFor={`setting-modifTache-${member.id}`}
         className="label_restriction"

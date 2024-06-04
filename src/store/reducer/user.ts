@@ -20,7 +20,6 @@ export const initialState: UserStateI = {
       lastname: '',
     },
   },
-  pseudo: null,
   token: null,
   error: null,
 };
@@ -44,7 +43,7 @@ export const actionResetCredential = createAction('user/RESET_CREDENTIAL');
 // jwt & pseudo: prorpiétés
 export const actionLogin = createAction<{
   jwt: string;
-  pseudo: string | null;
+  id: number;
 }>('user/LOGIN');
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -70,12 +69,11 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionLogout, (state) => {
       state.logged = false;
-      state.pseudo = null;
     })
     .addCase(actionLogin, (state, action) => {
       state.logged = true;
+      state.id = action.payload.id;
       state.token = action.payload.jwt;
-      state.pseudo = action.payload.pseudo;
       state.error = null;
     })
     .addCase(actionCheckLogin.fulfilled, (state, action) => {
@@ -90,7 +88,6 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionCheckSignup.fulfilled, (state, action) => {
       state.logged = true;
-      state.pseudo = action.payload.pseudo;
       state.token = action.payload.token;
       state.error = null;
     })

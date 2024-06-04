@@ -8,7 +8,7 @@ import {
 } from '../thunks/changeProfile';
 import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
-interface MembersState {
+export interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
   memberSelected: MemberStateI | null;
@@ -44,9 +44,14 @@ export const actionChangeRole = createAction<PayloadChangeRole>(
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
     state.isLoading = false;
+
     state.members = Array.isArray(action.payload.members)
       ? action.payload.members
       : [];
+    console.log(
+      'fetch reducer getmember, date deja en timestamp',
+      action.payload.members
+    );
   });
   builder.addCase(actionGetMembers.pending, (state) => {
     state.isLoading = true;

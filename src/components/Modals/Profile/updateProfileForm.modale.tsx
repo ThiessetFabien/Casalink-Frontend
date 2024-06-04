@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect, useRef } from 'react';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { MemberStateI } from '../../../@types/memberStateI';
@@ -27,14 +27,9 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const [profileImageBase64, setProfileImageBase64] = useState<string | null>(
     null
   );
-  // const [profileImage, setProfileImage] = useState<File | null>(null);
   const errorMessages = useAppSelector((state) => state.user.error);
-  const [isAdultChecked, setIsAdultChecked] = useState(
-    profile.role === 'adult'
-  );
-
   const accountId = useAppSelector((state) => state.user.id);
-
+  const currentDate = format(new Date(), 'dd/MM/yyyy');
   const getFileName = (filePath: string) => {
     return filePath.replace(/^.*[\\/]/, '');
   };
@@ -48,8 +43,6 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log('Updated Profile:', updatedProfile);
-    console.log('Image base64:', profileImageBase64);
     if (profileImageBase64 && updatedProfile.id !== null) {
       const resultAction = await dispatch(
         actionUploadProfileImage({
@@ -81,49 +74,20 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === 'role') {
-      setIsAdultChecked(value === 'adult');
-      if (value === 'child') {
-        setUpdatedProfile((prevProfile) => ({
-          ...prevProfile,
-          email: '',
-          pin: null,
-          [name]: value,
-        }));
-      } else {
-        setUpdatedProfile((prevProfile) => ({
-          ...prevProfile,
-          [name]: value,
-        }));
-      }
-    } else {
-      setUpdatedProfile((prevProfile) => ({
-        ...prevProfile,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
     setUpdatedProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
     }));
   };
 
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     const file = e.target.files[0];
-  //     setProfileImage(file);
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
 
-  // Optionally, update the profile state with the new image name
-  //     setUpdatedProfile((prevProfile) => ({
-  //       ...prevProfile,
-  //       image: getFileName(e.target.value),
-  //     }));
-  //   }
-  // };
+    setUpdatedProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
 
   const handleImageChangeBase64 = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -184,10 +148,16 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
             <div className="profile_field birdthdate">
               <label htmlFor="birthdate">Date de naissance</label>
               <input
-                value={format(new Date(updatedProfile.birthdate), 'yyyy-MM-dd')}
+                value={
+                  updatedProfile.birthdate
+                    ? format(new Date(updatedProfile.birthdate), 'yyyy-MM-dd')
+                    : ''
+                }
                 onChange={handleDateChange}
                 className="input_required"
                 type="date"
+                min="01/01/1990"
+                max={currentDate}
                 name="birthdate"
                 id="birthdate"
                 required
@@ -204,36 +174,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
                 id="image"
               />
             </div>
-            <div className="profile_field radio">
-              <label htmlFor="role">Type de profil</label>
-              <div className="profile_field_role">
-                <div className="profile_field_role_adult">
-                  <input
-                    type="radio"
-                    name="role"
-                    id="Adulte"
-                    value="adult"
-                    onChange={handleChange}
-                    checked={updatedProfile.role === 'adult'}
-                    className="input_checkbox_adult"
-                  />
-                  <span className="input_checkbox_adult_title">Adulte</span>
-                </div>
-                <div className="profile_field_role_child">
-                  <input
-                    type="radio"
-                    name="role"
-                    id="Enfant"
-                    value="child"
-                    onChange={handleChange}
-                    checked={updatedProfile.role === 'child'}
-                    className="input_checkbox_child"
-                  />
-                  <span className="input_checkbox_child_title">Enfant</span>
-                </div>
-              </div>
-            </div>
-            {isAdultChecked && (
+            {profile.role === 'adult' && (
               <>
                 <div className="profile_field">
                   <label htmlFor="email">Email</label>
@@ -250,7 +191,7 @@ function EditProfileModal({ profile, closeModal }: EditProfileModalProps) {
                 <div className="profile_field pin">
                   <label htmlFor="pin">Code Pin</label>
                   <input
-                    value={updatedProfile.pin}
+                    value={updatedProfile.pin || ''}
                     onChange={handleChange}
                     className="input_pin"
                     type="password"

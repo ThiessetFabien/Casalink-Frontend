@@ -1,4 +1,5 @@
 import { FormEvent, useState, useRef, useEffect } from 'react';
+import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { actionAddProfile } from '../../../store/thunks/changeProfile';
@@ -13,20 +14,20 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   const dispatch = useAppDispatch();
   const backgroundRef = useRef<HTMLDivElement>(null);
   const errorMessages = useAppSelector((state) => state.user.error);
-
+  const currentDate = format(new Date(), 'yyyy-MM-dd');
   const accountId = useAppSelector((state) => state.user.id);
 
   // Add state for new profile data
   const [newProfile, setNewProfile] = useState({
     id: null,
     name: '',
-    birthdate: '',
+    birthdate: '2000-01-01',
     score: 0,
     tasks: [],
     image: '',
     role: 'child',
     email: '',
-    pin: null,
+    pin: '',
     isChecked: false,
   });
 
@@ -117,7 +118,9 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
                 type="date"
                 name="birthdate"
                 id="birthdate"
-                value={newProfile.birthdate}
+                min="1990-01-01"
+                max={currentDate}
+                value={format(new Date(newProfile.birthdate), 'yyyy-MM-dd')}
                 onChange={handleChange}
                 required
               />
