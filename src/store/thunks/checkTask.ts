@@ -7,13 +7,28 @@ const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
   async (payload: EventsI, thunkAPI) => {
     try {
-      const response = await axiosInstance.post(`/task/account/${payload.id}`, {
-        name: payload.nameTask,
-        description: payload.descriptionTask,
-        start_date: payload.start,
-        end_date: payload.end,
-        category_id: '1',
-      });
+      let response;
+      if (Number.isNaN(payload.memberTarget)) {
+        response = await axiosInstance.post(`/task/account/${payload.id}`, {
+          name: payload.nameTask,
+          description: payload.descriptionTask,
+          start_date: payload.start,
+          end_date: payload.end,
+          category_id: '1',
+        });
+      } else {
+        response = await axiosInstance.post(
+          `/task/profile/${payload.memberTarget}`,
+          {
+            name: payload.nameTask,
+            description: payload.descriptionTask,
+            start_date: payload.start,
+            end_date: payload.end,
+            category_id: '1',
+            account_id: payload.id,
+          }
+        );
+      }
       const newTask = { ...payload, id: response.data.data.task.id };
       return newTask;
     } catch (error) {

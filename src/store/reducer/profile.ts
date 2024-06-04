@@ -1,4 +1,4 @@
-import { PayloadAction, createAction, createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 import actionGetMembers from '../thunks/checkProfile';
 import actionFetchTasks from '../thunks/fetchTasksByProfile';
 import {
@@ -6,8 +6,7 @@ import {
   actionUpdateProfile,
   actionUpdateRole,
 } from '../thunks/changeProfile';
-import { MemberStateI, RoleI, TaskStateI } from '../../@types/memberStateI';
-import actionSwitchRestriction from '../thunks/checkChildren';
+import { MemberStateI, TaskStateI } from '../../@types/memberStateI';
 
 interface MembersState {
   members: MemberStateI[];
@@ -18,7 +17,7 @@ interface MembersState {
 }
 
 interface PayloadChangeRole {
-  memberId: number;
+  id: number;
   role: 'child' | 'adult';
 }
 
@@ -38,7 +37,9 @@ export const setCardSelected = createAction<MemberStateI>(
   'profile/SET_CARD_SELECTED'
 );
 
-export const actionChangeRole = createAction('profile/SWITCH_ROLE');
+export const actionChangeRole = createAction<PayloadChangeRole>(
+  'profile/SWITCH_ROLE'
+);
 
 const profileReducer = createReducer(initialState, (builder) => {
   builder.addCase(actionGetMembers.fulfilled, (state, action) => {
@@ -52,7 +53,7 @@ const profileReducer = createReducer(initialState, (builder) => {
       action.payload.members
     );
   });
-  builder.addCase(actionGetMembers.pending, (state, action) => {
+  builder.addCase(actionGetMembers.pending, (state) => {
     state.isLoading = true;
   });
   builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
@@ -83,25 +84,22 @@ const profileReducer = createReducer(initialState, (builder) => {
       member.role = role;
     }
   });
-  // .addCase(actionAddMember, (state, action) => {
-  //   state.members.push(action.payload);
-  // });
-  // .addCase(actionRemoveMember, (state, action) => {
-  //   state.members = state.members.filter(
-  //     (member) => member.id !== action.payload
-  //   );
-  // })
-  // .addCase(actionUpdateMember, (state, action) => {
-  //   const index = state.members.findIndex(
-  //     (member) => member.id === action.payload.id
-  //   );
-  //   if (index !== -1) {
-  //     state.members[index] = action.payload;
-  //   }
-  // })
-  // .addCase(actionResetErrorMessage, (state) => {
-  //   state.error = null;
-  // });
+  builder.addCase(
+    actionChangeRole,
+    (
+      state,
+      action: {
+        payload: PayloadChangeRole;
+        type: string;
+      }
+    ) => {
+      const { id, role } = action.payload;
+      const member = state.members.find((m) => m.id === id);
+      if (member) {
+        member.role = role;
+      }
+    }
+  );
 });
 
 export default profileReducer;

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProfilePage.scss';
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaEdit, FaTrashAlt, FaPlusCircle } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -16,8 +16,8 @@ import { actionDeleteProfile } from '../../store/thunks/changeProfile';
 function ProfilePage() {
   const dispatch = useAppDispatch();
   const accountId = useAppSelector((state) => state.user.id);
-  const membersList = useAppSelector((state) => state.profile.members) || [];
-  const tasksList = useAppSelector((state) => state.profile.tasks) || [];
+  const membersList = useAppSelector((state) => state.profile.members);
+  const tasksList = useAppSelector((state) => state.profile.tasks);
   const [cardSelected, setCardSelected] = useState<MemberStateI | null>(null);
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
@@ -33,15 +33,11 @@ function ProfilePage() {
   }, [dispatch, accountId]);
 
   useEffect(() => {
-    if (membersList.length > 0 && membersList[0]?.id !== null) {
-      dispatch(
-        actionFetchTasks({
-          id: membersList[0].id,
-          profile_id: null,
-        })
-      );
+    if (membersList.length > 0 && membersList[0]?.id !== undefined) {
+      dispatch(actionFetchTasks({ id: membersList[0].id }));
     }
   }, [dispatch, membersList]);
+  // console.log(membersList[0].id, accountId);
 
   const tasksByMember = useMemo(() => {
     const result = membersList.reduce((acc, member) => {
@@ -199,13 +195,13 @@ function ProfilePage() {
           )}
         </div>
       </div>
-      {selectedProfile && deleteModalIsOpen && cardSelected && (
+      {selectedProfile && deleteModalIsOpen && (
         <DeleteProfileModal
           profile={cardSelected}
           closeModal={handleCloseModal}
         />
       )}
-      {selectedProfile && editModalIsOpen && cardSelected && (
+      {selectedProfile && editModalIsOpen && (
         <EditProfileModal
           profile={cardSelected}
           closeModal={handleCloseModal}

@@ -108,7 +108,11 @@ function Task({
     const end = new Date(`${endDate}T${endTime}:00.000`);
     const title = nameTask;
     const description = descriptionTask;
-    if (taskModalMode === 'add') addTask(start, end, title, description);
+
+    const memberTarget = parseInt(selectedValue, 10);
+
+    if (taskModalMode === 'add')
+      addTask(id, start, end, title, description, memberTarget);
     else if (taskModalMode === 'edit')
       editTask(id, start, end, title, description);
   };

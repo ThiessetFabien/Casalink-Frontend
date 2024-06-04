@@ -47,7 +47,7 @@ $breakpoints: (
     &_list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;    
+      justify-content: center;
       margin-bottom: 3rem;
       width: 90%;
 
@@ -67,7 +67,6 @@ $breakpoints: (
         @include media(tablet_mini) {
           max-width: 25%;
         }
-        
 
         .profilePage_container_memberCard_image {
           border-radius: 50%;

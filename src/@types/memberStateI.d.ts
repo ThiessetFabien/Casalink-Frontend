@@ -12,7 +12,7 @@ export interface TaskStateI {
 }
 
 export interface MemberStateI {
-  id: number | null;
+  id: number;
   name: string;
   birthdate: Date | string;
   score: number;
@@ -25,7 +25,7 @@ export interface MemberStateI {
 }
 
 export interface RoleI {
-  memberId: number;
+  id: number | null;
   role: 'child' | 'adult';
   isChecked: boolean;
 }

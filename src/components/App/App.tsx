@@ -1,4 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import { jwtDecode } from 'jwt-decode';
+
 import LandingPage from '../LandingPage/LandingPage';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -24,6 +28,26 @@ function App() {
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const jwtObject = getTokenAndPseudoFromLocalStorage() as { jwt: string };
+
+    if (jwtObject.jwt !== null && jwtObject.jwt !== null) {
+      const jwtDecoded = jwtDecode(jwtObject.jwt) as { userId: number };
+      addTokenJwtToAxiosInstance(jwtObject.jwt);
+      dispatch(actionLogin({ jwt: jwtObject.jwt, id: jwtDecoded.userId }));
+      const profile = getProfileFromLocalStorage();
+
+      if (profile !== null) {
+        dispatch(actionSelectProfile(profile));
+      }
+    }
+    setIsLoading(false);
+  }, [dispatch]);
+
+  if (isLoading) return null;
+
   let homePageElement;
   if (isLogged && memberSelected) {
     homePageElement = <HomePage />;
