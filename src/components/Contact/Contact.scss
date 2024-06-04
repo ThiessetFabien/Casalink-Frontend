@@ -15,120 +15,104 @@ $breakpoints: (
 
 .contact {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-
-  &_presentation {
-    width: 90%;
-    @include media(desktop) {
-      width: 70%;
-    }
-    @include media(tablet) {
-      width: 70%;
-    }
-    @include media(tablet_mini) {
-      width: 70%;
-    }
-
-    &_title {
-      padding-bottom: 1rem;
-      margin: 1rem 0;
-      text-align: center;
-    }
-
-    &_text {
-      width: 90%;
-      text-align: justify;
-      padding-left: 1.5rem;
-    }
-  }
-
-  &_modal {
-    background-color: white;
-    border-radius: 5px;
-    padding: 2rem;
-    justify-content: center;
-    display: flex;
-    width: 100%;
-    @include media(tablet_mini) {
-      width: 80%;
-    }
-    @include media(tablet) {
-      width: 60%;
-    }
-    @include media(desktop) {
-      width: 50%;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      width: 100%;
-      font-size: 1rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-      backdrop-filter: blur( 5.5px );
-      -webkit-backdrop-filter: blur( 5.5px );
-      border: 1px solid rgba( 255, 255, 255, 0.18 );
-      border-radius: 5px;
-      padding: 1rem;
-      @include media(tablet_mini) {
-        gap: 2rem;
-
-      }
-
-      .contact_modal_field {
-        position: relative;
-
-        textarea {
-          border: none;
-          border-bottom: 1px solid black;
-          width: 100%;
-        }
-
-        input {
-          border: none;
-          border-bottom: 1px solid black;
-          width: 100%;
-        }
-
-        label {
-          position: absolute;
-          top: 0;
-          left: 0;
-          pointer-events: none;
-          color: #595959;
-          transition: 0.3s;
-        }
-
-        /* We select label when input is focus */
-        input:focus ~ label,
-        .input_required:valid ~ label {
-          top: -1.5rem;
-          font-size: 1rem;
-          color: v.$textColor-colorBlue;
-        }
-      }
-
-      button {
-        border-radius: 5px;
-        border: none;
-        background-color: v.$textColor-colorBlue;
-        color: white;
-        font-weight: 500;
-        height: 35px;
-      }
-    }
-
-    .contact_modal_changeFormBtn {
-      padding-top: 1rem;
-      border: none;
-      background-color: transparent;
-      font-style: italic;
-      width: 100%;
-    }
-  }
 }
+
+// .mentionslegales {
+//   margin: auto;
+//   // padding-bottom: 10rem;
+//   width: 54%;
+
+//   &_title {
+//     padding-bottom: 2rem;
+//   }
+//   &-description {
+//     text-align: justify;
+//   }
+// }
+
+// .contact_titre {
+//   padding-bottom: 1rem;
+// }
+// .contact_text {
+//   width: 90%;
+//   text-align: justify;
+//   padding-left: 1.5rem;
+// }
+
+// .contact_presentation {
+//   width: 30%;
+//   padding-right: 2rem;
+// }
+
+// .contact_background {
+//   display: flex;
+//   justify-content: end;
+//   align-items: center;
+//   width: 40vw;
+//   height: 60vh;
+
+//   .contact_modal {
+//     background-color: white;
+//     border-radius: 5px;
+//     padding: 2rem;
+//     width: 100%;
+//     @include media(tablet_mini) {
+//       max-width: 400px;
+//     }
+
+//     form {
+//       display: flex;
+//       width: 800px;
+//       flex-direction: column;
+//       gap: 1rem;
+//       font-size: 1rem;
+//       @include media(tablet_mini) {
+//         gap: 2rem;
+//       }
+
+//       .contact_field {
+//         position: relative;
+
+//         input {
+//           border: none;
+//           border-bottom: 1px solid black;
+//           width: 100%;
+//         }
+
+//         label {
+//           position: absolute;
+//           top: 0;
+//           left: 0;
+//           pointer-events: none;
+//           color: #595959;
+//           transition: 0.3s;
+//         }
+
+//         /* We select label when input is focus */
+//         input:focus ~ label,
+//         .input_required:valid ~ label {
+//           top: -1.5rem;
+//           font-size: 1rem;
+//           color: v.$textColor-colorBlue;
+//         }
+//       }
+
+//       button {
+//         border-radius: 5px;
+//         border: none;
+//         background-color: v.$textColor-colorBlue;
+//         color: white;
+//         font-weight: 500;
+//         height: 35px;
+//       }
+//     }
+
+//     .contact_modal_changeFormBtn {
+//       padding-top: 1rem;
+//       border: none;
+//       background-color: transparent;
+//       font-style: italic;
+//       width: 100%;
+//     }
+//   }
+// }

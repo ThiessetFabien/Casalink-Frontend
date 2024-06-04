@@ -55,7 +55,7 @@ function App() {
   if (isLogged && memberSelected) {
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
-    homePageElement = <Navigate to="/profil" />;
+    homePageElement = <Navigate to="/selectprofile" />;
   } else {
     homePageElement = <Navigate to="/landingpage" />;
   }
@@ -69,7 +69,7 @@ function App() {
           <Route path="/" element={homePageElement} />
 
           <Route
-            path="/preferences"
+            path="/setting"
             element={
               isLogged ? <SettingPage /> : <Navigate to="/landingpage" />
             }
@@ -83,7 +83,7 @@ function App() {
           />
 
           <Route
-            path="/profil"
+            path="/selectprofile"
             element={
               isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
             }
@@ -91,7 +91,7 @@ function App() {
 
           <Route path="/landingpage" element={<LandingPage />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/mentionslegales" element={<MentionsLegales />} />
           <Route path="/sitemap" element={<SiteMap />} />
           <Route path="*" element={<NotFount />} />
         </Routes>
