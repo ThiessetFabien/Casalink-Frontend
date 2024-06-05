@@ -18,8 +18,6 @@ const actionCheckSignup = createAsyncThunk(
       });
       const { token } = response.data;
 
-      addTokenJwtToAxiosInstance(token);
-      addTokenAndPseudoToLocalStorage(token);
       console.log(response.data);
 
       return response.data;
