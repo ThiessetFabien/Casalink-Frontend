@@ -46,11 +46,23 @@ function Contact() {
     <div>
       <div className={`${isDarkMode ? 'contact-dark' : ''} contact`}>
         <h1>Contact</h1>
-        <div className="contact_presentation contact-dark_presentation">
-          <h2 className="contact_presentation_title contact-dark_presentation_title">
+        <div
+          className={`${
+            isDarkMode ? 'contact-dark_presentation' : ''
+          } contact_presentation`}
+        >
+          <h2
+            className={`${
+              isDarkMode ? 'contact-dark_presentation_title' : ''
+            } contact_presentation_title`}
+          >
             Des questions sans réponses ? Nous sommes là pour y répondre.
           </h2>
-          <p className="contact_presentation_text">
+          <p
+            className={`${
+              isDarkMode ? 'contact-dark_presentation_text' : ''
+            } contact_presentation_text`}
+          >
             CasaLink est une application web conçue pour simplifier la gestion
             des emplois du temps, des tâches domestiques et des événements au
             sein d&apos;un foyer. Elle vise à améliorer la coordination et la
