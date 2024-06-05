@@ -233,7 +233,7 @@ function Task({
 
           {(() => {
             if (memberSelected?.role === 'child') {
-              return <button type="submit">Valider</button>;
+              // return <button type="submit">Valider</button>;
             }
             if (taskModalMode === 'add') {
               return <button type="submit">Ajouter</button>;
@@ -241,7 +241,7 @@ function Task({
             return (
               <>
                 <button type="submit">Modifier</button>
-                <button type="button">Valider</button>
+                {/* <button type="button">Valider</button> */}
               </>
             );
           })()}
