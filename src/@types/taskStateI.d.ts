@@ -37,7 +37,8 @@ interface TaskPropsI {
     start: Date,
     end: Date,
     title: string,
-    description: string
+    description: string,
+    memberTarget: number
   ) => void;
   membersList: MemberStateI[];
   memberSelected: MemberStateI | null;

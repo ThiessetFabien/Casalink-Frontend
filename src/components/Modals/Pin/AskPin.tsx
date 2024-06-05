@@ -45,8 +45,23 @@ function AskPin() {
     SetInputValue(value);
   };
 
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
-    <div className="formDiv" ref={backgroundTaskRef}>
+    <div
+      className="formDiv"
+      role="button"
+      tabIndex={0}
+      ref={backgroundTaskRef}
+      onClick={() => {
+        // dispatch(actionSwitchPinModal());
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') dispatch(actionSwitchPinModal());
+      }}
+    >
       <form onSubmit={handleSubmit} className="form">
         <label htmlFor="checkPin" className="form_label">
           Rentrez votre code PIN

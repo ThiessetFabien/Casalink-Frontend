@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import type { RootState } from '..';
 import axiosInstance, { addTokenJwtToAxiosInstance } from '../../axios/axios';
 import { addTokenAndPseudoToLocalStorage } from '../../localStorage/localStorage';
-import { validateEmail, validePassword } from '../../utils/regexValidator';
 
 const actionCheckSignup = createAsyncThunk(
   'user/CHECK_SIGNUP',
@@ -20,7 +19,8 @@ const actionCheckSignup = createAsyncThunk(
       const { token } = response.data;
 
       addTokenJwtToAxiosInstance(token);
-      // addTokenAndPseudoToLocalStorage(token);
+      addTokenAndPseudoToLocalStorage(token);
+      console.log(response.data);
 
       return response.data;
     } catch (error) {

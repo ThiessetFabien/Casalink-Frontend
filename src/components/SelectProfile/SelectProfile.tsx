@@ -7,7 +7,10 @@ import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
 import { actionSwitchPinModal } from '../../store/reducer/modal.js';
-import { addProfileToLocalStorage, getProfileFromLocalStorage } from '../../localStorage/localStorage';
+import {
+  addProfileToLocalStorage,
+  getProfileFromLocalStorage,
+} from '../../localStorage/localStorage';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();

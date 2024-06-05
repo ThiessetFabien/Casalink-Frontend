@@ -10,7 +10,7 @@ export interface EventsI {
 }
 
 export interface EventsWithMemberI {
-  id: number;
+  id: number | null;
   nameTask: string;
   descriptionTask: string | null;
   start: string | Date;

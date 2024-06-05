@@ -42,7 +42,7 @@ const actionAddTask = createAsyncThunk(
 
 const actionModifyTask = createAsyncThunk(
   'task/CHANGE_TASK',
-  async (payload: EventsI, thunkAPI) => {
+  async (payload: EventsWithMemberI, thunkAPI) => {
     try {
       const response = await axiosInstance.patch(`/task/${payload.id}`, {
         name: payload.nameTask,
@@ -50,6 +50,7 @@ const actionModifyTask = createAsyncThunk(
         start_date: payload.start,
         end_date: payload.end,
         category_id: '1',
+        profile_id: payload.memberTarget,
       });
       const newTask = { ...payload, id: response.data.data.task.id };
       return newTask;

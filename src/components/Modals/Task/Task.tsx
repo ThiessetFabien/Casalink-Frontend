@@ -98,7 +98,7 @@ function Task({
     if (taskModalMode === 'add')
       addTask(id, start, end, title, description, memberTarget);
     else if (taskModalMode === 'edit')
-      editTask(id, start, end, title, description);
+      editTask(id, start, end, title, description, memberTarget);
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
