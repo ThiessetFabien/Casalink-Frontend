@@ -8,6 +8,7 @@ import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
 import { TaskInputI, TaskPropsI } from '../../../@types/taskStateI';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
+import { log } from 'winston';
 
 function Task({
   taskModalMode,
@@ -97,8 +98,11 @@ function Task({
 
     if (taskModalMode === 'add')
       addTask(id, start, end, title, description, memberTarget);
-    else if (taskModalMode === 'edit')
+    else if (taskModalMode === 'edit') {
+      console.log(memberTarget);
+      console.log(memberTarget);
       editTask(id, start, end, title, description, memberTarget);
+    }
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

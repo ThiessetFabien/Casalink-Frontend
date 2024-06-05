@@ -130,7 +130,8 @@ function HomePage() {
     startUnserielized: Date,
     endUnserielized: Date,
     title: string,
-    content: string
+    content: string,
+    memberTarget: number
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
@@ -141,6 +142,7 @@ function HomePage() {
         end,
         nameTask: title,
         descriptionTask: content,
+        memberTarget,
       })
     );
     dispatch(actionSwitchTaskModal());

@@ -8,6 +8,8 @@ const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
+      console.log(payload);
+      
       let response;
       if (Number.isNaN(payload.memberTarget)) {
         response = await axiosInstance.post(`/task/account/${payload.id}`, {
@@ -44,6 +46,8 @@ const actionModifyTask = createAsyncThunk(
   'task/CHANGE_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
+      console.log(payload);
+
       const response = await axiosInstance.patch(`/task/${payload.id}`, {
         name: payload.nameTask,
         description: payload.descriptionTask,
