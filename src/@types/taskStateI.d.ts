@@ -30,7 +30,8 @@ interface TaskPropsI {
     end: Date,
     title: string,
     description: string,
-    memberTarget: number
+    memberTarget: number,
+    memberRole: 'adult' | 'child'
   ) => void;
   editTask: (
     id: number,
@@ -38,7 +39,8 @@ interface TaskPropsI {
     end: Date,
     title: string,
     description: string,
-    memberTarget: number
+    memberTarget: number,
+    memberRole: 'adult' | 'child'
   ) => void;
   membersList: MemberStateI[];
   memberSelected: MemberStateI | null;

@@ -93,11 +93,13 @@ function Task({
     const description = descriptionTask;
 
     const memberTarget = parseInt(selectedValue, 10);
+    const member = membersList.find((m) => m.id === memberTarget);
+    const memberRole = member?.role;
 
     if (taskModalMode === 'add')
-      addTask(id, start, end, title, description, memberTarget);
+      addTask(id, start, end, title, description, memberTarget, memberRole);
     else if (taskModalMode === 'edit') {
-      editTask(id, start, end, title, description, memberTarget);
+      editTask(id, start, end, title, description, memberTarget, memberRole);
     }
   };
 

@@ -16,4 +16,5 @@ export interface EventsWithMemberI {
   start: string | Date;
   end: string | Date;
   memberTarget?: number | null;
+  memberRole?: 'adult' | 'child';
 }

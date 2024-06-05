@@ -60,16 +60,34 @@ const taskSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(actionAddTask.fulfilled, (state, action) => {
-      const { id, start, end, nameTask, descriptionTask } = action.payload;
-      state.list.push({ id, start, end, nameTask, descriptionTask });
+      const { id, start, end, nameTask, descriptionTask, memberRole } =
+        action.payload;
+      state.list.push({
+        id,
+        start,
+        end,
+        nameTask,
+        descriptionTask,
+        childTask: memberRole === 'child',
+      });
     });
     builder.addCase(actionAddTask.rejected, (state, action) => {
       // Gérer l'erreur
     });
     builder.addCase(actionModifyTask.fulfilled, (state, action) => {
-      const { id, start, end, nameTask, descriptionTask } = action.payload;
+      const { id, start, end, nameTask, descriptionTask, memberRole } =
+        action.payload;
       state.list = state.list.map((ev) =>
-        ev.id === id ? { ...ev, start, end, nameTask, descriptionTask } : ev
+        ev.id === id
+          ? {
+              ...ev,
+              start,
+              end,
+              nameTask,
+              descriptionTask,
+              childTask: memberRole === 'child',
+            }
+          : ev
       );
     });
     builder.addCase(actionModifyTask.rejected, (state, action) => {

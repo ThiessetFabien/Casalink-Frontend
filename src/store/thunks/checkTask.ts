@@ -8,6 +8,7 @@ const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
+      console.log(payload);
       const response = await axiosInstance.post(
         `/task/profile/${payload.memberTarget}`,
         {
@@ -32,6 +33,7 @@ const actionModifyTask = createAsyncThunk(
   'task/CHANGE_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
+      console.log(payload);
       const response = await axiosInstance.patch(`/task/${payload.id}`, {
         name: payload.nameTask,
         description: payload.descriptionTask,

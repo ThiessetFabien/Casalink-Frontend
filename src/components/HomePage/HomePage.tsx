@@ -107,7 +107,8 @@ function HomePage() {
     endUnserielized: Date,
     title: string,
     content: string,
-    memberTarget: number
+    memberTarget: number,
+    memberRole: 'adult' | 'child'
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
@@ -120,6 +121,7 @@ function HomePage() {
           nameTask: title,
           descriptionTask: content,
           memberTarget,
+          memberRole,
         })
       );
     dispatch(actionSwitchTaskModal());
@@ -131,7 +133,8 @@ function HomePage() {
     endUnserielized: Date,
     title: string,
     content: string,
-    memberTarget: number
+    memberTarget: number,
+    memberRole: 'adult' | 'child'
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
@@ -143,6 +146,7 @@ function HomePage() {
         nameTask: title,
         descriptionTask: content,
         memberTarget,
+        memberRole,
       })
     );
     dispatch(actionSwitchTaskModal());
