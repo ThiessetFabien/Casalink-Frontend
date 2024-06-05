@@ -15,9 +15,7 @@ import './LandingPage.scss';
 
 function LandingPage() {
   const dispatch = useAppDispatch();
-  const [imgTestVisiteur, setImgTestVisiteur] = useState(
-    'src/assets/agenda.webp'
-  );
+  const [imgTestVisiteur, setImgTestVisiteur] = useState('public');
   const [showMeteo, setShowMeteo] = useState(false);
   const [showCourses, setShowCourses] = useState(false);
   const [showBudget, setShowBudget] = useState(false);
@@ -114,7 +112,7 @@ function LandingPage() {
             </div>
           )}
           {!showMeteo && !showCourses && !showBudget && (
-            <img className="landingPage_img" src={imgTestVisiteur} alt="test" />
+            <img className="landingPage_img" src="/agenda.webp" alt="test" />
           )}
           <p className="landingPage_description">
             Simplifiez la gestion des emplois du temps, des tâches domestiques
