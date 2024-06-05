@@ -36,12 +36,14 @@ $breakpoints: (
       padding-bottom: 1rem;
       margin: 1rem 0;
       text-align: center;
+      color: black;
     }
 
     &_text {
       width: 90%;
       text-align: justify;
       padding-left: 1.5rem;
+      color: black;
     }
   }
 
@@ -139,8 +141,9 @@ $breakpoints: (
 
 .contact-dark {
   width: 100%;
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
   background-color: v.$textColor-colorDark-Blue;
