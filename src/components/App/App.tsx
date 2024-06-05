@@ -57,8 +57,6 @@ function App() {
 
   let homePageElement;
   if (isLogged && memberSelected) {
-    console.log(isLogged, memberSelected);
-    
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
     homePageElement = <Navigate to="/profil" />;

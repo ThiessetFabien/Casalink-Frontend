@@ -26,6 +26,7 @@ interface ApiTask {
   task_name: string;
   task_description: string | null;
   profile_id: number | null;
+  profile_role: 'child' | 'adult';
 }
 
 export const initialState: TaskStateInt = {
@@ -85,7 +86,7 @@ const taskSlice = createSlice({
             end: task.task_end_date,
             nameTask: task.task_name,
             descriptionTask: task.task_description,
-            childTask: false,
+            childTask: task.profile_role === 'child',
           };
           if (task.profile_id) newTask.childTask = true;
           state.list.push(newTask);

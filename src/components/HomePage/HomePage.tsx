@@ -18,6 +18,7 @@ import {
 import { UserStateI } from '../../@types/userStateI';
 import { MembersState } from '../../store/reducer/profile';
 import { TaskStateInt } from '../../store/reducer/task';
+import actionGetMembers from '../../store/thunks/checkProfile';
 
 interface DragNDropI {
   event: EventsI;
@@ -35,6 +36,7 @@ interface StateReducerI {
 const DragNDropCalendar = withDragAndDrop<EventsI>(Calendar);
 
 function HomePage() {
+  const dispatch = useAppDispatch();
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [eventSelected, setEventSelected] = useState<null | EventsI>(null);
   const [taskModalMode, setTaskModalMode] = useState<'add' | 'edit'>('add');
@@ -42,12 +44,13 @@ function HomePage() {
     (state) => state.modal.taskModalIsOpen
   );
   const accountId = useAppSelector((state) => state.user.id);
+
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
-  const membersList = useAppSelector((state) => state.profile.members) || [];
-  const getTasks = (state: StateReducerI) => state.task.list;
+  const membersList = useAppSelector((state) => state.profile.members);
 
+  const getTasks = (state: StateReducerI) => state.task.list;
   const getMappedTasks = createSelector([getTasks], (tasks) =>
     tasks.map((task) => ({
       ...task,
@@ -57,10 +60,7 @@ function HomePage() {
       childTask: task.childTask,
     }))
   );
-
   const events = useAppSelector(getMappedTasks);
-
-  const dispatch = useAppDispatch();
 
   const eventPropGetter = useCallback(
     (
@@ -95,8 +95,10 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (accountId !== null && memberSelected !== null)
+    if (accountId !== null && memberSelected !== null) {
       dispatch(actionGetTask({ id: accountId, member: memberSelected }));
+      dispatch(actionGetMembers({ id: accountId }));
+    }
   }, [accountId, memberSelected, dispatch]);
 
   const addTask = (

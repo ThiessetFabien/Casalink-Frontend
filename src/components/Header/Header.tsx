@@ -41,10 +41,6 @@ function Header() {
     }
   };
 
-  const handleChangeProfile = () => {
-    // disconnectProfileLocalStorage();
-  };
-
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       {isConnected && memberSelected && (
@@ -68,7 +64,7 @@ function Header() {
           </Link>
         </div>
       )}
-      <Link to="/" className="header_title" onClick={() => handleChangeProfile}>
+      <Link to="/" className="header_title">
         <div className="header_logoDiv">
           <img
             className="header_logo"
