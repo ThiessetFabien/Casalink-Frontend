@@ -31,6 +31,15 @@ function Header() {
 
   const HandleSwitchDarkMode = () => {
     dispatch(actionSwitchDarkMode());
+    if (isMenuOpen) {
+      dispatch(actionSwitchSideMenuModal());
+    }
+  };
+
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      HandleSwitchDarkMode();
+    }
   };
 
   return (
@@ -103,26 +112,35 @@ function Header() {
             Déconnexion
           </div>
         </Link>
-        <Link
+        {/* <Link
           to="/"
           className="header_menuMobile_link"
           onClick={HandleSwitchDarkMode}
+        > */}
+        <div
+          className="header_menuMobileDiv"
+          onClick={HandleSwitchDarkMode}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+          aria-label={
+            isDarkMode ? 'Passez au thème clair' : 'Passez au thème sombre'
+          }
         >
-          <div className="header_menuMobileDiv">
-            {isDarkMode ? (
-              <TbMoonFilled
-                className={`header_menuMobile_icon `}
-                onClick={HandleSwitchDarkMode}
-              />
-            ) : (
-              <MdWbSunny
-                className="header_menuMobile_icon"
-                onClick={HandleSwitchDarkMode}
-              />
-            )}
-            {isDarkMode ? 'Switch light' : 'Switch dark'}
-          </div>
-        </Link>
+          {isDarkMode ? (
+            <TbMoonFilled
+              className={`header_menuMobile_icon `}
+              onClick={HandleSwitchDarkMode}
+            />
+          ) : (
+            <MdWbSunny
+              className="header_menuMobile_icon"
+              onClick={HandleSwitchDarkMode}
+            />
+          )}
+          {isDarkMode ? 'Switch light' : 'Switch dark'}
+        </div>
+        {/* </Link> */}
       </div>
       <div
         className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}

@@ -184,11 +184,6 @@ $breakpoints: (
     border-radius: 100%;
   }
 
-  &_menuMobileDiv:hover {
-    background-color: v.$textColor-colorDark;
-    color: v.$bgColor-White;
-  }
-
   &_avatar {
     display: none;
     @include media(desktop) {
