@@ -70,6 +70,7 @@ const actionGetTask = createAsyncThunk(
         response = await axiosInstance.get(
           `/task/profile/${payload.member.id}`
         );
+      console.log('je suis la response', response);
       if (response) return response.data.data.tasks;
       return null;
     } catch (error) {

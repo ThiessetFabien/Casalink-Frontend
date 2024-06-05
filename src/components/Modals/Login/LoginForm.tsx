@@ -26,7 +26,7 @@ function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
     if (actionCheckLogin.fulfilled.match(resultAction)) {
       dispatch(actionSwitchLoginModal());
       dispatch(actionGetMembers({ id: resultAction.payload.account.id }));
-      navigate('/selectprofile');
+      navigate('/profil');
     }
   };
   return (

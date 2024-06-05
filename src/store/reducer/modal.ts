@@ -7,6 +7,7 @@ export interface ModalStateI {
   profileModalIsOpen: boolean;
   sideMenuModalIsOpen: boolean;
   darkModeIsActive: boolean;
+  pinModalIsActive: boolean;
 }
 
 export const initialState: ModalStateI = {
@@ -16,6 +17,7 @@ export const initialState: ModalStateI = {
   profileModalIsOpen: false,
   sideMenuModalIsOpen: false,
   darkModeIsActive: false,
+  pinModalIsActive: false,
 };
 
 export const actionSwitchLoginModal = createAction('modal/SWITCH_LOGIN_MODAL');
@@ -30,6 +32,7 @@ export const actionSwitchDarkMode = createAction('modal/SWITCH_DARKMODE_MODAL');
 export const actionSetModeLoginModal = createAction<'signin' | 'signup'>(
   'modal/SET_MODE_LOGIN_MODAL'
 );
+export const actionSwitchPinModal = createAction('modal/SWITCH_PIN_MODAL');
 
 const modalReducer = createReducer(initialState, (builder) => {
   builder
@@ -50,6 +53,9 @@ const modalReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionSetModeLoginModal, (state, action) => {
       state.loginModalIsMode = action.payload;
+    })
+    .addCase(actionSwitchPinModal, (state) => {
+      state.pinModalIsActive = !state.pinModalIsActive;
     });
 });
 

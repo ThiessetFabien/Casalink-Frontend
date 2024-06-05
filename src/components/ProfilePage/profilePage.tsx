@@ -18,7 +18,9 @@ function ProfilePage() {
   const accountId = useAppSelector((state) => state.user.id);
   const membersList = useAppSelector((state) => state.profile.members);
   const tasksList = useAppSelector((state) => state.profile.tasks);
-  const [cardSelected, setCardSelected] = useState<MemberStateI | null>(null);
+  const [cardSelected, setCardSelected] = useState<MemberStateI>(
+    membersList[0]
+  );
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
   );
@@ -43,7 +45,6 @@ function ProfilePage() {
       );
     }
   }, [dispatch, membersList]);
-  // console.log(membersList[0].id, accountId);
 
   const tasksByMember = useMemo(() => {
     const result = membersList.reduce((acc, member) => {

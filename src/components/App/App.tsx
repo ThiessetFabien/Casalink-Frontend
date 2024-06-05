@@ -19,18 +19,19 @@ import ProfilePage from '../ProfilePage/profilePage';
 import SideMenu from '../SideMenu/SideMenu';
 import SettingPage from '../SettingPage/SettingPage';
 import SelectProfile from '../SelectProfile/SelectProfile';
+import AskPin from '../Modals/Pin/AskPin';
 import {
   getProfileFromLocalStorage,
   getTokenAndPseudoFromLocalStorage,
 } from '../../localStorage/localStorage';
-import { actionLogin } from '../../store/reducer/user';
 import { addTokenJwtToAxiosInstance } from '../../axios/axios';
+import { actionLogin } from '../../store/reducer/user';
 import { actionSelectProfile } from '../../store/reducer/profile';
 
 function App() {
   const dispatch = useAppDispatch();
-
   const isLogged = useAppSelector((state) => state.user.logged);
+  const modalIsOpen = useAppSelector((state) => state.modal.pinModalIsActive);
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
@@ -56,6 +57,8 @@ function App() {
 
   let homePageElement;
   if (isLogged && memberSelected) {
+    console.log(isLogged, memberSelected);
+    
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
     homePageElement = <Navigate to="/profil" />;
@@ -67,7 +70,7 @@ function App() {
       <Header />
       <div className="mainContainer">
         {isLogged && memberSelected && <SideMenu />}
-
+        {modalIsOpen && <AskPin />}
         <Routes>
           <Route path="/" element={homePageElement} />
 

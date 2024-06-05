@@ -29,3 +29,7 @@ export function disconnectLocalStorage() {
   localStorage.removeItem('profile');
   removeTokenJwtToAxiosInstance();
 }
+
+export function disconnectProfileLocalStorage() {
+  localStorage.removeItem('profile');
+}

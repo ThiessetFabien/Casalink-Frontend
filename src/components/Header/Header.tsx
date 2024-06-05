@@ -4,7 +4,7 @@ import { BiHomeAlt2 } from 'react-icons/bi';
 import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
 import { HiMail } from 'react-icons/hi';
 import { IoLogOut } from 'react-icons/io5';
-
+import baseURL from '../../utils/baseURL';
 import './Header.scss';
 import Login from '../Modals/Login/Login';
 import BtnConnect from './BtnConnect/BtnConnect';
@@ -14,9 +14,8 @@ import {
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
 import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
-import baseURL from '../../utils/baseURL';
+import { disconnectProfileLocalStorage } from '../../localStorage/localStorage';
 
-// coucou c'est moi
 function Header() {
   const dispatch = useAppDispatch();
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
@@ -42,6 +41,10 @@ function Header() {
     }
   };
 
+  const handleChangeProfile = () => {
+    // disconnectProfileLocalStorage();
+  };
+
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       {isConnected && memberSelected && (
@@ -65,8 +68,7 @@ function Header() {
           </Link>
         </div>
       )}
-
-      <Link to="/" className="header_title">
+      <Link to="/" className="header_title" onClick={() => handleChangeProfile}>
         <div className="header_logoDiv">
           <img
             className="header_logo"

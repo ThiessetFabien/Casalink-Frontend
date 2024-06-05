@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
+import { actionSwitchPinModal } from '../../store/reducer/modal.js';
 import { addProfileToLocalStorage } from '../../localStorage/localStorage';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const membersList = useAppSelector((state) => state.profile.members) || [];
   const accountId = useAppSelector((state) => state.user.id);
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
@@ -27,6 +29,8 @@ function SelectProfile() {
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
     addProfileToLocalStorage(member);
+    if (member.role === 'adult') dispatch(actionSwitchPinModal());
+    else if (member.role === 'child') navigate('/');
   };
   if (!accountId) {
     return null; // ici afficher la page 404
@@ -63,14 +67,13 @@ function SelectProfile() {
                     isDarkMode ? 'selectProfile_container-dark_member_card' : ''
                   } selectProfile_container_member_card`}
                 >
-                  <Link
+                  <button
+                    type="button"
                     className="selectProfile_container_member_card_link"
-                    to="/"
                     onClick={() => handleSelect(member)}
                   >
                     selectione
-                  </Link>
-
+                  </button>
                   <img
                     className="selectProfile_container_member_card_image"
                     src={

@@ -5,6 +5,7 @@ import { actionSwitchProfileModal } from '../../../store/reducer/modal';
 import { actionAddProfile } from '../../../store/thunks/changeProfile';
 import actionGetMembers from '../../../store/thunks/checkProfile';
 import './addProfile.scss';
+import { MemberStateI } from '../../../@types/memberStateI';
 
 interface AddProfileModalProps {
   onClose: () => void;
@@ -17,22 +18,9 @@ function AddProfileModal({ onClose }: AddProfileModalProps) {
   const currentDate = format(new Date(), 'yyyy-MM-dd');
   const accountId = useAppSelector((state) => state.user.id);
 
-  interface ProfileI {
-    id: null | number;
-    name: string;
-    birthdate: string;
-    score: number;
-    tasks: string[];
-    image: string;
-    role: 'child' | 'adult';
-    email: string;
-    pin: number;
-    isChecked: boolean;
-  }
-
   // Add state for new profile data
-  const [newProfile, setNewProfile] = useState<ProfileI>({
-    id: null,
+  const [newProfile, setNewProfile] = useState<MemberStateI>({
+    id: 0,
     name: '',
     birthdate: '2000-01-01',
     score: 0,
