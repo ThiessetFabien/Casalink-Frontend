@@ -1,34 +1,76 @@
 import { Link } from 'react-router-dom';
 import './SiteMap.scss';
+import baseURL from '../../utils/baseURL';
+import { useAppSelector } from '../../hooks/redux';
 
 function SiteMap() {
+  const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
+
   return (
-    <div className="sitemap">
+    <div className={`${isDarkMode ? 'sitemap-dark' : ''} sitemap`}>
       <h1 className="sitemap_title">Plan du site</h1>
-      <div className="boxForInfo">
-        <span className="sitemap_item">
-          <Link to="/" className="sitemap_linkItem">
+      <div
+        className={`${
+          isDarkMode ? 'sitemap-dark_boxForInfo' : ''
+        } sitemap_boxForInfo`}
+      >
+        <span
+          className={`${
+            isDarkMode ? 'sitemap-dark_boxForInfo_item' : ''
+          } sitemap_boxForInfo_item`}
+        >
+          <Link
+            to="/"
+            className="sitemap_boxForInfo_item_link sitemap-dark_boxForInfo_item_link"
+          >
             Accueil :
-          </Link>
-          http://localhost:5173/
+          </Link>{' '}
+          {baseURL}
         </span>
-        <span className="sitemap_item">
-          <Link to="/contact" className="sitemap_linkItem">
+        <span
+          className={`${
+            isDarkMode ? 'sitemap-dark_boxForInfo_item' : ''
+          } sitemap_boxForInfo_item`}
+        >
+          <Link
+            to="/foyer"
+            className="sitemap_boxForInfo_item_link sitemap-dark_boxForInfo_item_link"
+          >
+            Foyer :
+          </Link>{' '}
+          {baseURL}/foyer
+        </span>
+        <span
+          className={`${
+            isDarkMode ? 'sitemap-dark_boxForInfo_item' : ''
+          } sitemap_boxForInfo_item`}
+        >
+          <Link
+            to="/preferences"
+            className="sitemap_boxForInfo_item_link sitemap-dark_boxForInfo_item_link"
+          >
+            Préférences :
+          </Link>{' '}
+          {baseURL}/preferences
+        </span>
+        <span
+          className={`${
+            isDarkMode ? 'sitemap-dark_boxForInfo_item' : ''
+          } sitemap_boxForInfo_item`}
+        >
+          <Link
+            to="/contact"
+            className="sitemap_boxForInfo_item_link sitemap-dark_boxForInfo_item_link"
+          >
             Contact :
-          </Link>
-          http://localhost:5173/contact
+          </Link>{' '}
+          {baseURL}/contact
         </span>
-        <span className="sitemap_item">
-          <Link to="/contact" className="sitemap_linkItem">
+        <span className="sitemap_boxForInfo_item">
+          <Link to="/mentions-legales" className="sitemap_boxForInfo_item_link">
             Mentions légales :
           </Link>{' '}
-          http://localhost:5173/contact
-        </span>
-        <span className="sitemap_item">
-          <Link to="/sitemap" className="sitemap_linkItem">
-            Foyer :
-          </Link>
-          http://localhost:5173/foyer
+          {baseURL}/mentions-legales
         </span>
       </div>
     </div>

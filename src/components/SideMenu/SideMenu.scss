@@ -243,38 +243,39 @@ $breakpoints: (
 }
 
 .dark.side {
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
+  box-shadow: v.$shadowColorWhite;
   transition: all 0.4s ease-in-out;
 }
 
 .dark.side-open {
   border-right: 3px solid white;
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
   transition: all 0.4s ease-in-out;
 }
 
 .dark .side_menubtn_icon {
-  border: 3px solid v.$textColor-colorDark-Blue;
-  color: v.$textColor-colorDark-Blue;
+  border: 3px solid v.$textColor-colorDark;
+  color: v.$textColor-colorDark;
 }
 
 .dark .side_menubtn_icon-open {
   border: 3px solid v.$textColor-colorWhite;
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
   color: v.$textColor-colorWhite;
 }
 
 .dark .side_menubtn_icon:hover {
   color: v.$textColor-colorWhite;
-  background-color: v.$textColor-colorDark-Blue;
+  background-color: v.$textColor-colorDark;
   border: 3px solid v.$textColor-colorWhite;
   transition: all 0.4s ease-in-out;
 }
 
 .dark .side_menubtn_icon-open:hover {
-  color: v.$textColor-colorDark-Blue;
+  color: v.$textColor-colorDark;
   background-color: v.$textColor-colorWhite;
-  border: 3px solid v.$textColor-colorDark-Blue;
+  border: 3px solid v.$textColor-colorDark;
   transition: all 0.4s ease-in-out;
 }
 

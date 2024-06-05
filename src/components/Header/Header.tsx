@@ -30,29 +30,44 @@ function Header() {
 
   const HandleSwitchDarkMode = () => {
     dispatch(actionSwitchDarkMode());
+    if (isMenuOpen) {
+      dispatch(actionSwitchSideMenuModal());
+    }
+  };
+
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      HandleSwitchDarkMode();
+    }
   };
 
   const handleChangeProfile = () => {
-    disconnectProfileLocalStorage();
+    // disconnectProfileLocalStorage();
   };
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
       {isConnected && memberSelected && (
-        <img
-          src={
-            memberSelected.image
-              ? `${baseURL}/${memberSelected.image}`
-              : `${baseURL}/uploads/avatars/default-avatar.webp`
-          }
-          alt="userAvatar"
+        <div
           className={`${
             isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
           }`}
-        />
+        >
+          <Link to="/profil" className="header_avatar_link">
+            <img
+              src={
+                memberSelected.image
+                  ? `${baseURL}/${memberSelected.image}`
+                  : `${baseURL}/uploads/avatars/default-avatar.webp`
+              }
+              alt="userAvatar"
+              className={`${
+                isMenuOpen ? 'header_avatar-menuOpen_img' : 'header_avatar_img'
+              }`}
+            />
+          </Link>
+        </div>
       )}
-      {/* <div className="header_menuItems"> */}
-      {/* {isConnected && <UserHeader />} */}
       <Link to="/" className="header_title" onClick={() => handleChangeProfile}>
         <div className="header_logoDiv">
           <img
@@ -67,39 +82,53 @@ function Header() {
           isMenuOpen ? 'header_menuMobile-open' : 'header_menuMobile'
         }`}
       >
-        <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
-          <div>
-            <BiHomeAlt2 className="header_menuMobile_icon" />
-          </div>
-          <Link to="/" className="header_menuMobile_link">
+        <Link to="/" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
+            <div>
+              <BiHomeAlt2 className="header_menuMobile_icon" />
+            </div>
             Accueil
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <MdFamilyRestroom className="header_menuMobile_icon" />
-          <Link to="/foyer" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/foyer" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <MdFamilyRestroom className="header_menuMobile_icon" />
             Mon foyer
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <MdSettingsSuggest className="header_menuMobile_icon" />
-          <Link to="/setting" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/preferences" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <MdSettingsSuggest className="header_menuMobile_icon" />
             Préférences
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <HiMail className="header_menuMobile_icon" />
-          <Link to="/contact" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/contact" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <HiMail className="header_menuMobile_icon" />
             Contact
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
-          <IoLogOut className="header_menuMobile_icon" />
-          <Link to="/" className="header_menuMobile_link">
+          </div>
+        </Link>
+        <Link to="/" className="header_menuMobile_link">
+          <div className="header_menuMobileDiv">
+            <IoLogOut className="header_menuMobile_icon" />
             Déconnexion
-          </Link>
-        </div>
-        <div className="header_menuMobileDiv">
+          </div>
+        </Link>
+        {/* <Link
+          to="/"
+          className="header_menuMobile_link"
+          onClick={HandleSwitchDarkMode}
+        > */}
+        <div
+          className="header_menuMobileDiv"
+          onClick={HandleSwitchDarkMode}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={0}
+          aria-label={
+            isDarkMode ? 'Passez au thème clair' : 'Passez au thème sombre'
+          }
+        >
           {isDarkMode ? (
             <TbMoonFilled
               className={`header_menuMobile_icon `}
@@ -111,14 +140,9 @@ function Header() {
               onClick={HandleSwitchDarkMode}
             />
           )}
-          <Link
-            to="/"
-            className="header_menuMobile_link"
-            onClick={HandleSwitchDarkMode}
-          >
-            {isDarkMode ? 'Switch light' : 'Switch dark'}
-          </Link>
+          {isDarkMode ? 'Switch light' : 'Switch dark'}
         </div>
+        {/* </Link> */}
       </div>
       <div
         className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
@@ -133,9 +157,6 @@ function Header() {
           <span className="header-bar" />
         </button>
       </div>
-
-      {/* </div> */}
-      {/* <BtnConnect /> */}
       {!isConnected && <BtnConnect />}
       {loginModalIsOpen && <Login />}
     </div>

@@ -6,7 +6,7 @@ $btnBg-landing: #178feb;
 
 // text color
 $textColor-colorWhite: white;
-$textColor-colorDark: #272020;
+$textColor-colorDark: #000000;
 $textColor-colorBlue: rgb(23, 143, 235);
 $textColor-colorDark-Blue: rgb(5, 34, 57);
 $textColor-colorOrange: rgb(235, 115, 23);
@@ -17,6 +17,7 @@ $textColor-colorLightGray: lightgray;
 $textColor-colorGray: gray;
 
 // shadow color
-$shadowColor: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
+$shadowColor: 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
+$shadowColorWhite: 1px 0px 5px 1px white;
 
 // font size

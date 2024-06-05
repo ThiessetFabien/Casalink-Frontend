@@ -54,12 +54,6 @@ function SideNavBurger({ isConnected }: SideNavPropsI) {
         <NavLink
           to="/"
           className={({ isActive }) => (isActive ? 'active' : '')}
-          // style={({ isActive }) => {
-          //   return {
-          //     fontWeight: isActive ? 'bold' : '',
-          //     color: isActive ? 'red' : 'black',
-          //   };
-          // }}
         >
           <Home className="sideNavIcon" />
           <span

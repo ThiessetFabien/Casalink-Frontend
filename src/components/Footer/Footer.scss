@@ -37,15 +37,33 @@ $breakpoints: (
   &_listItems {
     text-decoration: none;
     color: v.$textColor-colorDark;
+  }
+}
 
-    // &_btn:hover {
-    //   font-weight: bold;
-    //   padding: 0 0.2rem 0 0;
-    //   color: v.$textColor-colorDark;
-    //   border-bottom-right-radius: 5px;
-    //   border-right: 1px solid black;
-    //   border-bottom: 1px solid black;
-    //   transition: 0.2s;
-    // }
+.Footer-dark {
+  height: 13vw;
+  font-size: 0.8rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 5rem;
+  background-color: v.$textColor-colorDark;
+  display: flex;
+  z-index: 20;
+  position: fixed;
+  bottom: 0;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: v.$shadowColorWhite;
+
+  @include media(desktop) {
+    height: 5vh;
+  }
+  @include media(tablet) {
+    height: 5vh;
+  }
+
+  &_listItems {
+    text-decoration: none;
+    color: v.$textColor-colorWhite;
   }
 }

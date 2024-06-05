@@ -57,9 +57,11 @@ function App() {
 
   let homePageElement;
   if (isLogged && memberSelected) {
+    console.log(isLogged, memberSelected);
+    
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
-    homePageElement = <Navigate to="/selectprofile" />;
+    homePageElement = <Navigate to="/profil" />;
   } else {
     homePageElement = <Navigate to="/landingpage" />;
   }
@@ -87,7 +89,7 @@ function App() {
           />
 
           <Route
-            path="/selectprofile"
+            path="/profil"
             element={
               isLogged ? <SelectProfile /> : <Navigate to="/landingpage" />
             }
