@@ -7,9 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
 import { TaskInputI, TaskPropsI } from '../../../@types/taskStateI';
-import { EventsI } from '../../../@types/events';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
-import { MemberStateI } from '../../../@types/memberStateI';
 
 function Task({
   taskModalMode,
@@ -126,16 +124,18 @@ function Task({
         onClick={handleModalClick}
       >
         <div className="task_modal_btns">
-          <button
-            type="button"
-            className="task_modal_btns_delete"
-            onClick={() => {
-              dispatch(actionDeleteTask({ id: eventSelect?.id }));
-              dispatch(actionSwitchTaskModal());
-            }}
-          >
-            <Trash2 />
-          </button>
+          {memberSelected?.role === 'adult' && (
+            <button
+              type="button"
+              className="task_modal_btns_delete"
+              onClick={() => {
+                dispatch(actionDeleteTask({ id: eventSelect?.id }));
+                dispatch(actionSwitchTaskModal());
+              }}
+            >
+              <Trash2 />
+            </button>
+          )}
           <button
             type="button"
             className="task_modal_btns_exit"

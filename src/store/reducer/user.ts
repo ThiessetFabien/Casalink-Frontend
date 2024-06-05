@@ -20,6 +20,7 @@ export const initialState: UserStateI = {
       lastname: '',
     },
   },
+  pseudo: null,
   token: null,
   error: null,
 };
@@ -35,6 +36,10 @@ export const actionChangeCredentialsSignup = createAction<{
 }>('user/CHANGE_CREDENTIAL_SIGNUP');
 
 export const actionLogout = createAction('user/LOG_OUT');
+
+export const actionChangePinErrorMessage = createAction(
+  'user/CHANGE_ERROR_MESSAGE'
+);
 
 export const actionResetErrorMessage = createAction('user/RESET_ERROR_MESSAGE');
 
@@ -55,6 +60,9 @@ const userReducer = createReducer(initialState, (builder) => {
       (state.credentials.signup[action.payload.name] as string) =
         action.payload.value;
     })
+    .addCase(actionChangePinErrorMessage, (state) => {
+      state.error = 'Pin incorrecte';
+    })
     .addCase(actionResetErrorMessage, (state) => {
       state.error = null;
     })
@@ -69,6 +77,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actionLogout, (state) => {
       state.logged = false;
+      state.pseudo = null;
     })
     .addCase(actionLogin, (state, action) => {
       state.logged = true;
@@ -82,12 +91,12 @@ const userReducer = createReducer(initialState, (builder) => {
       state.token = action.payload.token;
       state.error = null;
     })
-    // ! à ajuster
     .addCase(actionCheckLogin.rejected, (state) => {
       state.error = 'Identifiant ou mot de passe inccorect';
     })
     .addCase(actionCheckSignup.fulfilled, (state, action) => {
       state.logged = true;
+      state.pseudo = action.payload.pseudo;
       state.token = action.payload.token;
       state.error = null;
     })

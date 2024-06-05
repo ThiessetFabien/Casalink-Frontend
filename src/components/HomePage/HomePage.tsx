@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
 import { Calendar, DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import { addHours, format } from 'date-fns';
-import { createSelector } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ModalStateI, actionSwitchTaskModal } from '../../store/reducer/modal';
 
@@ -45,8 +45,7 @@ function HomePage() {
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
-  const membersList = useAppSelector((state) => state.profile.members);
-
+  const membersList = useAppSelector((state) => state.profile.members) || [];
   const getTasks = (state: StateReducerI) => state.task.list;
 
   const getMappedTasks = createSelector([getTasks], (tasks) =>
@@ -148,8 +147,8 @@ function HomePage() {
   // We put a useCallback to avoid the function recreation at each render
   const handleSelectSlot = useCallback(
     ({ start }: { start: Date }) => {
-      if (memberSelected?.role === 'child') return;
       const endWithOneHour = addHours(start, 1);
+      if (memberSelected?.role === 'child') return;
       setTaskModalMode('add');
       setEventSelected({
         id: 0,

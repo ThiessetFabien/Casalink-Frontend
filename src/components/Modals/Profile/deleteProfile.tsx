@@ -17,7 +17,6 @@ function DeleteProfileModal({ profile, closeModal }: DeleteProfileModalProps) {
 
   const handleDelete = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('modal delete profile', profile.id);
     const resultAction = await dispatch(actionDeleteProfile(profile.id));
     if (actionDeleteProfile.fulfilled.match(resultAction)) {
       dispatch(actionSwitchProfileModal());

@@ -12,13 +12,13 @@ export interface TaskStateI {
 }
 
 export interface MemberStateI {
-  id: number;
+  id: number | null;
   name: string;
   birthdate: Date | string;
   score: number;
   tasks: string[];
   image: string;
-  role: 'child' | 'adult';
+  role: string;
   pin: number;
   email: string;
   isChecked: boolean;

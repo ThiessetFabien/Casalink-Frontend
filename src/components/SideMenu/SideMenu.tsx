@@ -18,6 +18,7 @@ import { actionLogout } from '../../store/reducer/user';
 
 function SideMenu() {
   const location = useLocation();
+
   const dispatch = useAppDispatch();
 
   const isDarkMode = useAppSelector((state) => state.modal.darkModeIsActive);
