@@ -8,7 +8,6 @@ const actionAddTask = createAsyncThunk(
   'task/ADD_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
-      console.log(payload);
       const response = await axiosInstance.post(
         `/task/profile/${payload.memberTarget}`,
         {
@@ -20,7 +19,6 @@ const actionAddTask = createAsyncThunk(
           account_id: payload.id,
         }
       );
-      console.log(response.data);
       const newTask = { ...payload, id: response.data.data.task.id };
       return newTask;
     } catch (error) {
@@ -34,8 +32,6 @@ const actionModifyTask = createAsyncThunk(
   'task/CHANGE_TASK',
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
-      console.log(payload);
-
       const response = await axiosInstance.patch(`/task/${payload.id}`, {
         name: payload.nameTask,
         description: payload.descriptionTask,
@@ -45,8 +41,6 @@ const actionModifyTask = createAsyncThunk(
         profile_id: payload.memberTarget,
       });
       const newTask = { ...payload, id: response.data.data.task.id };
-      console.log(newTask);
-      
       return newTask;
     } catch (error) {
       const axiosError = error as AxiosError;

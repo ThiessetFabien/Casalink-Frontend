@@ -103,7 +103,6 @@ function Task({
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
-    console.log(event.target.value);
   };
 
   return (
