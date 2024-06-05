@@ -1,0 +1,62 @@
+@use '../../styles/variables' as v;
+
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: v.$textColor-colorDark;
+  background-color: white;
+
+  &_h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 1rem;
+    text-align: center;
+    color: v.$textColor-colorDark;
+  }
+
+  &_img {
+    width: 50%;
+    height: auto;
+    margin: 1rem;
+    @include media(tablet) {
+      width: 40%;
+    }
+    @include media(desktop) {
+      width: 20%;
+    }
+  }
+
+  &_p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 1rem;
+    text-align: center;
+    color: v.$textColor-colorDark;
+  }
+
+  &_button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: v.$textColor-colorBlue;
+    color: v.$textColor-colorWhite;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+}

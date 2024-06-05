@@ -58,7 +58,7 @@ function App() {
   if (isLogged && memberSelected) {
     homePageElement = <HomePage />;
   } else if (isLogged && !memberSelected) {
-    homePageElement = <Navigate to="/selectprofile" />;
+    homePageElement = <Navigate to="/profil" />;
   } else {
     homePageElement = <Navigate to="/landingpage" />;
   }

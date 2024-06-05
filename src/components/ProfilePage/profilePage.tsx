@@ -35,7 +35,12 @@ function ProfilePage() {
 
   useEffect(() => {
     if (membersList.length > 0 && membersList[0]?.id !== undefined) {
-      dispatch(actionFetchTasks({ id: membersList[0].id }));
+      dispatch(
+        actionFetchTasks({
+          id: membersList[0].id,
+          profile_id: null,
+        })
+      );
     }
   }, [dispatch, membersList]);
   // console.log(membersList[0].id, accountId);

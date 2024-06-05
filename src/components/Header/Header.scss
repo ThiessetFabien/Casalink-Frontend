@@ -288,13 +288,14 @@ $breakpoints: (
 }
 
 .btn-login {
-  background: v.$textColor-colorDark;
+  background: v.$textColor-colorBlue;
   width: 100px;
   height: 40px;
   line-height: 42px;
   color: v.$textColor-colorWhite;
   padding: 0;
   border: none;
+  margin-top: 0.2rem;
   position: fixed;
   right: 1rem;
   @include media(mobile) {
