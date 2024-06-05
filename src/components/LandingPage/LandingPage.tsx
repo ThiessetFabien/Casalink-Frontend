@@ -121,10 +121,10 @@ function LandingPage() {
             foyer en offrant une plateforme centralisée pour organiser et
             partager des informations importantes. Des fonctionnalités sont à
             venir, comme l&apos;affichage de la météo pour organiser au mieux
-            sont planning en fonction du temps. Dans le futur il y aura
-            également la possibilité de créer une liste de course pour le foyer
+            son planning en fonction du temps. Dans le futur, il y aura
+            également la possibilité de créer une liste de courses pour le foyer
             ou encore un budget commun afin de prévoir les dépenses par poste,
-            comme le loisirs, la santé, l&apos;alimentation, etc.
+            comme le loisir, la santé, l&apos;alimentation, etc.
           </p>
           <button
             className="btn-signin"

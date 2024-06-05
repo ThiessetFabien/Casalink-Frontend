@@ -9,8 +9,8 @@ export const initialState: UserStateI = {
   foyer: 'ma maison',
   credentials: {
     login: {
-      emailSignin: 'test@test.com',
-      passwordSignin: 'Test1234#',
+      emailSignin: '',
+      passwordSignin: '',
     },
     signup: {
       email: '',
