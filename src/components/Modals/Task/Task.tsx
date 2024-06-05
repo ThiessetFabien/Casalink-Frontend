@@ -8,7 +8,6 @@ import { actionSwitchTaskModal } from '../../../store/reducer/modal';
 import { actionChangeTask } from '../../../store/reducer/task';
 import { TaskInputI, TaskPropsI } from '../../../@types/taskStateI';
 import { actionDeleteTask } from '../../../store/thunks/checkTask';
-import { log } from 'winston';
 
 function Task({
   taskModalMode,
@@ -19,9 +18,8 @@ function Task({
   memberSelected,
 }: TaskPropsI) {
   const dispatch = useAppDispatch();
-  const membersChild = membersList.filter((member) => member.role === 'child');
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
-  const [selectedValue, setSelectedValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>(memberSelected.id);
 
   const {
     startDate,
@@ -99,14 +97,13 @@ function Task({
     if (taskModalMode === 'add')
       addTask(id, start, end, title, description, memberTarget);
     else if (taskModalMode === 'edit') {
-      console.log(memberTarget);
-      console.log(memberTarget);
       editTask(id, start, end, title, description, memberTarget);
     }
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
@@ -224,8 +221,7 @@ function Task({
               onChange={handleSelectChange}
               disabled={memberSelected?.role === 'child'}
             >
-              <option value="">Général</option>
-              {membersChild.map((member) => (
+              {membersList.map((member) => (
                 <option
                   key={member.id}
                   value={member.id?.toString() ? member.id : 'error'}

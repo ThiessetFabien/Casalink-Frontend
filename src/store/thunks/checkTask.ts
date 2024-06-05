@@ -9,29 +9,17 @@ const actionAddTask = createAsyncThunk(
   async (payload: EventsWithMemberI, thunkAPI) => {
     try {
       console.log(payload);
-      
-      let response;
-      if (Number.isNaN(payload.memberTarget)) {
-        response = await axiosInstance.post(`/task/account/${payload.id}`, {
+      const response = await axiosInstance.post(
+        `/task/profile/${payload.memberTarget}`,
+        {
           name: payload.nameTask,
           description: payload.descriptionTask,
           start_date: payload.start,
           end_date: payload.end,
           category_id: '1',
-        });
-      } else {
-        response = await axiosInstance.post(
-          `/task/profile/${payload.memberTarget}`,
-          {
-            name: payload.nameTask,
-            description: payload.descriptionTask,
-            start_date: payload.start,
-            end_date: payload.end,
-            category_id: '1',
-            account_id: payload.id,
-          }
-        );
-      }
+          account_id: payload.id,
+        }
+      );
       console.log(response.data);
       const newTask = { ...payload, id: response.data.data.task.id };
       return newTask;
@@ -57,6 +45,8 @@ const actionModifyTask = createAsyncThunk(
         profile_id: payload.memberTarget,
       });
       const newTask = { ...payload, id: response.data.data.task.id };
+      console.log(newTask);
+      
       return newTask;
     } catch (error) {
       const axiosError = error as AxiosError;
