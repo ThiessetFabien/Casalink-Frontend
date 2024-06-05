@@ -17,6 +17,7 @@ $breakpoints: (
   transition: all 0.6s ease-in-out;
   position: relative;
   color: v.$textColor-colorWhite;
+  box-shadow: 0px 0px 3px lightgray;
 }
 .dark .header_menuMobile-open {
   background-color: v.$textColor-colorDark;

@@ -53,7 +53,8 @@ $breakpoints: (
   bottom: 0;
   justify-content: space-around;
   align-items: center;
-  box-shadow: v.$shadowColorWhite;
+  box-shadow: 0px 0px 3px lightgray;
+  ;
 
   @include media(desktop) {
     height: 5vh;
