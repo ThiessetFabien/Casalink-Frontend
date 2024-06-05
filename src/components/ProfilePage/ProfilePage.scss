@@ -101,7 +101,8 @@ $breakpoints: (
         .profilePage_container_member_card_task {
           margin-top: 0.5rem;
           margin-bottom: 1rem;
-          border-radius: 5px;
+          border-radius: 5px 5px 0 0;
+          border: 1px solid lightgray;
         }
 
         .profilePage_container_member_card_task_headerDate {
