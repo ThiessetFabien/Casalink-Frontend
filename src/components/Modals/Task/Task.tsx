@@ -124,16 +124,18 @@ function Task({
         onClick={handleModalClick}
       >
         <div className="task_modal_btns">
-          <button
-            type="button"
-            className="task_modal_btns_delete"
-            onClick={() => {
-              dispatch(actionDeleteTask({ id: eventSelect?.id }));
-              dispatch(actionSwitchTaskModal());
-            }}
-          >
-            <Trash2 />
-          </button>
+          {memberSelected?.role === 'adult' && (
+            <button
+              type="button"
+              className="task_modal_btns_delete"
+              onClick={() => {
+                dispatch(actionDeleteTask({ id: eventSelect?.id }));
+                dispatch(actionSwitchTaskModal());
+              }}
+            >
+              <Trash2 />
+            </button>
+          )}
           <button
             type="button"
             className="task_modal_btns_exit"

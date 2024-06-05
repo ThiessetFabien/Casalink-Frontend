@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux.js';
 import { actionSwitchPinModal } from '../../../store/reducer/modal.js';
@@ -7,31 +7,37 @@ import {
   actionResetErrorMessage,
 } from '../../../store/reducer/user.js';
 import './AskPin.scss';
-import { log } from 'winston';
 
 function AskPin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [inputValue, SetInputValue] = useState('');
-
+  const backgroundTaskRef = useRef<HTMLDivElement>(null);
   const selectedProfile = useAppSelector(
     (state) => state.profile.memberSelected
   );
+
+  useEffect(() => {
+    if (backgroundTaskRef.current) {
+      backgroundTaskRef.current.focus();
+    }
+  }, []);
 
   const errorMessage = useAppSelector((state) => state.user.error);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(selectedProfile.pin);
-    console.log(inputValue);
-
-    if (selectedProfile && inputValue === selectedProfile.pin) {
+    if (
+      selectedProfile &&
+      selectedProfile.pin &&
+      inputValue === selectedProfile.pin.toString()
+    ) {
       navigate('/');
       dispatch(actionResetErrorMessage());
       return dispatch(actionSwitchPinModal());
     }
-    dispatch(actionChangePinErrorMessage());
+    return dispatch(actionChangePinErrorMessage());
   };
 
   const handleChangePin = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +46,7 @@ function AskPin() {
   };
 
   return (
-    <div className="formDiv">
+    <div className="formDiv" ref={backgroundTaskRef}>
       <form onSubmit={handleSubmit} className="form">
         <label htmlFor="checkPin" className="form_label">
           Rentrez votre code PIN

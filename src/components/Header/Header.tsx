@@ -14,6 +14,7 @@ import {
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
 import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
+import { disconnectProfileLocalStorage } from '../../localStorage/localStorage';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -29,6 +30,10 @@ function Header() {
 
   const HandleSwitchDarkMode = () => {
     dispatch(actionSwitchDarkMode());
+  };
+
+  const handleChangeProfile = () => {
+    disconnectProfileLocalStorage();
   };
 
   return (
@@ -48,7 +53,7 @@ function Header() {
       )}
       {/* <div className="header_menuItems"> */}
       {/* {isConnected && <UserHeader />} */}
-      <Link to="/" className="header_title">
+      <Link to="/" className="header_title" onClick={() => handleChangeProfile}>
         <div className="header_logoDiv">
           <img
             className="header_logo"

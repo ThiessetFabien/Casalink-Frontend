@@ -7,6 +7,7 @@ import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
 import { actionSwitchPinModal } from '../../store/reducer/modal.js';
+import { addProfileToLocalStorage } from '../../localStorage/localStorage';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
@@ -25,8 +26,9 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
+    addProfileToLocalStorage(member);
     if (member.role === 'adult') dispatch(actionSwitchPinModal());
-    else navigate('/');
+    else if (member.role === 'child') navigate('/');
   };
   if (!accountId) {
     return null; // ici afficher la page 404

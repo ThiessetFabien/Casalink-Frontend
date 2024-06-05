@@ -71,7 +71,7 @@ function HomePage() {
     ) => ({
       ...(isSelected && {
         style: {
-          backgroundColor: 'red',
+          backgroundColor: '#005C75',
         },
       }),
       ...(event.childTask && {
@@ -95,8 +95,9 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (accountId !== null) dispatch(actionGetTask({ id: accountId }));
-  }, [accountId, dispatch]);
+    if (accountId !== null && memberSelected !== null)
+      dispatch(actionGetTask({ id: accountId, member: memberSelected }));
+  }, [accountId, memberSelected, dispatch]);
 
   const addTask = (
     id: number,
@@ -147,6 +148,7 @@ function HomePage() {
   const handleSelectSlot = useCallback(
     ({ start }: { start: Date }) => {
       const endWithOneHour = addHours(start, 1);
+      if (memberSelected?.role === 'child') return;
       setTaskModalMode('add');
       setEventSelected({
         id: 0,
@@ -154,12 +156,15 @@ function HomePage() {
         end: endWithOneHour,
         nameTask: '',
         descriptionTask: '',
+        childTask: false,
+        childTaskToValidate: false,
+        taskValidated: false,
       });
       dispatch(actionSwitchTaskModal());
     },
     // We put dispatch in the dependencies array to avoid the linter warning
     // He will never change
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const handleSelectEvent = useCallback(
@@ -173,6 +178,7 @@ function HomePage() {
 
   const handleEventDrop = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -185,11 +191,12 @@ function HomePage() {
         })
       );
     },
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const handleEventResize = useCallback(
     ({ event, startUnserielized, endUnserielized }: DragNDropI) => {
+      if (memberSelected?.role === 'child') return;
       const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
       const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
       dispatch(
@@ -202,7 +209,7 @@ function HomePage() {
         })
       );
     },
-    [dispatch]
+    [dispatch, memberSelected?.role]
   );
 
   const formats = {
@@ -269,6 +276,7 @@ function HomePage() {
             });
           }}
           resizable
+          eventPropGetter={eventPropGetter}
         />
       </main>
     </div>
