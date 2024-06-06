@@ -76,6 +76,7 @@ $breakpoints: (
         font-size: 1.5rem;
         font-weight: 500;
         text-align: center;
+        margin-bottom: 0.5rem;
         @include media(desktop) {
           width: 100%;
           margin-top: 0;
@@ -168,7 +169,6 @@ $breakpoints: (
           pointer-events: none;
           color: black;
           transition: 0.3s;
-          margin: 0.5rem 0;
         }
 
         /* We select label when input is focus */
@@ -186,7 +186,7 @@ $breakpoints: (
         display: flex;
         flex-direction: row;
         width: 100%;
-        margin: 1.5rem 0;
+        margin: 1rem 0;
         gap: 1rem;
         @include media(desktop) {
           width: 82%;
@@ -212,6 +212,7 @@ $breakpoints: (
         .input_checkbox_adult, .input_checkbox_child {
           width: 20%;
           margin-top: 0.5rem;
+          margin-right: 0.2rem;
         }
 
         .input_checkbox_child_title, .input_checkbox_adult_title {
@@ -247,6 +248,7 @@ $breakpoints: (
         color: white;
         font-weight: 500;
         max-height: 2.5rem;
+        margin-top: 0.5rem;
         @include media(desktop) {
           width: 40%;
         }
