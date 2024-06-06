@@ -154,12 +154,32 @@ $breakpoints: (
     @include media(desktop) {
       display: none;
     }
+
+    &_avatar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+
+      &_link {
+        width: 80px;
+        height: 80px;
+      }
+
+      &_img {
+        width: 80px;
+        height: 80px;
+        border-radius: 100%;
+      }
+    }
   }
 
   &_menuMobileDiv {
     margin: 0.5rem;
     position: relative;
     width: 100vw;
+    font-weight: bold;
     text-align: center;
     padding: 1rem;
     color: v.$textColor-colorDark;

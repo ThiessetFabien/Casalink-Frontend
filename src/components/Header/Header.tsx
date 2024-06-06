@@ -78,6 +78,29 @@ function Header() {
           isMenuOpen ? 'header_menuMobile-open' : 'header_menuMobile'
         }`}
       >
+        {isConnected && memberSelected && (
+          <div
+            className={`${
+              isMenuOpen ? 'header_menuMobile-open_avatar' : 'header_avatar'
+            }`}
+          >
+            <Link to="/profil" className="header_menuMobile-open_avatar_link">
+              <img
+                src={
+                  memberSelected.image
+                    ? `${baseURL}/${memberSelected.image}`
+                    : `${baseURL}/uploads/avatars/default-avatar.webp`
+                }
+                alt="userAvatar"
+                className={`${
+                  isMenuOpen
+                    ? 'header_menuMobile-open_avatar_img'
+                    : 'header_menuMobile_avatar_img'
+                }`}
+              />
+            </Link>
+          </div>
+        )}
         <Link to="/" className="header_menuMobile_link">
           <div className="header_menuMobileDiv" onMouseEnter={() => {}}>
             <div>
@@ -110,11 +133,6 @@ function Header() {
             Déconnexion
           </div>
         </Link>
-        {/* <Link
-          to="/"
-          className="header_menuMobile_link"
-          onClick={HandleSwitchDarkMode}
-        > */}
         <div
           className="header_menuMobileDiv"
           onClick={HandleSwitchDarkMode}
@@ -138,7 +156,6 @@ function Header() {
           )}
           {isDarkMode ? 'Switch light' : 'Switch dark'}
         </div>
-        {/* </Link> */}
       </div>
       <div
         className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
