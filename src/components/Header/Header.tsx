@@ -13,8 +13,6 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
-import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
-import { disconnectProfileLocalStorage } from '../../localStorage/localStorage';
 
 function Header() {
   const dispatch = useAppDispatch();
