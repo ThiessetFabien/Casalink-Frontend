@@ -141,7 +141,6 @@ $breakpoints: (
     align-items: center;
     position: fixed;
     bottom: 0;
-    right: 0;
     background: rgba( 255, 255, 255, 0.7 );
     width: 110vw;
     height: 110vh;
@@ -171,12 +170,13 @@ $breakpoints: (
         width: 80px;
         height: 80px;
         border-radius: 100%;
+        border: 1px solid v.$textColor-colorBlue;
       }
     }
   }
 
   &_menuMobileDiv {
-    margin: 0.5rem;
+    margin: 0.2rem;
     position: relative;
     width: 100vw;
     font-weight: bold;
