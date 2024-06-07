@@ -49,6 +49,7 @@ function Header() {
     disconnectLocalStorage();
     dispatch(actionLogout());
     navigate('/');
+    dispatch(actionSwitchSideMenuModal());
   };
 
   return (
