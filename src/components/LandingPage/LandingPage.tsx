@@ -15,7 +15,7 @@ import './LandingPage.scss';
 import agenda from '../../../public/agenda.webp';
 
 const IMAGES = {
-  AGENDA: { agenda },
+  AGENDA: 'public/agenda.webp',
   METEO: 'public/logo192.png',
   COURSES: 'public/logo192.png',
   BUDGET: 'public/logo192.png',
@@ -112,7 +112,7 @@ function LandingPage() {
             </div>
           )}
           {activeSection === SECTIONS.AGENDA && (
-            <img className="landingPage_img" src={IMAGES.AGENDA} alt="Agenda" />
+            <img className="landingPage_img" src={agenda} alt="Agenda" />
           )}
           {!activeSection && (
             <img
