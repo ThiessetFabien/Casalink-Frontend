@@ -53,7 +53,7 @@ function LandingPage() {
               className="landingPage_btn btn-functionality"
               type="button"
               onClick={() => {
-                setImgTestVisiteur('src/assets/agenda.webp');
+                setImgTestVisiteur('agenda.webp');
                 setShowMeteo(false);
                 setShowCourses(false);
                 setShowBudget(false);
