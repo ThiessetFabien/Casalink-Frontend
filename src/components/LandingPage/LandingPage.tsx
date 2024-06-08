@@ -14,7 +14,7 @@ import {
 import './LandingPage.scss';
 
 const IMAGES = {
-  AGENDA: '/agenda.webp',
+  AGENDA: 'public/agenda.webp',
   METEO: 'public/logo192.png',
   COURSES: 'public/logo192.png',
   BUDGET: 'public/logo192.png',
