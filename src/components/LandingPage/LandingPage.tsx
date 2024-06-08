@@ -12,52 +12,52 @@ import {
   actionSwitchLoginModal,
 } from '../../store/reducer/modal';
 import './LandingPage.scss';
+import calendarExample from '../../../public/agenda.webp';
+
+const IMAGES = {
+  AGENDA: '/agenda.webp',
+  METEO: 'public/logo192.png',
+  COURSES: 'public/logo192.png',
+  BUDGET: 'public/logo192.png',
+  DEFAULT: 'public/logo192.png',
+};
+
+const SECTIONS = {
+  AGENDA: 'AGENDA',
+  METEO: 'METEO',
+  COURSES: 'COURSES',
+  BUDGET: 'BUDGET',
+} as const;
+
+type SectionType = keyof typeof SECTIONS | null;
 
 function LandingPage() {
   const dispatch = useAppDispatch();
-  const [imgTestVisiteur, setImgTestVisiteur] = useState('public');
-  const [showMeteo, setShowMeteo] = useState(false);
-  const [showCourses, setShowCourses] = useState(false);
-  const [showBudget, setShowBudget] = useState(false);
+  const [activeSection, setActiveSection] = useState<SectionType>("AGENDA");
+  const [imgTestVisiteur, setImgTestVisiteur] = useState(IMAGES.DEFAULT);
 
-  const toggleMeteo = () => {
-    setShowMeteo(!showMeteo);
-    setImgTestVisiteur('public/logo192.png');
-    setShowCourses(false);
-    setShowBudget(false);
-  };
-
-  const toggleCourses = () => {
-    setShowCourses(!showCourses);
-    setImgTestVisiteur('public/logo192.png');
-    setShowMeteo(false);
-    setShowBudget(false);
-  };
-
-  const toggleBudget = () => {
-    setShowBudget(!showBudget);
-    setImgTestVisiteur('public/logo192.png');
-    setShowMeteo(false);
-    setShowCourses(false);
+  const handleSectionToggle = (section: SectionType) => {
+    if (activeSection === section) {
+      setActiveSection(null);
+      setImgTestVisiteur(IMAGES.DEFAULT);
+    } else {
+      setActiveSection(section);
+      setImgTestVisiteur(IMAGES[section as keyof typeof IMAGES]);
+    }
   };
 
   return (
     <div className="landingPage">
       <div className="landingPage_BoxFunctionality">
         <h1 className="landingPage_title">
-          Plannifier le quotidien de votre foyer !
+          Planifier le quotidien de votre foyer !
         </h1>
         <ul className="landingPage_listeFonctionnalite">
           <li className="landingPage_listeItem">
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={() => {
-                setImgTestVisiteur('/agenda.webp');
-                setShowMeteo(false);
-                setShowCourses(false);
-                setShowBudget(false);
-              }}
+              onClick={() => handleSectionToggle(SECTIONS.AGENDA)}
             >
               Agenda
             </button>
@@ -66,16 +66,16 @@ function LandingPage() {
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={toggleMeteo}
+              onClick={() => handleSectionToggle(SECTIONS.METEO)}
             >
               Météo
             </button>
           </li>
           <li className="landingPage_listeItem">
             <button
-              className=" landingPage_btn btn-functionality"
+              className="landingPage_btn btn-functionality"
               type="button"
-              onClick={toggleCourses}
+              onClick={() => handleSectionToggle(SECTIONS.COURSES)}
             >
               Courses
             </button>
@@ -84,7 +84,7 @@ function LandingPage() {
             <button
               className="landingPage_btn btn-functionality"
               type="button"
-              onClick={toggleBudget}
+              onClick={() => handleSectionToggle(SECTIONS.BUDGET)}
             >
               Budget
             </button>
@@ -94,25 +94,32 @@ function LandingPage() {
 
       <div className="landingPage_actionBox">
         <div className="landingPage_divDescription">
-          {showMeteo && (
+          {activeSection === SECTIONS.METEO && (
             <div className="landingPage_divDescription_iconesMeteo">
               <FaCloudSunRain className="iconeSun" />
               <FaCloudMoonRain className="iconeMoon" />
             </div>
           )}
-          {showCourses && (
+          {activeSection === SECTIONS.COURSES && (
             <div className="landingPage_divDescription_courses">
               <FaShoppingBasket className="iconeBasket" />
               <FaShoppingCart className="iconeCart" />
             </div>
           )}
-          {showBudget && (
+          {activeSection === SECTIONS.BUDGET && (
             <div className="landingPage_divDescription_budget">
               <FaHandHoldingUsd className="iconeBudget" />
             </div>
           )}
-          {!showMeteo && !showCourses && !showBudget && (
-            <img className="landingPage_img" src="/agenda.webp" alt="test" />
+          {activeSection === SECTIONS.AGENDA && (
+            <img className="landingPage_img" src={IMAGES.AGENDA} alt="Agenda" />
+          )}
+          {!activeSection && (
+            <img
+              className="landingPage_img"
+              src={IMAGES.DEFAULT}
+              alt="Placeholder"
+            />
           )}
           <p className="landingPage_description">
             Simplifiez la gestion des emplois du temps, des tâches domestiques
