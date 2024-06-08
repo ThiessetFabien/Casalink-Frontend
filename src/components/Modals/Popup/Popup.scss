@@ -25,6 +25,8 @@ $breakpoints: (
   color: white;
   font-weight: 600;
   z-index: 15;
+  transform: scale(0);
+  opacity: 0;
   @include media(mobile) {
     transform: translateX(-50%);
   }
@@ -35,6 +37,12 @@ $breakpoints: (
   @include media(desktop) {
     right: 10%;
     top: 1%;
+  }
+
+  &-isVisible {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
   }
 }
 

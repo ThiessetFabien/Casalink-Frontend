@@ -5,11 +5,11 @@ import { actionChangeClosePopup } from '../../../store/reducer/popup';
 
 interface PopupPropsI {
   content: string;
-  isOpen: boolean;
 }
 
-function Popup({ content, isOpen }: PopupPropsI) {
+function Popup({ content }: PopupPropsI) {
   const dispatch = useAppDispatch();
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = () => {
     dispatch(actionChangeClosePopup());
@@ -17,6 +17,7 @@ function Popup({ content, isOpen }: PopupPropsI) {
 
   useEffect(() => {
     const duration = 3000;
+    setIsVisible(true);
     const timer = setTimeout(() => {
       dispatch(actionChangeClosePopup());
     }, duration);
@@ -27,7 +28,7 @@ function Popup({ content, isOpen }: PopupPropsI) {
   return (
     <button
       type="button"
-      className={isOpen ? 'popup' : 'popup-isClosed'}
+      className={isVisible ? 'popup popup-isVisible' : 'popup'}
       onClick={handleClick}
     >
       <span className="popup_content">{content}</span>

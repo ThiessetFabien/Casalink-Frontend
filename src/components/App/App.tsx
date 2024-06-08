@@ -68,7 +68,7 @@ function App() {
   }
   return (
     <div className="app">
-      {isOpen && <Popup isOpen={isOpen} content={content} />}
+      {isOpen && <Popup content={content} />}
       <Header />
       <div className="mainContainer">
         {isLogged && memberSelected && <SideMenu />}
