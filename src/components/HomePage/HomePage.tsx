@@ -19,6 +19,7 @@ import { UserStateI } from '../../@types/userStateI';
 import { MembersState } from '../../store/reducer/profile';
 import { TaskStateInt } from '../../store/reducer/task';
 import actionGetMembers from '../../store/thunks/checkProfile';
+import { actionChangeOpenPopup } from '../../store/reducer/popup';
 
 interface DragNDropI {
   event: EventsI;
@@ -101,7 +102,7 @@ function HomePage() {
     }
   }, [accountId, memberSelected, dispatch]);
 
-  const addTask = (
+  const addTask = async (
     id: number,
     startUnserielized: Date,
     endUnserielized: Date,
@@ -112,8 +113,8 @@ function HomePage() {
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
-    if (memberSelected && accountId)
-      dispatch(
+    if (memberSelected && accountId) {
+      const resultActionAddTask = dispatch(
         actionAddTask({
           id: accountId,
           start,
@@ -124,10 +125,13 @@ function HomePage() {
           memberRole,
         })
       );
+      if ((await resultActionAddTask).meta.requestStatus === 'fulfilled')
+        dispatch(actionChangeOpenPopup({ content: 'Tâche créee' }));
+    }
     dispatch(actionSwitchTaskModal());
   };
 
-  const editTask = (
+  const editTask = async (
     id: number,
     startUnserielized: Date,
     endUnserielized: Date,
@@ -138,7 +142,7 @@ function HomePage() {
   ) => {
     const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
     const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
-    dispatch(
+    const resultActionModifyTask = dispatch(
       actionModifyTask({
         id,
         start,
@@ -149,6 +153,8 @@ function HomePage() {
         memberRole,
       })
     );
+    if ((await resultActionModifyTask).meta.requestStatus === 'fulfilled')
+      dispatch(actionChangeOpenPopup({ content: 'Tâche modifiée' }));
     dispatch(actionSwitchTaskModal());
   };
 

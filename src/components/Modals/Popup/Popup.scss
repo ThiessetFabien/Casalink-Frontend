@@ -1,0 +1,48 @@
+@use '../../../styles/variables' as v;
+
+$breakpoints: (
+  mobile: '(max-width: 424px)',
+  tablet: '(min-width:425px) and (max-width: 1023px)',
+  desktop: '(min-width: 1024px)',
+  tablet_mini: '(min-width:450px)',
+);
+
+@mixin media($device) {
+  @media only screen and #{map-get($breakpoints, $device)} {
+    @content;
+  }
+}
+
+.popup {
+  display: flex;
+  position: absolute;
+  right: 0%;
+  top: 10%;
+  background-color: green;
+  border: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  z-index: 15;
+  transform: scale(0);
+  opacity: 0;
+  @include media(mobile) {
+    transform: translateX(-50%);
+  }
+  @include media(tablet) {
+    right: 10%;
+    top: 1%;
+  }
+  @include media(desktop) {
+    right: 10%;
+    top: 1%;
+  }
+
+  &-isVisible {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+}
+

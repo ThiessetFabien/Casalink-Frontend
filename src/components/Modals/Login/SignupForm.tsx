@@ -8,6 +8,7 @@ import {
   validePassword,
   valideName,
 } from '../../../utils/regexValidator';
+import { actionChangeOpenPopup } from '../../../store/reducer/popup';
 
 interface SignupFormProps extends SignupCredentialsI {
   changeFieldSignup: (
@@ -54,8 +55,10 @@ function SignupForm({
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const resultAction = await dispatch(actionCheckSignup());
-    if (actionCheckSignup.fulfilled.match(resultAction))
+    if (actionCheckSignup.fulfilled.match(resultAction)) {
+      dispatch(actionChangeOpenPopup({ content: 'Inscription réussis' }));
       dispatch(actionSwitchLoginModal());
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

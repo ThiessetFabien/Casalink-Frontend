@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { actionSwitchLoginModal } from '../../../store/reducer/modal';
 import actionCheckLogin from '../../../store/thunks/checkLogin';
 import actionGetMembers from '../../../store/thunks/checkProfile';
+import { actionChangeOpenPopup } from '../../../store/reducer/popup';
 
 interface LoginFormProps {
   email: string;
@@ -26,6 +27,7 @@ function LoginForm({ email, password, changeFieldSignin }: LoginFormProps) {
     if (actionCheckLogin.fulfilled.match(resultAction)) {
       dispatch(actionSwitchLoginModal());
       dispatch(actionGetMembers({ id: resultAction.payload.account.id }));
+      dispatch(actionChangeOpenPopup({ content: 'Connexion réussie' }));
       navigate('/profil');
     }
   };

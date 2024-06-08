@@ -27,6 +27,7 @@ import {
 import { addTokenJwtToAxiosInstance } from '../../axios/axios';
 import { actionLogin } from '../../store/reducer/user';
 import { actionSelectProfile } from '../../store/reducer/profile';
+import Popup from '../Modals/Popup/Popup';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,6 +36,8 @@ function App() {
   const memberSelected = useAppSelector(
     (state) => state.profile.memberSelected
   );
+  const isOpen = useAppSelector((state) => state.popup.isOpen);
+  const content = useAppSelector((state) => state.popup.content);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -65,6 +68,7 @@ function App() {
   }
   return (
     <div className="app">
+      {isOpen && <Popup content={content} />}
       <Header />
       <div className="mainContainer">
         {isLogged && memberSelected && <SideMenu />}
