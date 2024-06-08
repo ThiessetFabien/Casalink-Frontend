@@ -15,6 +15,7 @@ import {
 } from '../../store/reducer/modal';
 import { disconnectLocalStorage } from '../../localStorage/localStorage';
 import { actionLogout } from '../../store/reducer/user';
+import logo from '../../../public/logo-casalink-lettre-v2.webp';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -73,11 +74,7 @@ function Header() {
       )}
       <Link to="/" className="header_title">
         <div className="header_logoDiv">
-          <img
-            className="header_logo"
-            src="/logo-casalink-lettre-v2.webp"
-            alt="logo casaLink"
-          />
+          <img className="header_logo" src={logo} alt="logo casaLink" />
         </div>
       </Link>
       <div
