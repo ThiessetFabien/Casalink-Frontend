@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TbMoonFilled } from 'react-icons/tb';
 import { BiHomeAlt2 } from 'react-icons/bi';
 import { MdFamilyRestroom, MdSettingsSuggest, MdWbSunny } from 'react-icons/md';
@@ -13,6 +13,12 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
+import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
+import {
+  disconnectLocalStorage,
+  disconnectProfileLocalStorage,
+} from '../../localStorage/localStorage';
+import { actionLogout } from '../../store/reducer/user';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -37,6 +43,13 @@ function Header() {
     if (event.key === 'Enter' || event.key === ' ') {
       HandleSwitchDarkMode();
     }
+  };
+  const navigate = useNavigate();
+  const handleLogOutLick = () => {
+    disconnectLocalStorage();
+    dispatch(actionLogout());
+    navigate('/');
+    dispatch(actionSwitchSideMenuModal());
   };
 
   return (
@@ -125,7 +138,11 @@ function Header() {
             Contact
           </div>
         </Link>
-        <Link to="/" className="header_menuMobile_link">
+        <Link
+          to="/"
+          onClick={handleLogOutLick}
+          className="header_menuMobile_link"
+        >
           <div className="header_menuMobileDiv">
             <IoLogOut className="header_menuMobile_icon" />
             Déconnexion
