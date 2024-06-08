@@ -53,9 +53,7 @@ function LandingPage() {
               className="landingPage_btn btn-functionality"
               type="button"
               onClick={() => {
-                setImgTestVisiteur(
-                  'projet-planning-familial-front/agenda.webp'
-                );
+                setImgTestVisiteur('/agenda.webp');
                 setShowMeteo(false);
                 setShowCourses(false);
                 setShowBudget(false);
