@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
@@ -7,10 +7,7 @@ import { MemberStateI } from '../../@types/memberStateI';
 import { actionSelectProfile } from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
 import { actionSwitchPinModal } from '../../store/reducer/modal.js';
-import {
-  addProfileToLocalStorage,
-  getProfileFromLocalStorage,
-} from '../../localStorage/localStorage';
+import { addProfileToLocalStorage } from '../../localStorage/localStorage';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();

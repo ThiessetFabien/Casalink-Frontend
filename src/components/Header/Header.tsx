@@ -13,11 +13,7 @@ import {
   actionSwitchDarkMode,
   actionSwitchSideMenuModal,
 } from '../../store/reducer/modal';
-import useIsOnSpecificPath from '../../utils/isOnSpecificPath';
-import {
-  disconnectLocalStorage,
-  disconnectProfileLocalStorage,
-} from '../../localStorage/localStorage';
+import { disconnectLocalStorage } from '../../localStorage/localStorage';
 import { actionLogout } from '../../store/reducer/user';
 
 function Header() {
