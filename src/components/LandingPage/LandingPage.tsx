@@ -12,7 +12,6 @@ import {
   actionSwitchLoginModal,
 } from '../../store/reducer/modal';
 import './LandingPage.scss';
-import calendarExample from '../../../public/agenda.webp';
 
 const IMAGES = {
   AGENDA: '/agenda.webp',
@@ -33,7 +32,7 @@ type SectionType = keyof typeof SECTIONS | null;
 
 function LandingPage() {
   const dispatch = useAppDispatch();
-  const [activeSection, setActiveSection] = useState<SectionType>("AGENDA");
+  const [activeSection, setActiveSection] = useState<SectionType>('AGENDA');
   const [imgTestVisiteur, setImgTestVisiteur] = useState(IMAGES.DEFAULT);
 
   const handleSectionToggle = (section: SectionType) => {
