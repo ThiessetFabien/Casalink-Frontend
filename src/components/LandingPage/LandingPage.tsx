@@ -12,9 +12,10 @@ import {
   actionSwitchLoginModal,
 } from '../../store/reducer/modal';
 import './LandingPage.scss';
+import agenda from '../../../public/agenda.webp';
 
 const IMAGES = {
-  AGENDA: 'public/agenda.webp',
+  AGENDA: { agenda },
   METEO: 'public/logo192.png',
   COURSES: 'public/logo192.png',
   BUDGET: 'public/logo192.png',
