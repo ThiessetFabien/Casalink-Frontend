@@ -46,8 +46,8 @@ $breakpoints: (
     border-radius: 5px;
     border: 1px solid v.$textColor-colorBlue;
     @include media(desktop) {
-      width: 50%;
-      height: 50vh;
+      width: 40%;
+      height: 40vh;
       margin: 0;
     }
   }

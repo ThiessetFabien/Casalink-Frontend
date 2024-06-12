@@ -123,15 +123,12 @@ function LandingPage() {
           )}
           <p className="landingPage_description">
             Simplifiez la gestion des emplois du temps, des tâches domestiques
-            et des événements au sein de votre foyer. Elle vise à améliorer la
-            coordination et la communication entre les membres d&apos;un même
-            foyer en offrant une plateforme centralisée pour organiser et
-            partager des informations importantes. Des fonctionnalités sont à
+            et des événements au sein de votre foyer. Des fonctionnalités sont à
             venir, comme l&apos;affichage de la météo pour organiser au mieux
-            son planning en fonction du temps. Dans le futur, il y aura
-            également la possibilité de créer une liste de courses pour le foyer
-            ou encore un budget commun afin de prévoir les dépenses par poste,
-            comme le loisir, la santé, l&apos;alimentation, etc.
+            son planning en fonction du temps. La possibilité de créer une liste
+            de courses pour le foyer ou encore un budget commun afin de prévoir
+            les dépenses par poste, comme le loisir, la santé,
+            l&apos;alimentation, etc.
           </p>
           <button
             className="btn-signin"
