@@ -7,7 +7,7 @@
   "scripts": {
     "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist",
-    "dev": "env-cmd -f .env.development vite",
+    "dev": "vite",
     "devProd": "env-cmd -f .env.production vite",
     "build": "tsc && vite build",
     "preview": "vite preview",

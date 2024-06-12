@@ -11,6 +11,7 @@ import './AskPin.scss';
 function AskPin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   const [inputValue, SetInputValue] = useState('');
   const backgroundTaskRef = useRef<HTMLDivElement>(null);
@@ -49,17 +50,26 @@ function AskPin() {
     event.stopPropagation();
   };
 
+  const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+
+    if (event.target === backgroundRef.current) {
+      dispatch(actionSwitchPinModal());
+      dispatch(actionResetErrorMessage());
+    }
+  };
+
   return (
     <div
       className="formDiv"
       role="button"
       tabIndex={0}
-      ref={backgroundTaskRef}
-      onClick={() => {
-        // dispatch(actionSwitchPinModal());
-      }}
+      ref={backgroundRef}
+      onClick={handleBackgroundClick}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') dispatch(actionSwitchPinModal());
+        if (e.key === 'Escape') {
+          dispatch(actionSwitchPinModal());
+        }
       }}
     >
       <form onSubmit={handleSubmit} className="form">
