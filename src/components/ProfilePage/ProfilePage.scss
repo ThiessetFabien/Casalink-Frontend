@@ -65,7 +65,7 @@ $breakpoints: (
           max-height: 25rem;
         }
         @include media(tablet_mini) {
-          max-width: 25%;
+          max-width: 60%;
         }
 
         .profilePage_container_memberCard_image {
@@ -236,7 +236,7 @@ $breakpoints: (
           max-height: 25rem;
         }
         @include media(tablet_mini) {
-          max-width: 25%;
+          max-width: 60%;
         }
 
         .profilePage_container-dark_memberCard_image {

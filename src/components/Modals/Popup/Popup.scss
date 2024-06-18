@@ -16,13 +16,17 @@ $breakpoints: (
 .popup {
   display: flex;
   position: absolute;
-  right: 0%;
-  top: 10%;
-  background-color: green;
+  right: 50%;
+  bottom: 10%;
+  background-color: v.$bgColor-green-blur;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
   border: 0;
-  padding: 0.5rem 1rem;
+  padding: 3rem 3rem;
   border-radius: 5px;
   color: white;
+  width: 60%;
   font-weight: 600;
   z-index: 15;
   transform: scale(0);
@@ -31,12 +35,12 @@ $breakpoints: (
     transform: translateX(-50%);
   }
   @include media(tablet) {
-    right: 10%;
-    top: 1%;
+    right: 50%;
+    top: 20%;
   }
   @include media(desktop) {
-    right: 10%;
-    top: 1%;
+    right: 50%;
+    bottom: 20%;
   }
 
   &-isVisible {

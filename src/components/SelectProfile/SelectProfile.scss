@@ -174,6 +174,7 @@ $breakpoints: (
 
 .selectProfile_container-dark {
   width: 100%;
+  height: 89vh;
   background-color: v.$textColor-colorDark-Blue;
   align-items: center;
   justify-content: space-evenly;
@@ -181,6 +182,17 @@ $breakpoints: (
   flex-direction: column;
   color: #fff;
   padding: 2rem;
+  @include media(desktop) {
+    height: 100%;
+    justify-content: space-evenly;
+  }
+  @include media(tablet) {
+    height: 100%;
+    justify-content: space-evenly;
+  }
+  @include media(tablet_mini) {
+    height: 100%;
+  }
 
   &_presentation {
     width: 100%;
@@ -290,7 +302,7 @@ $breakpoints: (
         margin-top: 1rem;
         font-size: 1.2rem;
         font-weight: 600;
-        color: v.$textColor-colorBlue;
+        color: v.$textColor-colorWhite;
         @include media(desktop) {
           font-size: 0.8rem;
         }
