@@ -12,6 +12,7 @@ export interface MembersState {
   members: MemberStateI[];
   tasks: TaskStateI[];
   memberSelected: MemberStateI | null;
+  memberConnected: MemberStateI | null;
   member: MemberStateI;
   isLoading: boolean;
 }
@@ -25,6 +26,7 @@ export const initialState: MembersState = {
   members: [],
   tasks: [],
   memberSelected: null,
+  memberConnected: null,
   member: <MemberStateI>{},
   isLoading: false,
 };
@@ -33,12 +35,20 @@ export const actionSelectProfile = createAction<MemberStateI>(
   'profile/SELECTPROFILE'
 );
 
+export const actionConnectProfile = createAction<MemberStateI>(
+  'profile/CONNECTPROFILE'
+);
+
 export const setCardSelected = createAction<MemberStateI>(
   'profile/SET_CARD_SELECTED'
 );
 
 export const actionChangeRole = createAction<PayloadChangeRole>(
   'profile/SWITCH_ROLE'
+);
+
+export const actionDisconnectProfile = createAction(
+  'profile/DISCONNECT_PROFILE'
 );
 
 const profileReducer = createReducer(initialState, (builder) => {
@@ -51,6 +61,10 @@ const profileReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(actionGetMembers.pending, (state) => {
     state.isLoading = true;
+  });
+  builder.addCase(actionDisconnectProfile, (state) => {
+    state.memberSelected = null;
+    state.memberConnected = null;
   });
   builder.addCase(actionFetchTasks.fulfilled, (state, action) => {
     state.tasks = Array.isArray(action.payload.tasks)
@@ -72,6 +86,9 @@ const profileReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(actionSelectProfile, (state, action) => {
     state.memberSelected = action.payload;
+  });
+  builder.addCase(actionConnectProfile, (state, action) => {
+    state.memberConnected = action.payload;
   });
   builder.addCase(actionUpdateRole.fulfilled, (state, action) => {
     const { id, role } = action.payload;

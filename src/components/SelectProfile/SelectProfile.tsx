@@ -4,7 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import './SelectProfile.scss';
 import actionGetMembers from '../../store/thunks/checkProfile';
 import { MemberStateI } from '../../@types/memberStateI';
-import { actionSelectProfile } from '../../store/reducer/profile';
+import {
+  actionConnectProfile,
+  actionSelectProfile,
+} from '../../store/reducer/profile';
 import baseURL from '../../utils/baseURL';
 import { actionSwitchPinModal } from '../../store/reducer/modal.js';
 import { addProfileToLocalStorage } from '../../localStorage/localStorage';
@@ -28,9 +31,12 @@ function SelectProfile() {
 
   const handleSelect = (member: MemberStateI) => {
     dispatch(actionSelectProfile(member));
-    addProfileToLocalStorage(member);
     if (member.role === 'adult') dispatch(actionSwitchPinModal());
-    else if (member.role === 'child') navigate('/');
+    else if (member.role === 'child') {
+      dispatch(actionConnectProfile(member));
+      addProfileToLocalStorage(member);
+      navigate('/');
+    }
   };
   if (!accountId) {
     return null; // ici afficher la page 404

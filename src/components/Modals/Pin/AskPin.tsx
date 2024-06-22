@@ -8,6 +8,8 @@ import {
   actionResetErrorMessage,
 } from '../../../store/reducer/user.js';
 import './AskPin.scss';
+import { actionConnectProfile } from '../../../store/reducer/profile.js';
+import { addProfileToLocalStorage } from '../../../localStorage/localStorage.js';
 
 function AskPin() {
   const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ function AskPin() {
       inputValue === selectedProfile.pin.toString()
     ) {
       navigate('/');
+      dispatch(actionConnectProfile(selectedProfile));
+      addProfileToLocalStorage(selectedProfile);
       dispatch(actionResetErrorMessage());
       return dispatch(actionSwitchPinModal());
     }
@@ -45,10 +49,6 @@ function AskPin() {
   const handleChangePin = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     SetInputValue(value);
-  };
-
-  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
   };
 
   const handleBackgroundClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -74,7 +74,7 @@ function AskPin() {
       }}
     >
       <form onSubmit={handleSubmit} className="form">
-        <div className='form_container_btns'>
+        <div className="form_container_btns">
           <button
             type="button"
             className="form_container_btns_exit"

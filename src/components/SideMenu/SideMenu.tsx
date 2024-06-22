@@ -15,6 +15,7 @@ import {
 } from '../../store/reducer/modal';
 import { disconnectLocalStorage } from '../../localStorage/localStorage';
 import { actionLogout } from '../../store/reducer/user';
+import { actionDisconnectProfile } from '../../store/reducer/profile';
 
 function SideMenu() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function SideMenu() {
   };
   const handleLogOutLick = () => {
     disconnectLocalStorage();
+    dispatch(actionDisconnectProfile());
     dispatch(actionLogout());
     navigate('/');
   };

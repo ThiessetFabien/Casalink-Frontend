@@ -25,8 +25,8 @@ function Header() {
   );
   const isMenuOpen = useAppSelector((state) => state.modal.sideMenuModalIsOpen);
   const isConnected = useAppSelector((state) => state.user.logged);
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
+  const memberConnected = useAppSelector(
+    (state) => state.profile.memberConnected
   );
 
   const HandleSwitchDarkMode = () => {
@@ -51,7 +51,7 @@ function Header() {
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''} header`}>
-      {isConnected && memberSelected && (
+      {isConnected && memberConnected && (
         <div
           className={`${
             isMenuOpen ? 'header_avatar-menuOpen' : 'header_avatar'
@@ -60,8 +60,8 @@ function Header() {
           <Link to="/profil" className="header_avatar_link">
             <img
               src={
-                memberSelected.image
-                  ? `${baseURL}/${memberSelected.image}`
+                memberConnected.image
+                  ? `${baseURL}/${memberConnected.image}`
                   : `${baseURL}/uploads/avatars/default-avatar.webp`
               }
               alt="userAvatar"
@@ -82,7 +82,7 @@ function Header() {
           isMenuOpen ? 'header_menuMobile-open' : 'header_menuMobile'
         }`}
       >
-        {isConnected && memberSelected && (
+        {isConnected && memberConnected && (
           <div
             className={`${
               isMenuOpen ? 'header_menuMobile-open_avatar' : 'header_avatar'
@@ -91,8 +91,8 @@ function Header() {
             <Link to="/profil" className="header_menuMobile-open_avatar_link">
               <img
                 src={
-                  memberSelected.image
-                    ? `${baseURL}/${memberSelected.image}`
+                  memberConnected.image
+                    ? `${baseURL}/${memberConnected.image}`
                     : `${baseURL}/uploads/avatars/default-avatar.webp`
                 }
                 alt="userAvatar"
@@ -165,7 +165,7 @@ function Header() {
           {isDarkMode ? 'Switch light' : 'Switch dark'}
         </div>
       </div>
-      {isConnected && memberSelected && (
+      {isConnected && memberConnected && (
         <div
           className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
         >

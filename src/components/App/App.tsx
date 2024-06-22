@@ -33,8 +33,8 @@ function App() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.logged);
   const modalIsOpen = useAppSelector((state) => state.modal.pinModalIsActive);
-  const memberSelected = useAppSelector(
-    (state) => state.profile.memberSelected
+  const memberConnected = useAppSelector(
+    (state) => state.profile.memberConnected
   );
   const isOpen = useAppSelector((state) => state.popup.isOpen);
   const content = useAppSelector((state) => state.popup.content);
@@ -59,9 +59,9 @@ function App() {
   if (isLoading) return null;
 
   let homePageElement;
-  if (isLogged && memberSelected) {
+  if (isLogged && memberConnected) {
     homePageElement = <HomePage />;
-  } else if (isLogged && !memberSelected) {
+  } else if (isLogged && !memberConnected) {
     homePageElement = <Navigate to="/profil" />;
   } else {
     homePageElement = <Navigate to="/landingpage" />;
@@ -71,7 +71,7 @@ function App() {
       {isOpen && <Popup content={content} />}
       <Header />
       <div className="mainContainer">
-        {isLogged && memberSelected && <SideMenu />}
+        {isLogged && memberConnected && <SideMenu />}
         {modalIsOpen && <AskPin />}
         <Routes>
           <Route path="/" element={homePageElement} />
