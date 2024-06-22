@@ -38,7 +38,7 @@ $breakpoints: (
 
   &_title {
     text-align: center;
-    padding: 1rem 0 1rem 0;
+    padding: 1rem 0 0.5rem 0;
   }
 
   &_img {
@@ -48,6 +48,10 @@ $breakpoints: (
     @include media(desktop) {
       width: 40%;
       height: 40vh;
+      margin: 0;
+    }
+    @include media(tablet) {
+      width: 80%;
       margin: 0;
     }
   }
@@ -147,7 +151,7 @@ $breakpoints: (
   &_description {
     text-align: center;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 }
 
@@ -155,7 +159,7 @@ $breakpoints: (
   // position: fixed;
   background-color: v.$textColor-colorBlue;
   width: 80%;
-  height: 40px;
+  min-height: 35px;
   font-weight: bold;
   color: v.$textColor-colorWhite;
   border-radius: 5px;
