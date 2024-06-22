@@ -126,7 +126,7 @@ function HomePage() {
         })
       );
       if ((await resultActionAddTask).meta.requestStatus === 'fulfilled')
-        dispatch(actionChangeOpenPopup({ content: 'Tâche créee' }));
+        dispatch(actionChangeOpenPopup({ content: 'Tâche créée' }));
     }
     dispatch(actionSwitchTaskModal());
   };

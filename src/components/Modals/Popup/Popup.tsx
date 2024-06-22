@@ -26,13 +26,15 @@ function Popup({ content }: PopupPropsI) {
   }, [content, dispatch]);
 
   return (
-    <button
-      type="button"
-      className={isVisible ? 'popup popup-isVisible' : 'popup'}
-      onClick={handleClick}
-    >
-      <span className="popup_content">{content}</span>
-    </button>
+    <div className='container'>
+      <button
+        type="button"
+        className={isVisible ? 'popup popup-isVisible' : 'popup'}
+        onClick={handleClick}
+      >
+        <span className="popup_content">{content}</span>
+      </button>
+    </div>
   );
 }
 
