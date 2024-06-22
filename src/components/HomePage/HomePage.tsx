@@ -140,8 +140,8 @@ function HomePage() {
     memberTarget: number,
     memberRole: 'adult' | 'child'
   ) => {
-    const start = format(startUnserielized, 'yyyy-MM-dd HH:mm');
-    const end = format(endUnserielized, 'yyyy-MM-dd HH:mm');
+    const start = startUnserielized.toISOString();
+    const end = endUnserielized.toISOString();
     const resultActionModifyTask = dispatch(
       actionModifyTask({
         id,
