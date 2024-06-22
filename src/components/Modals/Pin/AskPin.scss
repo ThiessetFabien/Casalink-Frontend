@@ -42,6 +42,19 @@ $breakpoints: (
     gap: 2rem;
   }
 
+  &_container_btns {
+    display: flex;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+
+    &_exit {
+      cursor: pointer;
+      border: none;
+    }
+  }
+
   &_label {
     top: -0.9rem;
     left: 0;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { X } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux.js';
 import { actionSwitchPinModal } from '../../../store/reducer/modal.js';
@@ -73,6 +74,17 @@ function AskPin() {
       }}
     >
       <form onSubmit={handleSubmit} className="form">
+        <div className='form_container_btns'>
+          <button
+            type="button"
+            className="form_container_btns_exit"
+            onClick={() => {
+              dispatch(actionSwitchPinModal());
+            }}
+          >
+            <X />
+          </button>
+        </div>
         <label htmlFor="checkPin" className="form_label">
           Rentrez votre code PIN
         </label>
