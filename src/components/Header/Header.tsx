@@ -165,19 +165,21 @@ function Header() {
           {isDarkMode ? 'Switch light' : 'Switch dark'}
         </div>
       </div>
-      <div
-        className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
-      >
-        <button
-          className="header_BtnMenuMobile"
-          type="button"
-          onClick={() => {
-            dispatch(actionSwitchSideMenuModal());
-          }}
+      {isConnected && memberSelected && (
+        <div
+          className={` ${isMenuOpen ? 'header_btnDiv-open' : 'header_btnDiv'}`}
         >
-          <span className="header-bar" />
-        </button>
-      </div>
+          <button
+            className="header_BtnMenuMobile"
+            type="button"
+            onClick={() => {
+              dispatch(actionSwitchSideMenuModal());
+            }}
+          >
+            <span className="header-bar" />
+          </button>
+        </div>
+      )}
       {!isConnected && <BtnConnect />}
       {loginModalIsOpen && <Login />}
     </div>
