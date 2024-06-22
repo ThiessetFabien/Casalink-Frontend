@@ -50,7 +50,9 @@ const taskSlice = createSlice({
       const { name, value } = action.payload;
       (state.input[name] as string | number | null) = value;
     },
-
+    actionCleanTask(state) {
+      state.list = [];
+    },
     actionEditTask(state, action) {
       const { id, start, end, nameTask, descriptionTask } = action.payload;
       state.list = state.list.map((ev) =>
@@ -115,7 +117,6 @@ const taskSlice = createSlice({
       // Gérer l'erreur
     });
     builder.addCase(actionDeleteTask.fulfilled, (state, action) => {
-      // const { id, start, end, nameTask, descriptionTask } = action.payload;
       state.list = state.list.filter((task) => task.id !== action.payload);
     });
     builder.addCase(actionDeleteTask.rejected, (state, action) => {
@@ -124,5 +125,6 @@ const taskSlice = createSlice({
   },
 });
 
-export const { actionChangeTask, actionEditTask } = taskSlice.actions;
+export const { actionChangeTask, actionEditTask, actionCleanTask } =
+  taskSlice.actions;
 export default taskSlice.reducer;

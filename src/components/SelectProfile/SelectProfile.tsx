@@ -11,6 +11,7 @@ import {
 import baseURL from '../../utils/baseURL';
 import { actionSwitchPinModal } from '../../store/reducer/modal.js';
 import { addProfileToLocalStorage } from '../../localStorage/localStorage';
+import { actionCleanTask } from '../../store/reducer/task';
 
 function SelectProfile() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ function SelectProfile() {
   useEffect(() => {
     async function fetchMembers() {
       if (accountId) {
+        dispatch(actionCleanTask());
         await dispatch(actionGetMembers({ id: accountId }));
       }
     }

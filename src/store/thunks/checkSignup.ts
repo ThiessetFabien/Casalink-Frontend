@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import type { RootState } from '..';
-import axiosInstance, { addTokenJwtToAxiosInstance } from '../../axios/axios';
-import { addTokenAndPseudoToLocalStorage } from '../../localStorage/localStorage';
+import axiosInstance from '../../axios/axios';
 
 const actionCheckSignup = createAsyncThunk(
   'user/CHECK_SIGNUP',
@@ -16,10 +15,6 @@ const actionCheckSignup = createAsyncThunk(
         firstname: state.user.credentials.signup.firstname,
         lastname: state.user.credentials.signup.lastname,
       });
-      const { token } = response.data;
-
-      console.log(response.data);
-
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
