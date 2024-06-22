@@ -124,11 +124,8 @@ function LandingPage() {
           <p className="landingPage_description">
             Simplifiez la gestion des emplois du temps, des tâches domestiques
             et des événements au sein de votre foyer. Des fonctionnalités sont à
-            venir, comme l&apos;affichage de la météo pour organiser au mieux
-            son planning en fonction du temps. La possibilité de créer une liste
-            de courses pour le foyer ou encore un budget commun afin de prévoir
-            les dépenses par poste, comme le loisir, la santé,
-            l&apos;alimentation, etc.
+            venir, comme l&apos;affichage de la météo, une liste de courses 
+            commune ou encore un budget afin de prévoir les dépenses mensuelles.
           </p>
           <button
             className="btn-signin"
