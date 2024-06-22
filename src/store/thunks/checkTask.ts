@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import axiosInstance from '../../axios/axios';
-import { EventsI, EventsWithMemberI } from '../../@types/events';
+import { EventsWithMemberI } from '../../@types/events';
 import { MemberStateI } from '../../@types/memberStateI';
 
 const actionAddTask = createAsyncThunk(
