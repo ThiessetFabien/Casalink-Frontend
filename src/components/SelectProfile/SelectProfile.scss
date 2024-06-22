@@ -187,11 +187,12 @@ $breakpoints: (
     justify-content: space-evenly;
   }
   @include media(tablet) {
-    height: 100%;
-    justify-content: space-evenly;
+    height: 100vh;
+    justify-content: flex-start;
   }
   @include media(tablet_mini) {
-    height: 100%;
+    height: 100vh;
+    justify-content: flex-start;
   }
 
   &_presentation {
